@@ -34,3 +34,9 @@
 .boat {
   background-color: #7f3f98;
 }
+
+.scroll,
+.angular-google-map,
+.angular-google-map-container {
+  height: 100%;
+}
