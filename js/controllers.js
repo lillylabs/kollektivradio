@@ -6,4 +6,9 @@ angular.module('radio.controllers', [])
 
 .controller('TripDetailCtrl', function($scope, $stateParams, Trips) {
   $scope.trip = Trips.get($stateParams.tripId);
+
+  $scope.playTrip = function(trip) {
+    console.log("play " + trip.id);
+  };
+
 })
