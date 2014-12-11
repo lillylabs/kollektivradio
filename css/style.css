@@ -1,0 +1,36 @@
+/* Empty. Add your own CSS if you like */
+
+.item-complex .item-content {
+  padding-right: 16px;
+}
+
+.item-title {
+  line-height: 30px;
+  font-weight: bold;
+}
+
+.item-note {
+  color: white;
+}
+
+.item-note span {
+  display: inline-block;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.metro {
+  background-color: #f08400;
+}
+
+.tram {
+  background-color: #40bbce;
+}
+
+.bus {
+  background-color: #e60000;
+}
+
+.boat {
+  background-color: #7f3f98;
+}

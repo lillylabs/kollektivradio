@@ -1,0 +1,18 @@
+<ion-view title="Kollektivradio">
+  <ion-content>
+    <ion-list type="list-inset">
+      <ion-item ng-repeat="trip in trips" type="item-text-wrap" href="#/trip/{{trip.id}}">
+        <span class="item-title">{{trip.from}} - {{trip.to}}</span>
+        <span class="item-note">
+          <span ng-repeat="line in trip.lines" ng-class="{'metro': line <10,
+                                                            'tram': line >= 10 && line < 20,
+                                                            'bus': line >= 20 && line < 90,
+                                                            'boat': line >= 90
+                                                            }">
+            {{line}}
+          </span>
+        </span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
