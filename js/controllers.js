@@ -4,7 +4,7 @@ angular.module('radio.controllers', [])
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, Trips) {
+.controller('TripDetailCtrl', function($scope, $stateParams, Trips, Geo) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
   $scope.trip.isPlaying = false;
@@ -24,9 +24,12 @@ angular.module('radio.controllers', [])
     dragging: false
   };
 
+  $scope.position = Geo.position;
+
   // Functions
   $scope.playTrip = function(trip) {
     trip.isPlaying = true;
+    Geo.locator.watchPosition();
   };
 
   $scope.cancelTrip = function(trip) {

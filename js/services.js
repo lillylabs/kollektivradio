@@ -29,4 +29,66 @@ angular.module('radio.services', [])
       return selectedTrip;
     }
   }
-});
+})
+
+.factory('Geo', function($rootScope) {
+
+  var position = {
+
+  };
+
+  var locator = {
+    watchID: null,
+
+    stopWatch: function () {
+      if(locator.watchID) {
+        console.log('Stop watching location ' + locator.watchID);
+        navigator.geolocation.clearWatch(locator.watchID);
+        locator.watchID = null;
+        position.coords = null;
+      }
+    },
+
+    updateLocation: function(pos) {
+      console.log('Location updated ' + JSON.stringify(pos.coords));
+      position.coords = pos.coords;
+      position.error = null;
+      $rootScope.$apply();
+    },
+
+    errorHandler: function(err) {
+      if(err.code == 1)
+        position.error = 'access denied';
+      else if ( err.code == 2)
+        position.error = 'pos unavailable';
+      else
+        position.error = 'unknown';
+
+      console.log('error service ' + position.error);
+
+      $rootScope.$apply();
+    },
+
+    watchPosition: function() {
+      locator.stopWatch();
+
+      if(navigator.geolocation) {
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = { timeout:60000 };
+        locator.watchID = navigator.geolocation.watchPosition(locator.updateLocation, locator.errorHandler, options);
+        console.log('Start watching location with ID' + locator.watchID);
+      } else {
+        position.error = 'not supported';
+        console.log('error service ' + position.error);
+
+        $rootScope.$apply();
+      }
+    }
+  }
+
+  return {
+    position: position,
+    locator: locator
+  };
+
+})
