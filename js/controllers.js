@@ -8,7 +8,15 @@ angular.module('radio.controllers', [])
   $scope.trip = Trips.get($stateParams.tripId);
 
   $scope.playTrip = function(trip) {
-    console.log("play " + trip.id);
+    trip.isPlaying = true;
   };
+
+  $scope.cancelTrip = function(trip) {
+    trip.isPlaying = false;
+  };
+
+  $scope.isPlaying = function(trip) {
+    return trip.isPlaying;
+  }
 
 })
