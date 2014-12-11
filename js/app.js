@@ -1,6 +1,6 @@
 // Kollektivradio App
 
-angular.module('radio', ['ionic', 'radio.controllers', 'radio.services'])
+angular.module('radio', ['ionic', 'uiGmapgoogle-maps', 'radio.controllers', 'radio.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
