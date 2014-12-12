@@ -7,7 +7,7 @@ angular.module('radio.controllers', [])
 .controller('TripDetailCtrl', function($scope, $stateParams, Trips, Geo) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
-  $scope.trip.isPlaying = false;
+  $scope.trip.selected = false;
   $scope.map = {
     control: {},
     center: { // Oslo
@@ -28,16 +28,17 @@ angular.module('radio.controllers', [])
 
   // Functions
   $scope.playTrip = function(trip) {
-    trip.isPlaying = true;
+    trip.selected = true;
+
     Geo.locator.watchPosition();
   };
 
   $scope.cancelTrip = function(trip) {
-    trip.isPlaying = false;
+    trip.selected = false;
   };
 
-  $scope.isPlaying = function(trip) {
-    return trip.isPlaying;
+  $scope.isSelected = function(trip) {
+    return trip.selected;
   }
 
 })
