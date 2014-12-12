@@ -41,7 +41,25 @@ angular.module('radio.services', [])
   };
 
   var broadcastError = function (error) {
-    console.log('Position failed: ' + JSON.stringify(error));
+
+    switch(error.code) {
+      case error.NOT_SUPPORTED:
+        console.log("Position failed: Geolocation not supported.");
+        break;
+      case error.PERMISSION_DENIED:
+        console.log("Position failed: User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        console.log("Position failed: Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        console.log("Position failed: The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        console.log("Position failed: An unknown error occurred.")
+        break;
+    }
+
     $rootScope.$broadcast('position:error', error);
   };
 
@@ -72,7 +90,8 @@ angular.module('radio.services', [])
     } else {
       var error = {
         code: -1,
-        message: 'not supported'
+        message: 'not supported',
+        NOT_SUPPORTED: -1
       }
 
       broadcastError(error);
