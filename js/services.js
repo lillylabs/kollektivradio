@@ -29,4 +29,60 @@ angular.module('radio.services', [])
       return selectedTrip;
     }
   }
-});
+})
+
+.factory('Locator', function($rootScope) {
+
+  var watchID = null;
+
+  var broadcastNewPosition = function (pos) {
+    console.log('Position updated: ' + JSON.stringify(pos));
+    $rootScope.$broadcast('position:updated', pos);
+  };
+
+  var broadcastError = function (error) {
+    console.log('Position failed: ' + JSON.stringify(error));
+    $rootScope.$broadcast('position:error', error);
+  };
+
+  var stopWatch = function () {
+    if(watchID) {
+      console.log('Stop watching: ' + watchID);
+      navigator.geolocation.clearWatch(watchID);
+      watchID = null;
+      broadcastNewPosition({coords: {}});
+    }
+  };
+
+  var updateLocation = function(pos) {
+    broadcastNewPosition(pos);
+  };
+
+  var errorHandler = function(err) {
+    broadcastError(err);
+  };
+
+  var watchPosition = function() {
+    stopWatch();
+
+    if(navigator.geolocation) {
+      // timeout at 60000 milliseconds (60 seconds)
+      var options = { timeout:60000 };
+      watchID = navigator.geolocation.watchPosition(updateLocation, errorHandler, options);
+      console.log('Start watching ' + watchID);
+    } else {
+      var error = {
+        code: -1,
+        message: 'not supported'
+      }
+
+      broadcastError(error);
+    }
+  };
+
+  return {
+    watchPosition: watchPosition,
+    stopWatch: stopWatch
+  };
+
+})
