@@ -50,7 +50,6 @@ angular.module('radio.services', [])
       console.log('Stop watching: ' + watchID);
       navigator.geolocation.clearWatch(watchID);
       watchID = null;
-      broadcastNewPosition({coords: {}});
     }
   };
 

@@ -25,8 +25,8 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable nav-title-slide">
-      <ion-nav-back-button class="button-icon icon  ion-arrow-left-c">
+    <ion-nav-bar ng-controller="NavigationCtrl" class="bar-stable nav-title-slide">
+      <ion-nav-back-button ng-click="goBack()" class="button-icon icon  ion-arrow-left-c">
       </ion-nav-back-button>
     </ion-nav-bar>
     <!--
