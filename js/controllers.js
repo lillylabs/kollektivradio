@@ -1,10 +1,17 @@
 angular.module('radio.controllers', [])
 
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator) {
+  $scope.goBack = function() {
+    $ionicNavBarDelegate.back();
+    Locator.stopWatch();
+  };
+})
+
 .controller('TripsCtrl', function($scope, Trips) {
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $ionicLoading, $ionicPopup, Trips, Locator) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
   $scope.trip.selected = false;
@@ -39,7 +46,7 @@ angular.module('radio.controllers', [])
   $scope.$on('position:error', function(event, error) {
     $scope.marker.coords = {};
     $scope.hideSpinner();
-    $scope.showLocationErrorAlert(error);
+    $scope.handleError(error);
   });
 
   // Functions
@@ -72,20 +79,35 @@ angular.module('radio.controllers', [])
     $scope.showSpinner("Søker din lokasjon ...");
   }
 
-  $scope.showLocationErrorAlert = function(error) {
-    var confirmPopup = $ionicPopup.confirm({
-      title: 'Lokasjonsfeil',
-      template: 'Det gikk dessverre ikke å lokalisere deg, vil du prøve igjen?',
-      cancelText: 'Avbryt',
-      okText: 'Prøv igjen',
-    });
-    confirmPopup.then(function(res) {
-      if(res) {
-        Locator.watchPosition();
-      } else {
-        $scope.trip.selected = false;
-      }
-    });
+  $scope.handleError = function(error) {
+    switch(error.code) {
+      case error.NOT_SUPPORTED:
+        $scope.showAlert("Lokasjonsfeil", "Din browser støtter dessverre ikke lokasjon.");
+        break;
+      case error.PERMISSION_DENIED:
+        $scope.showAlert("Lokasjonsfeil", "Du må tillate Kollektivradio å bruke din lokasjon.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+
+        break;
+      case error.TIMEOUT:
+
+        break;
+      case error.UNKNOWN_ERROR:
+
+        break;
+    }
   }
+
+  $scope.showAlert = function(title, message) {
+    var alertPopup = $ionicPopup.alert({
+      title: title,
+      template: message
+    });
+    alertPopup.then(function(res) {
+      Locator.stopWatch();
+      $window.location.href = '/';
+    });
+  };
 
 })
