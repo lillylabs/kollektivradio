@@ -50,7 +50,7 @@ angular.module('radio.services', [])
       console.log('Stop watching: ' + watchID);
       navigator.geolocation.clearWatch(watchID);
       watchID = null;
-      broadcastNewPosition(null);
+      broadcastNewPosition({coords: {}});
     }
   };
 
@@ -59,13 +59,6 @@ angular.module('radio.services', [])
   };
 
   var errorHandler = function(err) {
-    if(err.code == 1)
-      err.message = 'access denied';
-    else if ( err.code == 2)
-      err.message = 'pos unavailable';
-    else
-      err.message = 'unknown';
-
     broadcastError(err);
   };
 
