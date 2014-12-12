@@ -11,7 +11,7 @@ angular.module('radio.controllers', [])
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $ionicLoading, $ionicPopup, $window, Trips, Locator) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
   $scope.trip.selected = false;
