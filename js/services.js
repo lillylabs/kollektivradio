@@ -31,64 +31,65 @@ angular.module('radio.services', [])
   }
 })
 
-.factory('Geo', function($rootScope) {
+.factory('Locator', function($rootScope) {
 
-  var position = {
+  var watchID = null;
 
+  var broadcastNewPosition = function (pos) {
+    console.log('Position updated: ' + JSON.stringify(pos));
+    $rootScope.$broadcast('position:updated', pos);
   };
 
-  var locator = {
-    watchID: null,
+  var broadcastError = function (error) {
+    console.log('Position failed: ' + JSON.stringify(error));
+    $rootScope.$broadcast('position:error', error);
+  };
 
-    stopWatch: function () {
-      if(locator.watchID) {
-        console.log('Stop watching location ' + locator.watchID);
-        navigator.geolocation.clearWatch(locator.watchID);
-        locator.watchID = null;
-        position.coords = null;
-      }
-    },
-
-    updateLocation: function(pos) {
-      console.log('Location updated ' + JSON.stringify(pos.coords));
-      position.coords = pos.coords;
-      position.error = null;
-      $rootScope.$apply();
-    },
-
-    errorHandler: function(err) {
-      if(err.code == 1)
-        position.error = 'access denied';
-      else if ( err.code == 2)
-        position.error = 'pos unavailable';
-      else
-        position.error = 'unknown';
-
-      console.log('error service ' + position.error);
-
-      $rootScope.$apply();
-    },
-
-    watchPosition: function() {
-      locator.stopWatch();
-
-      if(navigator.geolocation) {
-        // timeout at 60000 milliseconds (60 seconds)
-        var options = { timeout:60000 };
-        locator.watchID = navigator.geolocation.watchPosition(locator.updateLocation, locator.errorHandler, options);
-        console.log('Start watching location with ID' + locator.watchID);
-      } else {
-        position.error = 'not supported';
-        console.log('error service ' + position.error);
-
-        $rootScope.$apply();
-      }
+  var stopWatch = function () {
+    if(watchID) {
+      console.log('Stop watching: ' + watchID);
+      navigator.geolocation.clearWatch(watchID);
+      watchID = null;
+      broadcastNewPosition(null);
     }
-  }
+  };
+
+  var updateLocation = function(pos) {
+    broadcastNewPosition(pos);
+  };
+
+  var errorHandler = function(err) {
+    if(err.code == 1)
+      err.message = 'access denied';
+    else if ( err.code == 2)
+      err.message = 'pos unavailable';
+    else
+      err.message = 'unknown';
+
+    broadcastError(err);
+  };
+
+  var watchPosition = function() {
+    stopWatch();
+
+    if(navigator.geolocation) {
+      // timeout at 60000 milliseconds (60 seconds)
+      var options = { timeout:60000 };
+      watchID = navigator.geolocation.watchPosition(updateLocation, errorHandler, options);
+      console.log('Start watching ' + watchID);
+    } else {
+      var error = {
+        code: -1,
+        message: 'not supported'
+      }
+
+      broadcastError(error);
+    }
+  };
 
   return {
-    position: position,
-    locator: locator
+    watchPosition: watchPosition,
+    stopWatch: stopWatch
   };
 
 })
