@@ -1,5 +1,12 @@
 angular.module('radio.controllers', [])
 
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator) {
+  $scope.goBack = function() {
+    $ionicNavBarDelegate.back();
+    Locator.stopWatch();
+  };
+})
+
 .controller('TripsCtrl', function($scope, Trips) {
   $scope.trips = Trips.all();
 })
