@@ -110,7 +110,7 @@ angular.module('radio.services', [])
 
 })
 
-.factory('Player', function($document, $rootScope) {
+.factory('AudioPlayer', function($document, $rootScope) {
   var audio = $document[0].createElement('audio');
 
   audio.addEventListener('canplay', function(evt) {
@@ -143,4 +143,53 @@ angular.module('radio.services', [])
     clear: clear
   };
 
+})
+
+.factory('Player', function($document, $rootScope, Locator, AudioPlayer) {
+
+  var internalStatus = {
+    audioReady: false,
+    locationReady: false
+  }
+
+  var status = {
+    started: false,
+    playing: false
+  };
+
+  var startTrip = function(trip) {
+    console.log()
+    status.started = true;
+    AudioPlayer.setAudioSrc(trip.audio);
+    Locator.watchPosition();
+  }
+
+  var stopTrip = function() {
+    status.started = false;
+    AudioPlayer.clear();
+    Locator.clear();
+  }
+
+  var playTrip = function() {
+    if(internalStatus.audioReady && internalStatus.locationReady) {
+      status.playing = true;
+      AudioPlayer.playAudio();
+    }
+  }
+
+  $rootScope.$on('position:updated', function(event, pos) {
+    internalStatus.locationReady = true;
+    playTrip();
+  });
+
+  $rootScope.$on('audio:canplay', function(event, pos) {
+    internalStatus.audioReady = true;
+    playTrip();
+  });
+
+  return {
+    status: status,
+    startTrip: startTrip,
+    stopTrip: stopTrip
+  };
 })

@@ -1,10 +1,9 @@
 angular.module('radio.controllers', [])
 
-.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator, Player) {
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Player) {
   $scope.goBack = function() {
     $ionicNavBarDelegate.back();
-    Locator.clear();
-    Player.clear();
+    Player.stopTrip();
   };
 })
 
@@ -12,10 +11,10 @@ angular.module('radio.controllers', [])
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator, Player) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
-  $scope.trip.selected = false;
+  $scope.playerStatus = Player.status;
 
   $scope.map = {
     control: {},
@@ -39,47 +38,26 @@ angular.module('radio.controllers', [])
 
   // Observers
   $scope.$on('position:updated', function(event, pos) {
-
     $scope.$apply(function() {
       $scope.marker.coords = pos.coords;
     })
-
-    $scope.positionReady = true;
-    $scope.playTripIfReady();
   });
 
   $scope.$on('position:error', function(event, error) {
-    $scope.hideSpinner();
     $scope.handleError(error);
   });
 
-  $scope.$on('audio:canplay', function(event) {
-    if(src = $scope.trip.audio) {
-      $scope.audioReady = true;
-      $scope.playTripIfReady();
-    }
 
+  $scope.$watch('playerStatus.playing', function (newVal, oldVal) {
+    if(newVal) {
+      $scope.hideSpinner();
+    }
   });
 
   // Functions
-  $scope.selectTrip = function() {
-    $scope.trip.selected = true;
-
-    Locator.watchPosition();
-    Player.setAudioSrc($scope.trip.audio);
+  $scope.startTrip = function(trip) {
+    Player.startTrip(trip);
     $scope.showLocationSpinner();
-  };
-
-  $scope.playTripIfReady = function() {
-    if($scope.positionReady && $scope.audioReady) {
-      $scope.hideSpinner();
-      Player.playAudio();
-    }
-  }
-
-  $scope.cancelTrip = function() {
-    $scope.trip.selected = false;
-    Player.stopAudio();
   };
 
   $scope.hideSpinner = function() {
@@ -93,7 +71,7 @@ angular.module('radio.controllers', [])
   }
 
   $scope.showLocationSpinner = function() {
-    $scope.showSpinner("Søker din lokasjon ...");
+    $scope.showSpinner("Søker din lokasjon og gjør klar lyd.");
   }
 
   $scope.handleError = function(error) {
@@ -122,7 +100,7 @@ angular.module('radio.controllers', [])
       template: message
     });
     alertPopup.then(function(res) {
-      Locator.stopWatch();
+      Player.stopTrip();
       $window.location.href = '/';
     });
   };
