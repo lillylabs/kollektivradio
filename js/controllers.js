@@ -39,15 +39,16 @@ angular.module('radio.controllers', [])
 
   // Observers
   $scope.$on('position:updated', function(event, pos) {
-    $scope.marker.coords = pos.coords;
+
+    $scope.$apply(function() {
+      $scope.marker.coords = pos.coords;
+    })
 
     $scope.positionReady = true;
     $scope.playTripIfReady();
   });
 
   $scope.$on('position:error', function(event, error) {
-    $scope.marker.coords = {};
-
     $scope.hideSpinner();
     $scope.handleError(error);
   });
