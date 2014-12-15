@@ -1,9 +1,10 @@
 angular.module('radio.controllers', [])
 
-.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator) {
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator, Player) {
   $scope.goBack = function() {
     $ionicNavBarDelegate.back();
-    Locator.stopWatch();
+    Locator.clear();
+    Player.clear();
   };
 })
 
@@ -11,10 +12,11 @@ angular.module('radio.controllers', [])
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator, Player) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
   $scope.trip.selected = false;
+
   $scope.map = {
     control: {},
     center: { // Oslo
@@ -38,32 +40,46 @@ angular.module('radio.controllers', [])
   // Observers
   $scope.$on('position:updated', function(event, pos) {
     $scope.marker.coords = pos.coords;
-    $scope.hideSpinner();
+
+    $scope.positionReady = true;
+    $scope.playTripIfReady();
   });
 
-
-  // Observers
   $scope.$on('position:error', function(event, error) {
     $scope.marker.coords = {};
+
     $scope.hideSpinner();
     $scope.handleError(error);
   });
 
+  $scope.$on('audio:canplay', function(event) {
+    if(src = $scope.trip.audio) {
+      $scope.audioReady = true;
+      $scope.playTripIfReady();
+    }
+
+  });
+
   // Functions
-  $scope.playTrip = function(trip) {
-    trip.selected = true;
+  $scope.selectTrip = function() {
+    $scope.trip.selected = true;
 
     Locator.watchPosition();
+    Player.setAudioSrc($scope.trip.audio);
     $scope.showLocationSpinner();
   };
 
-  $scope.cancelTrip = function(trip) {
-    trip.selected = false;
-  };
-
-  $scope.isSelected = function(trip) {
-    return trip.selected;
+  $scope.playTripIfReady = function() {
+    if($scope.positionReady && $scope.audioReady) {
+      $scope.hideSpinner();
+      Player.playAudio();
+    }
   }
+
+  $scope.cancelTrip = function() {
+    $scope.trip.selected = false;
+    Player.stopAudio();
+  };
 
   $scope.hideSpinner = function() {
     $ionicLoading.hide();
