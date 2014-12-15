@@ -6,14 +6,14 @@
 -->
 <ion-view title="{{trip.from}} - {{trip.to}}">
   <ion-content has-header="true" padding="true">
-    <div ng-hide="isSelected(trip)">
+    <div ng-hide="playerStatus.started">
       <div ng-bind-html="trip.description"></div>
-      <button ng-click="playTrip(trip)" class="button button-large button-block button-outline button-positive icon-right">
+      <button ng-click="startTrip(trip)" class="button button-large button-block button-outline button-positive icon-right">
         Spill av
       </button>
     </div>
 
-    <ui-gmap-google-map ng-if="isSelected(trip)"
+    <ui-gmap-google-map ng-if="playerStatus.started"
       center="map.center"
       zoom="map.zoom"
       draggable="true"

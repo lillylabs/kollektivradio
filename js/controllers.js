@@ -1,9 +1,9 @@
 angular.module('radio.controllers', [])
 
-.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator) {
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Player) {
   $scope.goBack = function() {
     $ionicNavBarDelegate.back();
-    Locator.stopWatch();
+    Player.stopTrip();
   };
 })
 
@@ -11,10 +11,11 @@ angular.module('radio.controllers', [])
   $scope.trips = Trips.all();
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
   // Set up
   $scope.trip = Trips.get($stateParams.tripId);
-  $scope.trip.selected = false;
+  $scope.playerStatus = Player.status;
+
   $scope.map = {
     control: {},
     center: { // Oslo
@@ -37,33 +38,27 @@ angular.module('radio.controllers', [])
 
   // Observers
   $scope.$on('position:updated', function(event, pos) {
-    $scope.marker.coords = pos.coords;
-    $scope.hideSpinner();
+    $scope.$apply(function() {
+      $scope.marker.coords = pos.coords;
+    })
   });
 
-
-  // Observers
   $scope.$on('position:error', function(event, error) {
-    $scope.marker.coords = {};
-    $scope.hideSpinner();
     $scope.handleError(error);
   });
 
-  // Functions
-  $scope.playTrip = function(trip) {
-    trip.selected = true;
 
-    Locator.watchPosition();
+  $scope.$watch('playerStatus.playing', function (newVal, oldVal) {
+    if(newVal) {
+      $scope.hideSpinner();
+    }
+  });
+
+  // Functions
+  $scope.startTrip = function(trip) {
+    Player.startTrip(trip);
     $scope.showLocationSpinner();
   };
-
-  $scope.cancelTrip = function(trip) {
-    trip.selected = false;
-  };
-
-  $scope.isSelected = function(trip) {
-    return trip.selected;
-  }
 
   $scope.hideSpinner = function() {
     $ionicLoading.hide();
@@ -76,7 +71,7 @@ angular.module('radio.controllers', [])
   }
 
   $scope.showLocationSpinner = function() {
-    $scope.showSpinner("Søker din lokasjon ...");
+    $scope.showSpinner("Søker din lokasjon og gjør klar lyd.");
   }
 
   $scope.handleError = function(error) {
@@ -105,7 +100,7 @@ angular.module('radio.controllers', [])
       template: message
     });
     alertPopup.then(function(res) {
-      Locator.stopWatch();
+      Player.stopTrip();
       $window.location.href = '/';
     });
   };
