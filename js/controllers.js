@@ -8,13 +8,24 @@ angular.module('radio.controllers', [])
 })
 
 .controller('TripsCtrl', function($scope, Trips) {
-  $scope.trips = Trips.all();
+  if(Trips.all())
+    $scope.trips = Trips.all();
+  else
+    Trips.fetch();
+
+  // Observers
+  $scope.$on('trips:fetched', function(event) {
+    $scope.trips = Trips.all();
+  });
+
 })
 
 .controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
   // Set up
-  $scope.trip = Trips.get($stateParams.tripId);
-  $scope.playerStatus = Player.status;
+  if(Trips.get($stateParams.tripId))
+    $scope.trip = Trips.get($stateParams.tripId)
+  else
+    Trips.fetch();
 
   $scope.map = {
     control: {},
@@ -37,6 +48,10 @@ angular.module('radio.controllers', [])
   }
 
   // Observers
+  $scope.$on('trips:fetched', function(event) {
+    $scope.trip = Trips.get($stateParams.tripId);
+  });
+
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
       $scope.marker.coords = pos.coords;
@@ -47,11 +62,12 @@ angular.module('radio.controllers', [])
     $scope.handleError(error);
   });
 
+  $scope.$on('player:playing', function(event) {
+    $scope.hideSpinner();
+  });
 
-  $scope.$watch('playerStatus.playing', function (newVal, oldVal) {
-    if(newVal) {
-      $scope.hideSpinner();
-    }
+  $scope.$on('player:started', function(event) {
+    $scope.started = true;
   });
 
   // Functions

@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list type="list-inset">
       <ion-item ng-repeat="trip in trips" type="item-text-wrap" href="#/trip/{{trip.id}}">
-        <span class="item-title">{{trip.from}} - {{trip.to}}</span>
+        <span class="item-title">{{trip.title}}</span>
         <span class="item-note">
           <span ng-repeat="line in trip.lines" ng-class="{'metro': line <10,
                                                             'tram': line >= 10 && line < 20,
