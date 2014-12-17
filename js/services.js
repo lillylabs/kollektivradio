@@ -34,10 +34,19 @@ angular.module('radio.services', [])
           });
         }
 
+        var lines = [];
+        for (var i = 0, len = metadata['lines']; i < len; i++) {
+          lines.push({
+            number: metadata['lines_' + i + '_number'],
+            endStation: metadata['lines_' + i + '_end_station'],
+          });
+        }
+
         trips[post.ID] = {
           id: post.ID,
           title: post.title,
           description: post.content,
+          lines: lines,
           audio: metadata['audio_url'],
           clips: clips
         }
