@@ -40,7 +40,7 @@ angular.module('radio.controllers', [])
   
   // Set up
   if(Trips.get($stateParams.tripId))
-    $scope.trip = Trips.get($stateParams.tripId)
+    $scope.trip = Trips.get($stateParams.tripId);
   else
     Trips.fetch();
 
@@ -62,7 +62,7 @@ angular.module('radio.controllers', [])
 
   $scope.marker = {
     id: 'current'
-  }
+  };
 
   // Observers
   $scope.$on('trips:fetched', function(event) {
@@ -72,7 +72,7 @@ angular.module('radio.controllers', [])
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
       $scope.marker.coords = pos.coords;
-    })
+    });
   });
 
   $scope.$on('position:error', function(event, error) {
@@ -96,7 +96,7 @@ angular.module('radio.controllers', [])
   //Functions
   function hideSpinner() {
     $ionicLoading.hide();
-  };
+  }
 
   function showSpinner(message) {
     $ionicLoading.show({
@@ -136,4 +136,4 @@ angular.module('radio.controllers', [])
     });
   }
 
-})
+});
