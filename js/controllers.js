@@ -7,20 +7,37 @@ angular.module('radio.controllers', [])
   };
 })
 
-.controller('TripsCtrl', function($scope, Trips) {
-  if(Trips.all())
+.controller('TripsCtrl', function($scope, $ionicLoading, Trips) {
+
+  // Set up
+  if(Trips.all()) {
     $scope.trips = Trips.all();
-  else
+  } else {
+    showSpinner("Henter turer ...");
     Trips.fetch();
+  }
 
   // Observers
   $scope.$on('trips:fetched', function(event) {
     $scope.trips = Trips.all();
+    hideSpinner();
   });
+
+  // Function
+  function hideSpinner() {
+    $ionicLoading.hide();
+  }
+
+  function showSpinner(message) {
+    $ionicLoading.show({
+      template: '<i class="ion-loading-c"></i><br/>' + message
+    });
+  }
 
 })
 
 .controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
+  
   // Set up
   if(Trips.get($stateParams.tripId))
     $scope.trip = Trips.get($stateParams.tripId)
@@ -59,44 +76,41 @@ angular.module('radio.controllers', [])
   });
 
   $scope.$on('position:error', function(event, error) {
-    $scope.handleError(error);
+    handleError(error);
   });
 
   $scope.$on('player:playing', function(event) {
-    $scope.hideSpinner();
+    hideSpinner();
   });
 
   $scope.$on('player:started', function(event) {
     $scope.started = true;
   });
 
-  // Functions
+  // Scope Functions
   $scope.startTrip = function(trip) {
     Player.startTrip(trip);
-    $scope.showLocationSpinner();
+    showSpinner("Søker din lokasjon og gjør klar lyd.");
   };
 
-  $scope.hideSpinner = function() {
+  //Functions
+  function hideSpinner() {
     $ionicLoading.hide();
   };
 
-  $scope.showSpinner = function(message) {
+  function showSpinner(message) {
     $ionicLoading.show({
       template: '<i class="ion-loading-c"></i><br/>' + message
     });
   }
 
-  $scope.showLocationSpinner = function() {
-    $scope.showSpinner("Søker din lokasjon og gjør klar lyd.");
-  }
-
-  $scope.handleError = function(error) {
+  function handleError(error) {
     switch(error.code) {
       case error.NOT_SUPPORTED:
-        $scope.showAlert("Lokasjonsfeil", "Din browser støtter dessverre ikke lokasjon.");
+        showAlert("Lokasjonsfeil", "Din browser støtter dessverre ikke lokasjon.");
         break;
       case error.PERMISSION_DENIED:
-        $scope.showAlert("Lokasjonsfeil", "Du må tillate Kollektivradio å bruke din lokasjon.");
+        showAlert("Lokasjonsfeil", "Du må tillate Kollektivradio å bruke din lokasjon.");
         break;
       case error.POSITION_UNAVAILABLE:
 
@@ -110,15 +124,16 @@ angular.module('radio.controllers', [])
     }
   }
 
-  $scope.showAlert = function(title, message) {
+  function showAlert(title, message) {
     var alertPopup = $ionicPopup.alert({
       title: title,
       template: message
     });
+
     alertPopup.then(function(res) {
       Player.stopTrip();
-      $window.location.href = '/';
+      window.location.href = '/';
     });
-  };
+  }
 
 })
