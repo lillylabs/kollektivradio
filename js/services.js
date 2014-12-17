@@ -22,7 +22,7 @@ angular.module('radio.services', [])
         }
 
         var clips = [];
-        for (var i = 0, len = metadata['clips']; i < len; i++) {
+        for (i = 0, len = metadata.clips; i < len; i++) {
           clips.push({
             title: metadata['clips_' + i + '_title'],
             start: metadata['clips_' + i + '_start'],
@@ -35,7 +35,7 @@ angular.module('radio.services', [])
         }
 
         var lines = [];
-        for (var i = 0, len = metadata['lines']; i < len; i++) {
+        for (i = 0, len = metadata.lines; i < len; i++) {
           lines.push({
             number: metadata['lines_' + i + '_number'],
             endStation: metadata['lines_' + i + '_end_station'],
@@ -47,9 +47,9 @@ angular.module('radio.services', [])
           title: post.title,
           description: post.content,
           lines: lines,
-          audio: metadata['audio_url'],
+          audio: metadata.audio_url,
           clips: clips
-        }
+        };
 
       });
       console.log("Trips fetched:");
@@ -60,7 +60,7 @@ angular.module('radio.services', [])
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
-  }
+  };
 
   return {
     fetch: fetchAllTrips,
@@ -73,7 +73,7 @@ angular.module('radio.services', [])
       else
         return null;
     }
-  }
+  };
 })
 
 .factory('Locator', function($rootScope) {
@@ -102,7 +102,7 @@ angular.module('radio.services', [])
         console.log("Position failed: The request to get user location timed out.");
         break;
       case error.UNKNOWN_ERROR:
-        console.log("Position failed: An unknown error occurred.")
+        console.log("Position failed: An unknown error occurred.");
         break;
     }
 
@@ -138,7 +138,7 @@ angular.module('radio.services', [])
         code: -1,
         message: 'not supported',
         NOT_SUPPORTED: -1
-      }
+      };
 
       broadcastError(error);
     }
@@ -146,7 +146,7 @@ angular.module('radio.services', [])
 
   var clear = function() {
     stopWatch();
-  }
+  };
 
   return {
     watchPosition: watchPosition,
@@ -167,20 +167,20 @@ angular.module('radio.services', [])
   var setAudioSrc = function(src) {
     audio.src = src;
     audio.load();
-  }
+  };
 
   var playAudio = function() {
     audio.play();
-  }
+  };
 
   var stopAudio = function() {
     audio.pause();
-  }
+  };
 
   var clear = function() {
     stopAudio();
     audio.src = "";
-  }
+  };
 
   return {
     setAudioSrc: setAudioSrc,
@@ -195,25 +195,25 @@ angular.module('radio.services', [])
   var internalStatus = {
     audioReady: false,
     locationReady: false
-  }
+  };
 
   var startTrip = function(trip) {
     AudioPlayer.setAudioSrc(trip.audio);
     Locator.watchPosition();
     $rootScope.$broadcast('player:started');
-  }
+  };
 
   var stopTrip = function() {
     AudioPlayer.clear();
     Locator.clear();
-  }
+  };
 
   var playTrip = function() {
     if(internalStatus.audioReady && internalStatus.locationReady) {
       AudioPlayer.playAudio();
       $rootScope.$broadcast('player:playing');
     }
-  }
+  };
 
   //Observers
   $rootScope.$on('position:updated', function(event, pos) {
@@ -230,4 +230,4 @@ angular.module('radio.services', [])
     startTrip: startTrip,
     stopTrip: stopTrip
   };
-})
+});
