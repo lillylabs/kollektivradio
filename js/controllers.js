@@ -1,20 +1,49 @@
 angular.module('radio.controllers', [])
 
-.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Trips, Locator) {
+.controller('NavigationCtrl', function($scope, $ionicNavBarDelegate, Player) {
   $scope.goBack = function() {
     $ionicNavBarDelegate.back();
-    Locator.stopWatch();
+    Player.stopTrip();
   };
 })
 
-.controller('TripsCtrl', function($scope, Trips) {
-  $scope.trips = Trips.all();
+.controller('TripsCtrl', function($scope, $ionicLoading, Trips) {
+
+  // Set up
+  if(Trips.all()) {
+    $scope.trips = Trips.all();
+  } else {
+    showSpinner("Henter turer ...");
+    Trips.fetch();
+  }
+
+  // Observers
+  $scope.$on('trips:fetched', function(event) {
+    $scope.trips = Trips.all();
+    hideSpinner();
+  });
+
+  // Function
+  function hideSpinner() {
+    $ionicLoading.hide();
+  }
+
+  function showSpinner(message) {
+    $ionicLoading.show({
+      template: '<i class="ion-loading-c"></i><br/>' + message
+    });
+  }
+
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Locator) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
+  
   // Set up
-  $scope.trip = Trips.get($stateParams.tripId);
-  $scope.trip.selected = false;
+  if(Trips.get($stateParams.tripId))
+    $scope.trip = Trips.get($stateParams.tripId)
+  else
+    Trips.fetch();
+
   $scope.map = {
     control: {},
     center: { // Oslo
@@ -36,56 +65,52 @@ angular.module('radio.controllers', [])
   }
 
   // Observers
+  $scope.$on('trips:fetched', function(event) {
+    $scope.trip = Trips.get($stateParams.tripId);
+  });
+
   $scope.$on('position:updated', function(event, pos) {
-    $scope.marker.coords = pos.coords;
-    $scope.hideSpinner();
+    $scope.$apply(function() {
+      $scope.marker.coords = pos.coords;
+    })
   });
 
-
-  // Observers
   $scope.$on('position:error', function(event, error) {
-    $scope.marker.coords = {};
-    $scope.hideSpinner();
-    $scope.handleError(error);
+    handleError(error);
   });
 
-  // Functions
-  $scope.playTrip = function(trip) {
-    trip.selected = true;
+  $scope.$on('player:playing', function(event) {
+    hideSpinner();
+  });
 
-    Locator.watchPosition();
-    $scope.showLocationSpinner();
+  $scope.$on('player:started', function(event) {
+    $scope.started = true;
+  });
+
+  // Scope Functions
+  $scope.startTrip = function(trip) {
+    Player.startTrip(trip);
+    showSpinner("Søker din lokasjon og gjør klar lyd.");
   };
 
-  $scope.cancelTrip = function(trip) {
-    trip.selected = false;
-  };
-
-  $scope.isSelected = function(trip) {
-    return trip.selected;
-  }
-
-  $scope.hideSpinner = function() {
+  //Functions
+  function hideSpinner() {
     $ionicLoading.hide();
   };
 
-  $scope.showSpinner = function(message) {
+  function showSpinner(message) {
     $ionicLoading.show({
       template: '<i class="ion-loading-c"></i><br/>' + message
     });
   }
 
-  $scope.showLocationSpinner = function() {
-    $scope.showSpinner("Søker din lokasjon ...");
-  }
-
-  $scope.handleError = function(error) {
+  function handleError(error) {
     switch(error.code) {
       case error.NOT_SUPPORTED:
-        $scope.showAlert("Lokasjonsfeil", "Din browser støtter dessverre ikke lokasjon.");
+        showAlert("Lokasjonsfeil", "Din browser støtter dessverre ikke lokasjon.");
         break;
       case error.PERMISSION_DENIED:
-        $scope.showAlert("Lokasjonsfeil", "Du må tillate Kollektivradio å bruke din lokasjon.");
+        showAlert("Lokasjonsfeil", "Du må tillate Kollektivradio å bruke din lokasjon.");
         break;
       case error.POSITION_UNAVAILABLE:
 
@@ -99,15 +124,16 @@ angular.module('radio.controllers', [])
     }
   }
 
-  $scope.showAlert = function(title, message) {
+  function showAlert(title, message) {
     var alertPopup = $ionicPopup.alert({
       title: title,
       template: message
     });
+
     alertPopup.then(function(res) {
-      Locator.stopWatch();
-      $window.location.href = '/';
+      Player.stopTrip();
+      window.location.href = '/';
     });
-  };
+  }
 
 })
