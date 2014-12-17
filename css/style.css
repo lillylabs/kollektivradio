@@ -40,3 +40,16 @@
 .angular-google-map-container {
   height: 100%;
 }
+
+.trip-detail li {
+  margin: 10px 0;
+}
+
+.trip-detail .item-note {
+  float: none;
+}
+
+.trip-detail p .item-note {
+  float: none;
+  margin-left: 5px;
+}
