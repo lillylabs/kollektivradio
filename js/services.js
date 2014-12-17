@@ -46,6 +46,8 @@ angular.module('radio.services', [])
           id: post.ID,
           title: post.title,
           description: post.content,
+          startStation: metadata.start_station,
+          endStation: metadata.end_station,
           lines: lines,
           audio: metadata.audio_url,
           clips: clips
