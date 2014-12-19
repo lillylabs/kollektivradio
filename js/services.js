@@ -170,7 +170,7 @@ angular.module('radio.services', [])
 
   audio.addEventListener('timeupdate', function(evt) {
     if (audio.currentTime > audioSprite.end) {
-      stopAudio();
+      pauseAudio();
       console.log("Audio sprite ended");
       $rootScope.$broadcast('audio:spriteEnded');
     }
