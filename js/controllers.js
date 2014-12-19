@@ -36,7 +36,7 @@ angular.module('radio.controllers', [])
 
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player, MapUtil) {
 
   // Set up
   $scope.userMarker = {
@@ -51,7 +51,7 @@ angular.module('radio.controllers', [])
       latitude: 59.8938549,
       longitude: 10.7851165
     },
-    zoom: 11,
+    zoom: 16,
     options: {
       streetViewControl: false,
       panControl: false,
@@ -107,17 +107,22 @@ angular.module('radio.controllers', [])
           latitude: clip.locations.map.lat,
           longitude: clip.locations.map.lng
         }
-      } else {
+      } else if (clip.locations.play) {
         coords = {
           latitude: clip.locations.play.lat,
           longitude: clip.locations.play.lng
         }
       }
 
-      $scope.clipMarkers.push({
-        id: "clip" + key,
-        coords: coords
-      });
+      if(coords.latitude && coords.longitude) {
+        $scope.clipMarkers.push({
+          id: "clip" + key,
+          coords: coords
+        });
+      }
+
+      MapUtil.fitMapToMarkers($scope.map, $scope.clipMarkers);
+
     });
   }
 
