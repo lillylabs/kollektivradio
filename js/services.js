@@ -27,6 +27,7 @@ angular.module('radio.services', [])
             title: metadata['clips_' + i + '_title'],
             start: metadata['clips_' + i + '_start'],
             end: metadata['clips_' + i + '_end'],
+            treshold: metadata['clips_' + i + '_treshold'],
             locations: {
               map: metadata['clips_' + i + '_map_location'],
               play: metadata['clips_' + i + '_play_location'],
@@ -159,12 +160,25 @@ angular.module('radio.services', [])
 
 .factory('AudioPlayer', function($document, $rootScope) {
   var audio = $document[0].createElement('audio');
+  var audioSprite = {};
 
   audio.addEventListener('canplay', function(evt) {
     console.log("Audio can play:");
     console.log(evt);
     $rootScope.$broadcast('audio:canplay');
   });
+
+  audio.addEventListener('timeupdate', function(evt) {
+    if (audio.currentTime > audioSprite.end) {
+      stopAudio();
+      console.log("Audio sprite ended");
+      $rootScope.$broadcast('audio:spriteEnded');
+    }
+  });
+
+  var isSameSprite = function(sprite1, sprite2) {
+    return (sprite1.start == sprite2.start) || (sprite1.end == sprite2.end);
+  };
 
   var setAudioSrc = function(src) {
     audio.src = src;
@@ -175,18 +189,29 @@ angular.module('radio.services', [])
     audio.play();
   };
 
-  var stopAudio = function() {
+  var pauseAudio = function() {
     audio.pause();
   };
 
+  var playAudioSprite = function(newSprite) {
+    if(!isSameSprite(audioSprite, newSprite)) {
+      console.log("New sprite");
+      audioSprite = newSprite;
+      audio.play(audioSprite.start);
+    }
+  };
+
   var clear = function() {
-    stopAudio();
+    pauseAudio();
     audio.src = "";
+    audioSprite = {};
   };
 
   return {
     setAudioSrc: setAudioSrc,
+    playAudioSprite: playAudioSprite,
     playAudio: playAudio,
+    pauseAudio: pauseAudio,
     clear: clear
   };
 
@@ -194,12 +219,16 @@ angular.module('radio.services', [])
 
 .factory('Player', function($document, $rootScope, Locator, AudioPlayer) {
 
-  var internalStatus = {
-    audioReady: false,
-    locationReady: false
+  var audioReady = false;
+  var pos = {};
+  var trip = {};
+
+  var isPlayerReady = function() {
+    return audioReady && pos.coords;
   };
 
-  var startTrip = function(trip) {
+  var startTrip = function(newTrip) {
+    trip = newTrip;
     AudioPlayer.setAudioSrc(trip.audio);
     Locator.watchPosition();
     $rootScope.$broadcast('player:started');
@@ -208,23 +237,57 @@ angular.module('radio.services', [])
   var stopTrip = function() {
     AudioPlayer.clear();
     Locator.clear();
+    clear();
   };
 
   var playTrip = function() {
-    if(internalStatus.audioReady && internalStatus.locationReady) {
-      AudioPlayer.playAudio();
+    if(isPlayerReady()) {
+      playLocalClip();
       $rootScope.$broadcast('player:playing');
     }
   };
 
+  var playClip = function(clip) {
+    AudioPlayer.playAudioSprite({start: clip.start, end: clip.end});
+  };
+
+  var playLocalClip = function() {
+    var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    console.log("User location:");
+    console.log(userLatLng);
+    var closestClip = null;
+    var closestDistance = null;
+
+    angular.forEach(trip.clips, function(clip) {
+      var clipLatLng = new google.maps.LatLng(clip.locations.play.lat, clip.locations.play.lng);
+      var distance = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, clipLatLng);
+
+      if( distance < clip.treshold &&
+         (!closestDistance || distance < closestDistance)) {
+        closestClip = clip;
+        closestDistance = distance;
+      }
+    });
+
+    if(closestClip) {
+      playClip(closestClip);
+    }
+  };
+
+  var clear = function() {
+    audioReady = false;
+    pos = {};
+    trip = {};
+  };
+
   //Observers
-  $rootScope.$on('position:updated', function(event, pos) {
-    internalStatus.locationReady = true;
+  $rootScope.$on('position:updated', function(event, newPos) {
+    pos = newPos;
     playTrip();
   });
 
-  $rootScope.$on('audio:canplay', function(event, pos) {
-    internalStatus.audioReady = true;
+  $rootScope.$on('audio:canplay', function(event) {
+    audioReady = true;
     playTrip();
   });
 
