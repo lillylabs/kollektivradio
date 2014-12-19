@@ -37,12 +37,13 @@ angular.module('radio.controllers', [])
 })
 
 .controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
-  
+
   // Set up
-  if(Trips.get($stateParams.tripId))
-    $scope.trip = Trips.get($stateParams.tripId);
-  else
-    Trips.fetch();
+  $scope.userMarker = {
+    id: 'current'
+  };
+
+  $scope.clipMarkers = [];
 
   $scope.map = {
     control: {},
@@ -60,18 +61,19 @@ angular.module('radio.controllers', [])
     dragging: false
   };
 
-  $scope.marker = {
-    id: 'current'
-  };
+  if(Trips.get($stateParams.tripId))
+    setUpTrip(Trips.get($stateParams.tripId));
+  else
+    Trips.fetch();
 
   // Observers
   $scope.$on('trips:fetched', function(event) {
-    $scope.trip = Trips.get($stateParams.tripId);
+    setUpTrip(Trips.get($stateParams.tripId));
   });
 
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
-      $scope.marker.coords = pos.coords;
+      $scope.userMarker.coords = pos.coords;
     });
   });
 
@@ -94,6 +96,31 @@ angular.module('radio.controllers', [])
   };
 
   //Functions
+
+  function setUpTrip(trip) {
+    $scope.trip = trip;
+
+    angular.forEach(trip.clips, function(clip, key) {
+      var coords = {};
+      if(clip.locations.map) {
+        coords = {
+          latitude: clip.locations.map.lat,
+          longitude: clip.locations.map.lng
+        }
+      } else {
+        coords = {
+          latitude: clip.locations.play.lat,
+          longitude: clip.locations.play.lng
+        }
+      }
+
+      $scope.clipMarkers.push({
+        id: "clip" + key,
+        coords: coords
+      });
+    });
+  }
+
   function hideSpinner() {
     $ionicLoading.hide();
   }
