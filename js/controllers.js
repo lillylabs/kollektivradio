@@ -59,7 +59,14 @@ angular.module('radio.controllers', [])
       maxZoom: 20,
       minZoom: 3
     },
-    dragging: false
+    dragging: false,
+    events: {
+      tilesloaded: function (map) {
+        $scope.$apply(function () {
+          fitMapToMarkers();
+        });
+      }
+    }
   };
 
   if(Trips.get($stateParams.tripId))
@@ -97,7 +104,6 @@ angular.module('radio.controllers', [])
   };
 
   $scope.icon = function(clip) {
-    console.log("isPlaying");
     if(Player.isPlayingClip(clip))
       return "/img/marker_playing.png";
     else
@@ -105,6 +111,13 @@ angular.module('radio.controllers', [])
   }
 
   //Functions
+
+  function fitMapToMarkers() {
+    if(!$scope.map.fitted) {
+      $scope.map.fitted = true;
+      MapUtil.fitMapToMarkers($scope.map, $scope.clipMarkers);
+    }
+  }
 
   function setUpTrip(trip) {
     $scope.trip = trip;
@@ -131,7 +144,7 @@ angular.module('radio.controllers', [])
         });
       }
 
-      MapUtil.fitMapToMarkers($scope.map, $scope.clipMarkers);
+      // fitMapToMarkers();
 
     });
   }

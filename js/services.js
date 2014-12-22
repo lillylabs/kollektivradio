@@ -180,18 +180,16 @@ angular.module('radio.services', [])
 
     } else {
       // fit to bounds
-      map = {
-        bounds: {
-          northeast: {
-            latitude: bounds.getNorthEast().lat(),
-            longitude: bounds.getNorthEast().lng()
-          },
-          southwest: {
-            latitude: bounds.getSouthWest().lat(),
-            longitude: bounds.getSouthWest().lng()
-          }
+      map.bounds = {
+        northeast: {
+          latitude: bounds.getNorthEast().lat(),
+          longitude: bounds.getNorthEast().lng()
+        },
+        southwest: {
+          latitude: bounds.getSouthWest().lat(),
+          longitude: bounds.getSouthWest().lng()
         }
-      };
+      }
     }
   };
 
