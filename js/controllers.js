@@ -40,7 +40,8 @@ angular.module('radio.controllers', [])
 
   // Set up
   $scope.userMarker = {
-    id: 'current'
+    id: 'current',
+    icon: '/img/marker_user.png'
   };
 
   $scope.clipMarkers = [];
@@ -98,9 +99,9 @@ angular.module('radio.controllers', [])
   $scope.icon = function(clip) {
     console.log("isPlaying");
     if(Player.isPlayingClip(clip))
-      return "/img/marker-pause.png";
+      return "/img/marker_playing.png";
     else
-      return "/img/marker-play.png";
+      return "/img/marker_paused.png";
   }
 
   //Functions
