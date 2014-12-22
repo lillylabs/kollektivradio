@@ -36,13 +36,15 @@ angular.module('radio.controllers', [])
 
 })
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player) {
-  
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, Trips, Player, MapUtil) {
+
   // Set up
-  if(Trips.get($stateParams.tripId))
-    $scope.trip = Trips.get($stateParams.tripId);
-  else
-    Trips.fetch();
+  $scope.userMarker = {
+    id: 'current',
+    icon: '/img/marker_user.png'
+  };
+
+  $scope.clipMarkers = [];
 
   $scope.map = {
     control: {},
@@ -50,28 +52,36 @@ angular.module('radio.controllers', [])
       latitude: 59.8938549,
       longitude: 10.7851165
     },
-    zoom: 11,
+    zoom: 16,
     options: {
       streetViewControl: false,
       panControl: false,
       maxZoom: 20,
       minZoom: 3
     },
-    dragging: false
+    dragging: false,
+    events: {
+      tilesloaded: function (map) {
+        $scope.$apply(function () {
+          fitMapToMarkers();
+        });
+      }
+    }
   };
 
-  $scope.marker = {
-    id: 'current'
-  };
+  if(Trips.get($stateParams.tripId))
+    setUpTrip(Trips.get($stateParams.tripId));
+  else
+    Trips.fetch();
 
   // Observers
   $scope.$on('trips:fetched', function(event) {
-    $scope.trip = Trips.get($stateParams.tripId);
+    setUpTrip(Trips.get($stateParams.tripId));
   });
 
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
-      $scope.marker.coords = pos.coords;
+      $scope.userMarker.coords = pos.coords;
     });
   });
 
@@ -93,7 +103,52 @@ angular.module('radio.controllers', [])
     showSpinner("Søker din lokasjon og gjør klar lyd.");
   };
 
+  $scope.icon = function(clip) {
+    if(Player.isPlayingClip(clip))
+      return "/img/marker_playing.png";
+    else
+      return "/img/marker_paused.png";
+  }
+
   //Functions
+
+  function fitMapToMarkers() {
+    if(!$scope.map.fitted) {
+      $scope.map.fitted = true;
+      MapUtil.fitMapToMarkers($scope.map, $scope.clipMarkers);
+    }
+  }
+
+  function setUpTrip(trip) {
+    $scope.trip = trip;
+
+    angular.forEach(trip.clips, function(clip, key) {
+      var coords = {};
+      if(clip.locations.map) {
+        coords = {
+          latitude: clip.locations.map.lat,
+          longitude: clip.locations.map.lng
+        }
+      } else if (clip.locations.play) {
+        coords = {
+          latitude: clip.locations.play.lat,
+          longitude: clip.locations.play.lng
+        }
+      }
+
+      if(coords.latitude && coords.longitude) {
+        $scope.clipMarkers.push({
+          id: "clip" + key,
+          coords: coords,
+          clip: clip
+        });
+      }
+
+      // fitMapToMarkers();
+
+    });
+  }
+
   function hideSpinner() {
     $ionicLoading.hide();
   }

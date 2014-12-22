@@ -158,6 +158,46 @@ angular.module('radio.services', [])
 
 })
 
+.factory('MapUtil', function($document, $rootScope) {
+
+  var fitMapToMarkers = function(map, markers) {
+    var bounds = new google.maps.LatLngBounds();
+
+    // loop through all markers and create bounds
+    angular.forEach(markers, function(marker, i) {
+      var coords = marker.coords;
+      var latlng = new google.maps.LatLng(marker.coords.latitude, marker.coords.longitude);
+      bounds.extend( latlng );
+    });
+
+    // only 1 marker?
+    if( markers.length == 1 ) {
+      // set center of map
+      map.center = {
+        latitude: bounds.getCenter().lat(),
+        longitude: bounds.getCenter().lng()
+      };
+
+    } else {
+      // fit to bounds
+      map.bounds = {
+        northeast: {
+          latitude: bounds.getNorthEast().lat(),
+          longitude: bounds.getNorthEast().lng()
+        },
+        southwest: {
+          latitude: bounds.getSouthWest().lat(),
+          longitude: bounds.getSouthWest().lng()
+        }
+      }
+    }
+  };
+
+  return {
+    fitMapToMarkers: fitMapToMarkers
+  };
+})
+
 .factory('AudioPlayer', function($document, $rootScope) {
   var audio = $document[0].createElement('audio');
   var audioSprite = {};
@@ -195,10 +235,13 @@ angular.module('radio.services', [])
 
   var playAudioSprite = function(newSprite) {
     if(!isSameSprite(audioSprite, newSprite)) {
-      console.log("New sprite");
       audioSprite = newSprite;
       audio.play(audioSprite.start);
     }
+  };
+
+  var isPlayingSprite = function(sprite) {
+    return isSameSprite(audioSprite, sprite) && !audio.paused;
   };
 
   var clear = function() {
@@ -210,6 +253,7 @@ angular.module('radio.services', [])
   return {
     setAudioSrc: setAudioSrc,
     playAudioSprite: playAudioSprite,
+    isPlayingSprite: isPlayingSprite,
     playAudio: playAudio,
     pauseAudio: pauseAudio,
     clear: clear
@@ -274,6 +318,10 @@ angular.module('radio.services', [])
     }
   };
 
+  var isPlayingClip = function(clip) {
+    return AudioPlayer.isPlayingSprite({start: clip.start, end: clip.end});
+  }
+
   var clear = function() {
     audioReady = false;
     pos = {};
@@ -291,8 +339,13 @@ angular.module('radio.services', [])
     playTrip();
   });
 
+  $rootScope.$on('audio:spriteEnded', function(event) {
+    $rootScope.$apply();
+  });
+
   return {
     startTrip: startTrip,
-    stopTrip: stopTrip
+    stopTrip: stopTrip,
+    isPlayingClip: isPlayingClip
   };
 });
