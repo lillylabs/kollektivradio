@@ -242,6 +242,10 @@ angular.module('radio.services', [])
     }
   };
 
+  var isPlayingSprite = function(sprite) {
+    return isSameSprite(audioSprite, sprite) && !audio.paused;
+  };
+
   var clear = function() {
     pauseAudio();
     audio.src = "";
@@ -251,6 +255,7 @@ angular.module('radio.services', [])
   return {
     setAudioSrc: setAudioSrc,
     playAudioSprite: playAudioSprite,
+    isPlayingSprite: isPlayingSprite,
     playAudio: playAudio,
     pauseAudio: pauseAudio,
     clear: clear
@@ -315,6 +320,10 @@ angular.module('radio.services', [])
     }
   };
 
+  var isPlayingClip = function(clip) {
+    return AudioPlayer.isPlayingSprite({start: clip.start, end: clip.end});
+  }
+
   var clear = function() {
     audioReady = false;
     pos = {};
@@ -332,8 +341,13 @@ angular.module('radio.services', [])
     playTrip();
   });
 
+  $rootScope.$on('audio:spriteEnded', function(event) {
+    $rootScope.$apply();
+  });
+
   return {
     startTrip: startTrip,
-    stopTrip: stopTrip
+    stopTrip: stopTrip,
+    isPlayingClip: isPlayingClip
   };
 });

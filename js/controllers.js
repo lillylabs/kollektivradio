@@ -95,6 +95,14 @@ angular.module('radio.controllers', [])
     showSpinner("Søker din lokasjon og gjør klar lyd.");
   };
 
+  $scope.icon = function(clip) {
+    console.log("isPlaying");
+    if(Player.isPlayingClip(clip))
+      return "/img/marker-pause.png";
+    else
+      return "/img/marker-play.png";
+  }
+
   //Functions
 
   function setUpTrip(trip) {
@@ -117,7 +125,8 @@ angular.module('radio.controllers', [])
       if(coords.latitude && coords.longitude) {
         $scope.clipMarkers.push({
           id: "clip" + key,
-          coords: coords
+          coords: coords,
+          clip: clip
         });
       }
 
