@@ -5,7 +5,7 @@
   The Friends service returns an array of friend data
 -->
 <ion-view title="{{trip.title}}" class="trip-detail">
-  <ion-content has-header="true" padding="true">
+  <ion-content padding="true" overflow-scroll="true">
     <div ng-hide="started" ng-if="trip">
       <div ng-bind-html="trip.description" class="description"></div>
 
