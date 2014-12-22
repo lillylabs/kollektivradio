@@ -237,7 +237,6 @@ angular.module('radio.services', [])
 
   var playAudioSprite = function(newSprite) {
     if(!isSameSprite(audioSprite, newSprite)) {
-      console.log("New sprite");
       audioSprite = newSprite;
       audio.play(audioSprite.start);
     }
