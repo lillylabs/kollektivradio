@@ -1,6 +1,6 @@
 angular.module('radio')
 
-.controller('TripDetailCtrl', function($scope, $stateParams, $window, $ionicLoading, $ionicPopup, DataSource, Player, MapUtil) {
+.controller('TripDetailCtrl', function($scope, $stateParams, $window, DataSource, Player, MapUtil) {
 
   // Set up
   $scope.userMarker = {
@@ -110,13 +110,13 @@ angular.module('radio')
   }
 
   function hideSpinner() {
-    $ionicLoading.hide();
+//    $ionicLoading.hide();
   }
 
   function showSpinner(message) {
-    $ionicLoading.show({
-      template: '<i class="ion-loading-c"></i><br/>' + message
-    });
+//    $ionicLoading.show({
+//      template: '<i class="ion-loading-c"></i><br/>' + message
+//    });
   }
 
   function handleError(error) {
@@ -140,15 +140,15 @@ angular.module('radio')
   }
 
   function showAlert(title, message) {
-    var alertPopup = $ionicPopup.alert({
-      title: title,
-      template: message
-    });
-
-    alertPopup.then(function(res) {
-      Player.stopTrip();
-      window.location.href = '/';
-    });
+//    var alertPopup = $ionicPopup.alert({
+//      title: title,
+//      template: message
+//    });
+//
+//    alertPopup.then(function(res) {
+//      Player.stopTrip();
+//      window.location.href = '/';
+//    });
   }
 
 });
