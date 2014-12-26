@@ -1,6 +1,6 @@
 // Kollektivradio App
 
-angular.module('radio', ['ionic', 'uiGmapgoogle-maps', 'radio.controllers', 'radio.services'])
+angular.module('radio', ['ionic', 'uiGmapgoogle-maps'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -35,7 +35,7 @@ angular.module('radio', ['ionic', 'uiGmapgoogle-maps', 'radio.controllers', 'rad
       url: '/trip/:tripId',
       templateUrl: 'templates/trip-detail.html',
       controller: 'TripDetailCtrl'
-    })
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/trips');
