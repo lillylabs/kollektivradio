@@ -34,7 +34,9 @@ angular.module('radio')
   
   $scope.showMapControls = false;
   $scope.defaults = {
-    scrollWheelZoom: false
+    doubleClickZoom: false,
+    scrollWheelZoom: false,
+    attributionControl: false
   };
   
   $scope.map = {
@@ -53,16 +55,9 @@ angular.module('radio')
     Player.endTrip(trip);
   };
   
-  $scope.clipIcon = function(clip) {
-    if(Player.isCurrentClip(clip))
-      return "/img/marker_playing.png";
-    else
-      return "/img/marker_paused.png";
-  };
-  
   // Functions
   function fitMapToClips(clips) {
-      updateBounds(MapUtil.calculateBoundsForClips(clips));
+    updateBounds(MapUtil.calculateBoundsForClips(clips));
   }
   
   function updateBounds(bounds) {
@@ -115,8 +110,9 @@ angular.module('radio')
   // Observers
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
+      var centerOnCurrentLocation = !Player.getSelectedTrip() && !$scope.map.markers.currentLocation;
       updateCurrentLocation(pos.latitude, pos.longitude);
-      if(!Player.getSelectedTrip())
+      if(centerOnCurrentLocation)
         updateCenterToCurrentLocation();
     });
   });
