@@ -1,9 +1,15 @@
 angular.module('radio')
 
 .factory('Audio', function($document, $rootScope) {
+  console.log("ok way");
+  
   var body = $document[0].getElementsByTagName('body')[0];
   var audio = $document[0].createElement('audio');
+//  body.innerHTML += '<audio id="audio"></audio>';
   body.appendChild(audio);
+//  var audio = $document[0].getElementsByTagName( 'audio' )[0];
+//  console.log("audio:");
+//  console.log(audio);
   
   var audioIsReady = false;
   var currentSprite = null;
