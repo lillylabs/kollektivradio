@@ -50,8 +50,7 @@ angular.module('radio')
   
   audio.addEventListener('canplay', function(evt) {
     audioIsReady = true;
-    console.log("Audio: can play:");
-    console.log(evt);
+    console.log("Audio: can play");
     $rootScope.$broadcast('audio:canplay');
   });
   
