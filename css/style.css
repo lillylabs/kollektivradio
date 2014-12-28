@@ -58,10 +58,14 @@ body {
   right: 0;
   top: 50px;
   bottom: 0;
+  height: auto;
+  min-height: 100%;
+  background-color: black;
 }
 
 .angular-leaflet-map {
   height: auto;
+  min-height: 100%;
 }
 
 .leaflet-control-container {
