@@ -1,84 +1,21 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
-<ion-view title="{{trip.title}}" class="trip-detail">
-  <ion-content padding="true" overflow-scroll="true">
-    <div ng-hide="started" ng-if="trip">
-      <div ng-bind-html="trip.description" class="description"></div>
 
-      <p ng-if="trip.startStation && trip.endStation">
-        Denne turen går fra <strong>{{trip.startStation}}</strong> to <strong>{{trip.endStation}}</strong>.
-      </p>
+  <div ng-if="trip.lines.length == 1">
+    <p>På {{trip.startStation}} sette du deg på
+      <span class="item-note">
+        <span ng-class="{ 'metro': trip.lines[0].number < 10,
+                          'tram': trip.lines[0].number >= 10 && trip.lines[0].number < 20,
+                          'bus': trip.lines[0].number >= 20 && trip.lines[0].number < 90,
+                          'boat': trip.lines[0].number >= 90
+                         }">
+          {{trip.lines[0].number}}
+        </span>
+      </span>
+      <span class="item-title">mot {{trip.lines[0].endStation}}</span>
+    </p>
+  </div>
 
-      <div ng-if="trip.lines.length > 1">
-        <p>På <strong>{{trip.startStation}}</strong> setter du deg på en av disse linjene: </p>
-        <ul class="list">
-          <li ng-repeat="line in trip.lines" href="#/trip/{{trip.id}}">
-            <span class="item-note">
-              <span ng-class="{ 'metro': line.number < 10,
-                                'tram': line.number >= 10 && line.number < 20,
-                                'bus': line.number >= 20 && line.number < 90,
-                                'boat': line.number >= 90
-                               }">
-                {{line.number}}
-              </span>
-            </span>
-            <span class="item-title">mot {{line.endStation}}</span>
-          </li>
-        </ul>
-      </div>
+  <button ng-click="startTrip(trip)" class="button button-large button-block button-outline button-positive icon-right">
+    Spill av
+  </button>
 
-      <div ng-if="trip.lines.length == 1">
-        <p>På {{trip.startStation}} sette du deg på
-          <span class="item-note">
-            <span ng-class="{ 'metro': trip.lines[0].number < 10,
-                              'tram': trip.lines[0].number >= 10 && trip.lines[0].number < 20,
-                              'bus': trip.lines[0].number >= 20 && trip.lines[0].number < 90,
-                              'boat': trip.lines[0].number >= 90
-                             }">
-              {{trip.lines[0].number}}
-            </span>
-          </span>
-          <span class="item-title">mot {{trip.lines[0].endStation}}</span>
-        </p>
-      </div>
-
-      <button ng-click="startTrip(trip)" class="button button-large button-block button-outline button-positive icon-right">
-        Spill av
-      </button>
-
-    </div>
-
-    <ui-gmap-google-map ng-if="started"
-      center="map.center"
-      zoom="map.zoom"
-      draggable="true"
-      dragging="map.dragging"
-      bounds="map.bounds"
-      events="map.events"
-      options="map.options"
-      pan="true"
-      control="map.control"
-    >
-
-    <ui-gmap-marker
-      idKey='userMarker.id'
-      coords='userMarker.coords'
-      icon="userMarker.icon"
-    >
-    </ui-gmap-marker>
-
-    <ui-gmap-marker ng-repeat="marker in clipMarkers"
-      idKey='marker.id'
-      coords='marker.coords'
-      icon = 'icon(marker.clip)'
-    >
-    </ui-gmap-marker>
-
-    </ui-gmap-google-map>
-
-  </ion-content>
-</ion-view>
+</div>

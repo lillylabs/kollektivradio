@@ -1,55 +1,79 @@
 /* Empty. Add your own CSS if you like */
 
-.item-complex .item-content {
-  padding-right: 16px;
+body {
+  padding-top: 50px; 
 }
 
-.item-title {
-  line-height: 30px;
-  font-weight: bold;
+.navbar-brand {
+  text-align: center;
 }
 
-.item-note {
+.map .footer {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 10px;
+}
+
+.trip {
+  background-color: white;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.trip-content {
+  padding: 0.5em 0;
+}
+
+.line {
   color: white;
-}
-
-.item-note span {
   display: inline-block;
-  padding: 5px;
+  padding: 2px 5px;
   margin-right: 5px;
 }
 
-.metro {
+.line.metro {
   background-color: #f08400;
 }
 
-.tram {
+.line.tram {
   background-color: #40bbce;
 }
 
-.bus {
+.line.bus {
   background-color: #e60000;
 }
 
-.boat {
+.line.boat {
   background-color: #7f3f98;
 }
 
-.scroll,
-.angular-google-map,
-.angular-google-map-container {
-  height: 100%;
+.station {
+  font-weight: bold;
 }
 
-.trip-detail li {
-  margin: 10px 0;
+.map {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  bottom: 0;
+  height: auto;
+  min-height: 100%;
+  background-color: black;
 }
 
-.trip-detail .item-note {
-  float: none;
+.angular-leaflet-map {
+  height: auto;
+  min-height: 100%;
 }
 
-.trip-detail p .item-note {
-  float: none;
-  margin-left: 5px;
+.leaflet-control-container {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 750px;
+  }
 }
