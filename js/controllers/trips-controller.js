@@ -1,8 +1,7 @@
 angular.module('radio')
 
-.controller('TripsCtrl', function($scope, $sce, DataSource, Locator) {
-  
-  $scope.selectedTrip = {};
+.controller('TripsCtrl', function($scope, $sce, DataSource, Locator, Player) {
+  $scope.showTrips = true;
   Locator.watchPosition();
 
   // Set up
@@ -10,21 +9,13 @@ angular.module('radio')
   if(DataSource.trips()) {
     $scope.trips = DataSource.trips() ;
   } else {
-    showSpinner("Henter turer ...");
     DataSource.fetch();
   }
   
   // Scope functions
   
-  $scope.toggleTrip = function(trip) {
-    if($scope.selectedTrip == trip)
-      $scope.selectedTrip = {};
-    else
-      $scope.selectedTrip = trip;
-  };
-  
   $scope.startTrip = function(trip) {
-    console.log("Start trip");
+    Player.startTrip(trip);
   };
   
   $scope.lineClass = function(line) {
@@ -46,18 +37,14 @@ angular.module('radio')
   
   $scope.$on('trips:fetched', function(event) {
     $scope.trips = DataSource.trips();
-    hideSpinner();
   });
-
-  // Function
-  function hideSpinner() {
-//    $ionicLoading.hide();
-  }
-
-  function showSpinner(message) {
-//    $ionicLoading.show({
-//      template: '<i class="ion-loading-c"></i><br/>' + message
-//    });
-  }
+  
+  $scope.$on('player:tripStarted', function(event) {
+    $scope.showTrips = false;
+  });
+  
+  $scope.$on('player:tripEnded', function(event) {
+    $scope.showTrips = true;
+  });
 
 });

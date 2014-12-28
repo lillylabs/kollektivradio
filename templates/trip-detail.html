@@ -19,31 +19,3 @@
   </button>
 
 </div>
-
-<ui-gmap-google-map ng-if="started"
-  center="map.center"
-  zoom="map.zoom"
-  draggable="true"
-  dragging="map.dragging"
-  bounds="map.bounds"
-  events="map.events"
-  options="map.options"
-  pan="true"
-  control="map.control"
->
-
-  <ui-gmap-marker
-    idKey='userMarker.id'
-    coords='userMarker.coords'
-    icon="userMarker.icon"
-  >
-  </ui-gmap-marker>
-
-  <ui-gmap-marker ng-repeat="marker in clipMarkers"
-    idKey='marker.id'
-    coords='marker.coords'
-    icon = 'icon(marker.clip)'
-  >
-  </ui-gmap-marker>
-
-</ui-gmap-google-map>

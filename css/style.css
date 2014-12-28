@@ -1,15 +1,24 @@
 /* Empty. Add your own CSS if you like */
 
 body {
-  padding-top: 70px; 
+  padding-top: 50px; 
 }
 
 .navbar-brand {
   text-align: center;
 }
 
+.map .footer {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 10px;
+}
+
 .trip {
-  padding-bottom: 2em;
+  background-color: white;
+  margin: 20px 0;
+  padding: 20px;
 }
 
 .trip-content {
@@ -43,7 +52,15 @@ body {
   font-weight: bold;
 }
 
-.scroll,
+.map {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+}
+
 .angular-google-map,
 .angular-google-map-container {
   height: 100%;

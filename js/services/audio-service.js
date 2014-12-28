@@ -2,6 +2,7 @@ angular.module('radio')
 
 .factory('Audio', function($document, $rootScope) {
   var audio = $document[0].createElement('audio');
+  var audioIsReady = false;
   var audioSprite = {};
 
   var isCurrentSprite = function(sprite) {
@@ -9,8 +10,14 @@ angular.module('radio')
   };
 
   var setAudioSrc = function(src) {
+    pauseAudio();
+    audioSprite = {};
     audio.src = src;
-    audio.load();
+    audioIsReady = false;
+    
+    if(src) {
+      audio.load();
+    } 
   };
 
   var playAudio = function() {
@@ -29,16 +36,11 @@ angular.module('radio')
       audio.play();
     }
   };
-
-  var clear = function() {
-    pauseAudio();
-    audio.src = "";
-    audioSprite = {};
-  };
   
   // Observers
   
   audio.addEventListener('canplay', function(evt) {
+    audioIsReady = true;
     console.log("Audio can play:");
     console.log(evt);
     $rootScope.$broadcast('audio:canplay');
@@ -79,7 +81,9 @@ angular.module('radio')
     isCurrentSprite: isCurrentSprite,
     playAudio: playAudio,
     pauseAudio: pauseAudio,
-    clear: clear
+    isReady: function() {
+      return audioIsReady;
+    }
   };
 
 });

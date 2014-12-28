@@ -7,6 +7,7 @@ angular.module('radio')
   
   var metadataToClip = function(metadata, clipIndex) {
     var clip = {
+      id: 'clip' + clipIndex,
       title: metadata['clips_' + clipIndex + '_title'],
       start: metadata['clips_' + clipIndex + '_start'],
       end: metadata['clips_' + clipIndex + '_end'],
@@ -19,6 +20,16 @@ angular.module('radio')
 
     if(!clip.locations.map)
       clip.locations.map = clip.locations.play;
+    
+    if(clip.locations.map) {
+      clip.locations.map.latitude = clip.locations.map.lat;
+      clip.locations.map.longitude = clip.locations.map.lng;
+    }
+    
+    if(clip.locations.play) {
+      clip.locations.play.latitude = clip.locations.map.lat;
+      clip.locations.play.longitude = clip.locations.map.lng;
+    }
     
     return clip;
   };

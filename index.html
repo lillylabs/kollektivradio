@@ -22,6 +22,8 @@
     <script src="js/controllers/alerts-controller.js"></script>
     <script src="js/controllers/trips-controller.js"></script>
     <script src="js/controllers/trip-detail-controller.js"></script>
+    <script src="js/controllers/map-controller.js"></script>
+    <script src="js/controllers/navbar-controller.js"></script>
     <script src="js/services/audio-service.js"></script>
     <script src="js/services/data-source-service.js"></script>
     <script src="js/services/locator-service.js"></script>
@@ -30,7 +32,43 @@
   </head>
   <body ng-app="radio">
     
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="map" ng-controller="MapCtrl">
+      <ui-gmap-google-map 
+        center="map.center"
+        zoom="map.zoom"
+        draggable="true"
+        dragging="map.dragging"
+        bounds="map.bounds"
+        events="map.events"
+        options="map.options"
+        pan="true"
+        control="map.control"
+      >
+
+        <ui-gmap-marker
+          idKey='userMarker.id'
+          coords='userMarker.coords'
+          icon="userMarker.icon"
+        >
+        </ui-gmap-marker>
+
+        <ui-gmap-marker ng-repeat="clip in clips"
+          idKey='clip.id'
+          coords='clip.locations.map'
+          icon = 'clipIcon(clip)'
+        >
+        </ui-gmap-marker>
+
+      </ui-gmap-google-map>
+      
+      <div class="footer" ng-show="showMapControls">
+        <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-md">
+          <span class="glyphicon glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Stopp tur
+        </button>
+      </div>
+    </div>
+    
+    <nav ng-controller="NavbarCtrl" ng-show="showNavbar" class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <span class="navbar-brand" href="#">Kollektivradio</span>
@@ -39,37 +77,36 @@
     </nav>
     
     <div class="container">
-      <div class="row">
+      <div ng-controller="AlertsCtrl" ng-if="alerts" class="row alerts">
         <div class="col-md-12">
-        
-          <div ng-controller="AlertsCtrl">
-            <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
-              <button ng-click="removeAlert(alert)" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              {{alert.message}}
-            </div>
+          <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
+            <button ng-click="removeAlert(alert)" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{alert.message}}
           </div>
+         </div> 
+      </div>
 
-          <div ng-controller="TripsCtrl" ng-show="trips">
-            <div ng-repeat="trip in trips" class="trip">
-              <div class="trip-header">
-                <h4 class="trip-title">{{trip.title}}</h4>
-                <p class="trip-subtitle">
-                  <span ng-repeat="line in trip.lines" ng-class="lineClass(line)" class="line">
-                    {{line.number}}
-                  </span>
-                  Fra <span class="station">{{trip.startStation}}</span> til <span class="station">{{trip.endStation}}</span>
-                </p>
-              </div>
-              
-              <div ng-bind-html="trustHtml(trip.description)" class="trip-content"></div>
-
-              <button type="button" class="btn btn-default btn-block btn-md" ng-click="startTrip(trip)">
-                Spill tur
-              </button>
-              
+      <div ng-controller="TripsCtrl" ng-show="showTrips" class="row trips">
+        <div class="col-md-12">
+          <div ng-repeat="trip in trips" class="trip">
+            <div class="trip-header">
+              <h4 class="trip-title">{{trip.title}}</h4>
+              <p class="trip-subtitle">
+                <span ng-repeat="line in trip.lines" ng-class="lineClass(line)" class="line">
+                  {{line.number}}
+                </span>
+                Fra <span class="station">{{trip.startStation}}</span> til <span class="station">{{trip.endStation}}</span>
+              </p>
             </div>
+
+            <div ng-bind-html="trustHtml(trip.description)" class="trip-content"></div>
+
+            <button ng-click="startTrip(trip)" type="button" class="btn btn-default btn-block btn-md">
+              Spill tur
+            </button>              
           </div>
-          
         </div>
       </div>
     </div>

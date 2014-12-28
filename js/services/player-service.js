@@ -1,41 +1,38 @@
 angular.module('radio')
 
 .factory('Player', function($document, $rootScope, Locator, Audio) {
-
-  var audioReady = false;
-  var pos = {};
-  var trip = {};
-
+  
+  var trip = null;
+  
   var isPlayerReady = function() {
-    return audioReady && pos.coords;
+    return trip && Locator.getCurrentPos() && Audio.isReady();
   };
 
-  var startTrip = function(newTrip) {
-    trip = newTrip;
+  var startTrip = function(tripToBeStarted) {
+    trip = tripToBeStarted;
     Audio.setAudioSrc(trip.audio);
-    Locator.watchPosition();
-    $rootScope.$broadcast('player:started');
+    $rootScope.$broadcast('player:tripStarted');
   };
 
-  var stopTrip = function() {
-    Audio.clear();
-    Locator.clear();
-    clear();
+  var endTrip = function(tripToBeEnded) {
+    trip = null;
+    Audio.pauseAudio();
+    $rootScope.$broadcast('player:tripEnded');
   };
 
   var playTrip = function() {
     if(isPlayerReady()) {
       playLocalClip();
-      $rootScope.$broadcast('player:playing');
     }
   };
 
   var playClip = function(clip) {
     Audio.playAudioSprite({start: clip.start, end: clip.end});
+    $rootScope.$broadcast('player:clipStarted');
   };
 
   var playLocalClip = function() {
-    var userLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+    var userLatLng = new google.maps.LatLng(pos.latitude, pos.longitude);
     console.log("User location:");
     console.log(userLatLng);
     var closestClip = null;
@@ -61,12 +58,6 @@ angular.module('radio')
     return Audio.isCurrentSprite({start: clip.start, end: clip.end});
   };
 
-  var clear = function() {
-    audioReady = false;
-    pos = {};
-    trip = {};
-  };
-
   //Observers
   
   $rootScope.$on('position:updated', function(event, newPos) {
@@ -85,7 +76,10 @@ angular.module('radio')
 
   return {
     startTrip: startTrip,
-    stopTrip: stopTrip,
-    isCurrentClip: isCurrentClip
+    endTrip: endTrip,
+    isCurrentClip: isCurrentClip,
+    getSelectedTrip: function() {
+      return trip;
+    }
   };
 });
