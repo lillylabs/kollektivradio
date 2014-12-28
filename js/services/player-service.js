@@ -8,6 +8,7 @@ angular.module('radio')
   var startTrip = function(tripToBeStarted) {
     trip = tripToBeStarted;
     playedClips = [];
+    Locator.watchPosition();
     Audio.setAudioSrc(trip.audio);
     console.log("Player: Trip started");
     $rootScope.$broadcast('player:tripStarted');
@@ -16,6 +17,7 @@ angular.module('radio')
   var endTrip = function(tripToBeEnded) {
     trip = null;
     playedClips = null;
+    Locator.stopWatching();
     Audio.pauseAudio();
     console.log("Player: Trip ended");
     $rootScope.$broadcast('player:tripEnded');

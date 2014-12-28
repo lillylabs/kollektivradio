@@ -2,7 +2,6 @@ angular.module('radio')
 
 .controller('TripsCtrl', function($scope, $sce, DataSource, Locator, Player) {
   $scope.showTrips = true;
-  Locator.watchPosition();
 
   // Set up
   
