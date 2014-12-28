@@ -2,18 +2,12 @@ angular.module('radio')
 
 .factory('Audio', function($document, $rootScope) {
   
-  var body = $document[0].getElementsByTagName('body')[0];
   var audio = $document[0].createElement('audio');
-//  body.innerHTML += '<audio id="audio"></audio>';
-  body.appendChild(audio);
-//  var audio = $document[0].getElementsByTagName( 'audio' )[0];
-//  console.log("audio:");
-//  console.log(audio);
   
   var audioIsReady = false;
   var currentSprite = null;
 
-  var isCurrentSprite = function(sprite) {
+  var isSpriteCurrentSprite = function(sprite) {
     return sprite && currentSprite && currentSprite.start == sprite.start && currentSprite.end == sprite.end;  
   };
 
@@ -45,7 +39,7 @@ angular.module('radio')
     if(!newSprite)
       return;
     
-    if(!isCurrentSprite(newSprite)) {
+    if(!isSpriteCurrentSprite(newSprite)) {
       console.log("New sprite");
       currentSprite = newSprite;
       audio.currentTime = currentSprite.start;
@@ -96,7 +90,6 @@ angular.module('radio')
   return {
     setAudioSrc: setAudioSrc,
     playAudioSprite: playAudioSprite,
-    isCurrentSprite: isCurrentSprite,
     playAudio: playAudio,
     pauseAudio: pauseAudio,
     isReady: function() {
