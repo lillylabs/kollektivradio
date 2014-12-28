@@ -31,9 +31,6 @@ angular.module('radio')
     var userLatLng = new google.maps.LatLng(pos.latitude, pos.longitude);
     var closestClip = null;
     var closestDistance = null;
-    
-    console.log("User location:");
-    console.log(userLatLng);
 
     angular.forEach(clips, function(clip) {
       var clipLatLng = new google.maps.LatLng(clip.locations.play.lat, clip.locations.play.lng);
@@ -64,7 +61,7 @@ angular.module('radio')
       playedClips.push(closestClip); 
       playClip(closestClip);
     } else {
-      console.log("Clip already played");
+      console.log("Player: Clip already played");
     }
   };
 

@@ -10,8 +10,7 @@ angular.module('radio')
       latitude: newPos.coords.latitude,
       longitude: newPos.coords.longitude
     };
-    console.log('Position updated: ');
-    console.log(pos);
+    console.log('Locator: Position updated');
     $rootScope.$broadcast('position:updated', pos);
   };
 
@@ -40,7 +39,7 @@ angular.module('radio')
 
   var stopWatching = function () {
     if(watchID) {
-      console.log('Stop watching: ' + watchID);
+      console.log('Locator: Stop watching: ' + watchID);
       navigator.geolocation.clearWatch(watchID);
       watchID = null;
     }
@@ -57,7 +56,7 @@ angular.module('radio')
       // timeout at 60000 milliseconds (60 seconds)
       var options = { timeout:60000 };
       watchID = navigator.geolocation.watchPosition(setAndBroadcastNewPosition, errorHandler, options);
-      console.log('Start watching ' + watchID);
+      console.log('Locator: Start watching ' + watchID);
     } else {
       var error = {
         code: -1,
