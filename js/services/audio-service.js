@@ -1,7 +1,6 @@
 angular.module('radio')
 
 .factory('Audio', function($document, $rootScope) {
-  console.log("ok way");
   
   var body = $document[0].getElementsByTagName('body')[0];
   var audio = $document[0].createElement('audio');
@@ -19,6 +18,8 @@ angular.module('radio')
   };
 
   var setAudioSrc = function(src) {
+    console.log("ok way");
+    
     pauseAudio();
     currentSprite = null;
     audioIsReady = false;
