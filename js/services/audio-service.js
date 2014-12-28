@@ -3,21 +3,24 @@ angular.module('radio')
 .factory('Audio', function($document, $rootScope) {
   var audio = $document[0].createElement('audio');
   var audioIsReady = false;
-  var audioSprite = {};
+  var currentSprite = null;
 
   var isCurrentSprite = function(sprite) {
-    return (audioSprite.start == sprite.start) || (audioSprite.end == sprite.end);
+    return sprite && currentSprite && currentSprite.start == sprite.start && currentSprite.end == sprite.end;  
   };
 
   var setAudioSrc = function(src) {
     pauseAudio();
-    audioSprite = {};
-    audio.src = src;
+    currentSprite = null;
     audioIsReady = false;
     
     if(src) {
+      audio.src = src;
       audio.load();
-    } 
+    } else {
+      audio.src = "";
+      audio.load();
+    }
   };
 
   var playAudio = function() {
@@ -29,10 +32,16 @@ angular.module('radio')
   };
 
   var playAudioSprite = function(newSprite) {
+    if(!newSprite)
+      return;
+    
     if(!isCurrentSprite(newSprite)) {
-      audioSprite = newSprite;
-      audio.play(audioSprite.start);
-    } else if(audioSprite.end < audio.currentTime) {
+      console.log("New sprite");
+      currentSprite = newSprite;
+      audio.currentTime = currentSprite.start;
+      audio.play();
+    } else if(currentSprite.end < audio.currentTime) {
+      console.log("Old sprite");
       audio.play();
     }
   };
@@ -67,9 +76,12 @@ angular.module('radio')
   });
 
   audio.addEventListener('timeupdate', function(evt) {
-    if (audio.currentTime >= audioSprite.end) {
+    if(!currentSprite)
+      return;
+    
+    if (audio.currentTime >= currentSprite.end) {
       pauseAudio();
-      audioSprite = {};
+      currentSprite = null;
       console.log("Audio sprite ended");
       $rootScope.$broadcast('audio:spriteEnded');
     }
