@@ -61,7 +61,7 @@ body {
 }
 
 .angular-leaflet-map {
-  height: 100%;
+  height: auto;
 }
 
 .leaflet-control-container {
