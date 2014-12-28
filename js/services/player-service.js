@@ -67,8 +67,7 @@ angular.module('radio')
 
   var findAndPlayClosestClip = function() {
     
-//    if(!trip || !Locator.getCurrentPos() || !Audio.isReady())
-    if(!trip || !Locator.getCurrentPos())
+    if(!trip || !Locator.getCurrentPos() || !Audio.isReady())
       return;
     
     var closestClip = findClosestClip(Locator.getCurrentPos(), trip.clips);

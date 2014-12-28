@@ -1,7 +1,10 @@
 angular.module('radio')
 
 .factory('Audio', function($document, $rootScope) {
+  var body = $document[0].getElementsByTagName('body')[0];
   var audio = $document[0].createElement('audio');
+  body.appendChild(audio);
+  
   var audioIsReady = false;
   var currentSprite = null;
 
