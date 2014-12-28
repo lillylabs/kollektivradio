@@ -1,3 +1,3 @@
 // Kollektivradio App
 
-angular.module('radio', ['uiGmapgoogle-maps']);
+angular.module('radio', []);

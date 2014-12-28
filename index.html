@@ -9,9 +9,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
     
     <!-- angular google map -->
-    <script src="lib/lodash.min.js"></script>
-    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAhODo7kYoy-tc_kG4F8TswHM-AQYusbdg&sensor=true&libraries=geometry"></script>
-    <script src="lib/angular-google-maps.js"></script>
+<!--    <script src="lib/lodash.min.js"></script>-->
+<!--    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAhODo7kYoy-tc_kG4F8TswHM-AQYusbdg&sensor=true&libraries=geometry"></script>-->
+<!--    <script src="lib/angular-google-maps.js"></script>-->
     
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -33,34 +33,6 @@
   <body ng-app="radio">
     
     <div class="map" ng-controller="MapCtrl">
-      <ui-gmap-google-map 
-        center="map.center"
-        zoom="map.zoom"
-        draggable="true"
-        dragging="map.dragging"
-        bounds="map.bounds"
-        events="map.events"
-        options="map.options"
-        pan="true"
-        control="map.control"
-      >
-
-        <ui-gmap-marker
-          idKey='userMarker.id'
-          coords='userMarker.coords'
-          icon="userMarker.icon"
-        >
-        </ui-gmap-marker>
-
-        <ui-gmap-marker ng-repeat="clip in clips"
-          idKey='clip.id'
-          coords='clip.locations.map'
-          icon = 'clipIcon(clip)'
-        >
-        </ui-gmap-marker>
-
-      </ui-gmap-google-map>
-      
       <div class="footer" ng-show="showMapControls">
         <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-md">
           <span class="glyphicon glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Stopp tur
