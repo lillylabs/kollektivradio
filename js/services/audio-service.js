@@ -50,29 +50,26 @@ angular.module('radio')
   
   audio.addEventListener('canplay', function(evt) {
     audioIsReady = true;
-    console.log("Audio can play:");
+    console.log("Audio: can play:");
     console.log(evt);
     $rootScope.$broadcast('audio:canplay');
   });
   
   audio.addEventListener('play', function(evt) {
-    console.log("Play from " + audio.currentTime + ":");
-    console.log(evt);
+    console.log("Audio: Play from " + audio.currentTime);
   });
 
   audio.addEventListener('playing', function(evt) {
-    console.log("Playing from " + audio.currentTime + ":");
+    console.log("Audio: Playing from " + audio.currentTime);
     console.log(evt);
   });
 
   audio.addEventListener('pause', function(evt) {
-    console.log("Pause at " + audio.currentTime + ":");
-    console.log(evt);
+    console.log("Audio: Pause at " + audio.currentTime);
   });
 
   audio.addEventListener('ended', function(evt) {
-    console.log("Ended at " + audio.currentTime + ":");
-    console.log(evt);
+    console.log("Audio: Ended at " + audio.currentTime);
   });
 
   audio.addEventListener('timeupdate', function(evt) {
@@ -82,7 +79,7 @@ angular.module('radio')
     if (audio.currentTime >= currentSprite.end) {
       pauseAudio();
       currentSprite = null;
-      console.log("Audio sprite ended");
+      console.log("Audio: Sprite ended");
       $rootScope.$broadcast('audio:spriteEnded');
     }
   });

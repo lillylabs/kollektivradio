@@ -9,6 +9,7 @@ angular.module('radio')
     trip = tripToBeStarted;
     playedClips = [];
     Audio.setAudioSrc(trip.audio);
+    console.log("Player: Trip started");
     $rootScope.$broadcast('player:tripStarted');
   };
 
@@ -16,11 +17,13 @@ angular.module('radio')
     trip = null;
     playedClips = null;
     Audio.pauseAudio();
+    console.log("Player: Trip ended");
     $rootScope.$broadcast('player:tripEnded');
   };
 
   var playClip = function(clip) {
     Audio.playAudioSprite({start: clip.start, end: clip.end});
+    console.log("Player: Clip started - " + clip.id);
     $rootScope.$broadcast('player:clipStarted', clip);
   };
   
@@ -89,6 +92,7 @@ angular.module('radio')
   });
 
   $rootScope.$on('audio:spriteEnded', function(event) {
+    console.log("Player: Clip ended");
     $rootScope.$broadcast('player:clipEnded');
   });
 
