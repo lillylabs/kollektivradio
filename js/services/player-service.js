@@ -21,7 +21,7 @@ angular.module('radio')
 
   var playClip = function(clip) {
     Audio.playAudioSprite({start: clip.start, end: clip.end});
-    $rootScope.$broadcast('player:clipStarted');
+    $rootScope.$broadcast('player:clipStarted', clip);
   };
   
   var findClosestClip = function(pos, clips) {
@@ -55,8 +55,17 @@ angular.module('radio')
     });
     return clipInClips;
   };
+  
+  var playClosestClip = function(closestClip) {
+    if(!clipInClips(closestClip, playedClips)) {
+      playedClips.push(closestClip); 
+      playClip(closestClip);
+    } else {
+      console.log("Clip already played");
+    }
+  };
 
-  var playLocalClip = function() {
+  var findAndPlayClosestClip = function() {
     
     if(!trip || !Locator.getCurrentPos() || !Audio.isReady())
       return;
@@ -64,28 +73,19 @@ angular.module('radio')
     var closestClip = findClosestClip(Locator.getCurrentPos(), trip.clips);
 
     if(closestClip) {
-      if(!clipInClips(closestClip, playedClips)) {
-        playedClips.push(closestClip); 
-        playClip(closestClip);
-      } else {
-        console.log("Clip already played");
-      }
+      playClosestClip(closestClip);
     }
-  };
-
-  var isCurrentClip = function(clip) {
-    return Audio.isCurrentSprite({start: clip.start, end: clip.end});
   };
 
   //Observers
   
   $rootScope.$on('position:updated', function(event, newPos) {
-    playLocalClip();
+    findAndPlayClosestClip();
   });
 
   $rootScope.$on('audio:canplay', function(event) {
     audioReady = true;
-    playLocalClip();
+    findAndPlayClosestClip();
   });
 
   $rootScope.$on('audio:spriteEnded', function(event) {
@@ -95,7 +95,6 @@ angular.module('radio')
   return {
     startTrip: startTrip,
     endTrip: endTrip,
-    isCurrentClip: isCurrentClip,
     getSelectedTrip: function() {
       return trip;
     }

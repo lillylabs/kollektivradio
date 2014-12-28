@@ -1,3 +1,3 @@
 // Kollektivradio App
 
-angular.module('radio', []);
+angular.module('radio', ['leaflet-directive']);
