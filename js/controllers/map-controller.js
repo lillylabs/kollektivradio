@@ -33,11 +33,6 @@ angular.module('radio')
   };
   
   $scope.showMapControls = false;
-  $scope.defaults = {
-    doubleClickZoom: false,
-    scrollWheelZoom: false,
-    attributionControl: false
-  };
   
   $scope.map = {
     center: oslo,
@@ -46,6 +41,11 @@ angular.module('radio')
       baselayers: {
         base: googleRoadmap
       }
+    },
+    defaults: {
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      attributionControl: false
     }
   };
   

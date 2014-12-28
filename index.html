@@ -33,7 +33,7 @@
     
     <div class="map" ng-controller="MapCtrl">
       
-      <leaflet center="map.center" bounds="map.bounds" layers="map.layers" markers="map.markers"></leaflet>
+      <leaflet center="map.center" bounds="map.bounds" layers="map.layers" markers="map.markers" defaults="map.defaults"></leaflet>
       
       <div class="footer" ng-show="showMapControls">
         <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-md">
