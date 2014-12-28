@@ -2,38 +2,88 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width height=device-height">
     <title>Kollektivradio</title>
-
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <!-- ionic -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- angular google map -->
-    <script src="lib/lodash.min.js"></script>
+    
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAhODo7kYoy-tc_kG4F8TswHM-AQYusbdg&sensor=true&libraries=geometry"></script>
-    <script src="lib/angular-google-maps.js"></script>
-
-    <!-- your app's js -->
+    
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+    <script src="/lib/angular-leaflet-directive.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+    <script src="/lib/Google.js"></script>
+    
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    
+    <!-- kollektivradio -->
+    <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <script src="js/controllers/alerts-controller.js"></script>
+    <script src="js/controllers/trips-controller.js"></script>
+    <script src="js/controllers/map-controller.js"></script>
+    <script src="js/controllers/navbar-controller.js"></script>
+    <script src="js/services/audio-service.js"></script>
+    <script src="js/services/data-source-service.js"></script>
+    <script src="js/services/locator-service.js"></script>
+    <script src="js/services/map-util-service.js"></script>
+    <script src="js/services/player-service.js"></script>
   </head>
-  <body ng-app="radio" animation="slide-left-right">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar ng-controller="NavigationCtrl" class="bar-stable nav-title-slide">
-      <ion-nav-back-button ng-click="goBack()" class="button-icon icon  ion-arrow-left-c">
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
+  <body ng-app="radio">
+    
+    <div class="map" ng-controller="MapCtrl">
+      
+      <leaflet center="map.center" bounds="map.bounds" layers="map.layers" markers="map.markers" defaults="map.defaults"></leaflet>
+      
+      <div class="footer" ng-show="showMapControls">
+        <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-md">
+          <span class="glyphicon glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Stopp tur
+        </button>
+      </div>
+    </div>
+    
+    <nav ng-controller="NavbarCtrl" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand" href="#">Kollektivradio</span>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container">
+      <div ng-controller="AlertsCtrl" ng-if="alerts" class="row alerts">
+        <div class="col-md-12">
+          <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
+            <button ng-click="removeAlert(alert)" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{alert.message}}
+          </div>
+         </div> 
+      </div>
+
+      <div ng-controller="TripsCtrl" ng-show="showTrips" class="row trips">
+        <div class="col-md-12">
+          <div ng-repeat="trip in trips" class="trip">
+            <div class="trip-header">
+              <h4 class="trip-title">{{trip.title}}</h4>
+              <p class="trip-subtitle">
+                <span ng-repeat="line in trip.lines" ng-class="lineClass(line)" class="line">
+                  {{line.number}}
+                </span>
+                Fra <span class="station">{{trip.startStation}}</span> til <span class="station">{{trip.endStation}}</span>
+              </p>
+            </div>
+
+            <div ng-bind-html="trustHtml(trip.description)" class="trip-content"></div>
+
+            <button ng-click="startTrip(trip)" type="button" class="btn btn-default btn-block btn-md">
+              Spill tur
+            </button>              
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </body>
 </html>
