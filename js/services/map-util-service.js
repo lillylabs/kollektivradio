@@ -2,6 +2,21 @@ angular.module('radio')
 
 .factory('MapUtil', function($document, Locator) {
   
+  function leafletBoundsFromGoogleBounds(googleBounds) {
+    var bounds = {
+      northEast: {
+        lat: googleBounds.getNorthEast().lat(),
+        lng: googleBounds.getNorthEast().lng()
+      },
+      southWest: {
+        lat: googleBounds.getSouthWest().lat(),
+        lng: googleBounds.getSouthWest().lng()
+      }
+    };
+    
+    return bounds;
+  }
+  
   var calculateBoundsForClips = function(clips) {
     if(!clips || clips.length === 0)
       return;
@@ -13,20 +28,8 @@ angular.module('radio')
       var latlng = new google.maps.LatLng(clip.locations.map.lat, clip.locations.map.lng);
       googleBounds.extend( latlng );
     });
-    
-    // fit to bounds
-    var bounds = {
-      northEast: {
-        lat: googleBounds.getNorthEast().lat(),
-        lng: googleBounds.getNorthEast().lng()
-      },
-      southWest: {
-        lat: googleBounds.getSouthWest().lat(),
-        lng: googleBounds.getSouthWest().lng()
-      }
-    };
-    
-    return bounds;
+  
+    return leafletBoundsFromGoogleBounds(googleBounds);
   };
   
   var calculateBoundsForOslo = function() {
@@ -35,24 +38,11 @@ angular.module('radio')
       lng: 10.75,
     };
       
-      
     var googleBounds = new google.maps.LatLngBounds();
     var latlng = new google.maps.LatLng(oslo.lat, oslo.lng);
     googleBounds.extend( latlng );
     
-    // fit to bounds
-    var bounds = {
-      northEast: {
-        lat: googleBounds.getNorthEast().lat(),
-        lng: googleBounds.getNorthEast().lng()
-      },
-      southWest: {
-        lat: googleBounds.getSouthWest().lat(),
-        lng: googleBounds.getSouthWest().lng()
-      }
-    };
-    
-    return bounds;
+    return leafletBoundsFromGoogleBounds(googleBounds);
   };
 
   return {
