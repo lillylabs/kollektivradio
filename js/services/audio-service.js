@@ -12,8 +12,6 @@ angular.module('radio')
   };
 
   var setAudioSrc = function(src) {
-    console.log("ok way");
-    
     pauseAudio();
     currentSprite = null;
     audioIsReady = false;
