@@ -26,16 +26,12 @@ angular.module('radio')
     type: 'google'
   };
   
-  var oslo = {
-    lat: 59.91,
-    lng: 10.75,
-    zoom: 10
-  };
+  var osloBounds = MapUtil.calculateBoundsForOslo();
   
   $scope.showMapControls = false;
   
   $scope.map = {
-    center: oslo,
+    bounds: osloBounds,
     markers: {},
     layers: {
       baselayers: {
@@ -101,19 +97,16 @@ angular.module('radio')
     });
   }
   
-  function removeClips() {
-    $scope.map.markers = {
-      currentLocation: $scope.map.markers.currentLocation
-    };
-  }
+//  function removeClips() {
+//    $scope.map.markers = {
+//      currentLocation: $scope.map.markers.currentLocation
+//    };
+//  }
   
   // Observers
   $scope.$on('position:updated', function(event, pos) {
     $scope.$apply(function() {
-      var centerOnCurrentLocation = !Player.getSelectedTrip() && !$scope.map.markers.currentLocation;
       updateCurrentLocation(pos.latitude, pos.longitude);
-      if(centerOnCurrentLocation)
-        updateCenterToCurrentLocation();
     });
   });
   
@@ -140,8 +133,8 @@ angular.module('radio')
   
   $scope.$on('player:tripEnded', function(event) {
     $scope.showMapControls = false;
-    removeClips();
-    updateCenterToCurrentLocation();
+    $scope.map.markers = {};
+    $scope.map.bounds = osloBounds;
   });
 
 });
