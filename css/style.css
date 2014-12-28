@@ -1,14 +1,7 @@
 /* Empty. Add your own CSS if you like */
 
-html {
-  height: auto;
-  min-height: 100%;
-}
-
 body {
   padding-top: 50px; 
-  height: auto;
-  min-height: 100%;
 }
 
 .navbar-brand {
