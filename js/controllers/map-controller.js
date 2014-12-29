@@ -83,6 +83,13 @@ angular.module('radio')
     };
   }
   
+  function pauseAllMarkers() {
+    angular.forEach($scope.map.markers, function(marker) {
+      if(marker.icon == playingIcon)
+        marker.icon = pausedIcon;
+    });
+  }
+  
   function addClipMarker(clip) {
     $scope.map.markers[clip.id] = {
       lat: parseFloat(clip.locations.map.lat),
@@ -112,16 +119,14 @@ angular.module('radio')
   
   $scope.$on('player:clipStarted', function(event, clip) {
     $scope.$apply(function() {
+      pauseAllMarkers();
       $scope.map.markers[clip.id].icon = playingIcon;
     });
   });
   
   $scope.$on('player:clipEnded', function(event, clip) {
     $scope.$apply(function() {
-      angular.forEach($scope.map.markers, function(marker) {
-        if(marker.icon == playingIcon)
-          marker.icon = pausedIcon;
-      });
+      pauseAllMarkers();
     });
   });
 
