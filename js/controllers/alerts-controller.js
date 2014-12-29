@@ -52,5 +52,9 @@ angular.module('radio')
       delete $scope.alerts.position;
     });
   });
+  
+  $scope.$on('position:ended', function(event, pos) {
+    delete $scope.alerts.position;
+  });
 
 });
