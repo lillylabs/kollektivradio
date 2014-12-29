@@ -20,10 +20,10 @@ angular.module('radio')
     iconAnchor: [13, 13]
   };
   
-  var googleRoadmap = {
-    name: 'Google Streets',
-    layerType: 'ROADMAP',
-    type: 'google'
+  var positron = {
+    name: 'Positron',
+    url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+    type: 'xyz'
   };
   
   var osloBounds = MapUtil.calculateBoundsForOslo();
@@ -35,7 +35,7 @@ angular.module('radio')
     markers: {},
     layers: {
       baselayers: {
-        base: googleRoadmap
+        base: positron
       }
     },
     defaults: {
