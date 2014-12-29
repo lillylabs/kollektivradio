@@ -16,6 +16,9 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     
+    <!-- font awsome -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    
     <!-- kollektivradio -->
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
@@ -36,8 +39,8 @@
       <leaflet center="map.center" bounds="map.bounds" layers="map.layers" markers="map.markers" defaults="map.defaults"></leaflet>
       
       <div class="footer" ng-show="showMapControls">
-        <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-md">
-          <span class="glyphicon glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Stopp tur
+        <button ng-click="endTrip(trip)" type="button" class="btn btn-default btn-lg">
+          <i class="fa fa-times-circle" aria-hidden="true"></i> Stopp tur
         </button>
       </div>
     </div>
@@ -45,7 +48,7 @@
     <nav ng-controller="NavbarCtrl" class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <span class="navbar-brand" href="#">Kollektivradio</span>
+          <a class="navbar-brand" ng-click="endTrip()" href="#">Kollektivradio</a>
         </div>
       </div>
     </nav>
@@ -54,32 +57,46 @@
       <div ng-controller="AlertsCtrl" class="row alerts">
         <div class="col-md-12">
           <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
-            <button ng-click="removeAlert(alert)" ng-show="alert.dissmissable" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <button ng-click="removeAlert(alert)" ng-show="alert.dissmisable" class="close" data-dismiss="alert" aria-label="Steng">
+              <i class="fa fa-times" aria-hidden="true"></i>
             </button>
-            {{alert.message}}
+            <i ng-show="alert.icon == 'spinner'" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+            <i ng-show="alert.icon != 'spinner'" class="fa fa-{{alert.icon}}" aria-hidden="true"></i>
+            <span>{{alert.message}}</span>
           </div>
          </div> 
       </div>
 
       <div ng-controller="TripsCtrl" ng-show="showTrips" class="row trips">
         <div class="col-md-12">
+          
+          <div ng-hide="trips" class="alert alert-info">
+              <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+              <span>Henter tilgjenglige turer ...</span>
+          </div>
+          
           <div ng-repeat="trip in trips" class="trip">
-            <div class="trip-header">
-              <h4 class="trip-title">{{trip.title}}</h4>
-              <p class="trip-subtitle">
+            
+            <div class="trip-info">
+              <div class="trip-header">
+                <h4 class="trip-title">{{trip.title}} </h4>
+              </div>
+
+              <div ng-bind-html="trustHtml(trip.description)" class="trip-description"></div>
+
+              <p class="trip-line-info">
                 <span ng-repeat="line in trip.lines" ng-class="lineClass(line)" class="line">
                   {{line.number}}
                 </span>
-                Fra <span class="station">{{trip.startStation}}</span> til <span class="station">{{trip.endStation}}</span>
+                Fra <span class="station">{{trip.startStation}}</span> 
+                til <span class="station">{{trip.endStation}}</span>
               </p>
             </div>
-
-            <div ng-bind-html="trustHtml(trip.description)" class="trip-content"></div>
-
-            <button ng-click="startTrip(trip)" type="button" class="btn btn-default btn-block btn-md">
-              Spill tur
-            </button>              
+            
+            <button ng-click="startTrip(trip)" class="btn btn-default btn-lg btn-block">
+              <i class="fa fa-play-circle" aria-hidden="true"></i> Spill tur
+            </button>
+            
           </div>
         </div>
       </div>

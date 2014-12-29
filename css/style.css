@@ -17,6 +17,16 @@ body {
 
 .alert {
   margin: 20px 0;
+  text-align: center;
+}
+
+.alert > i {
+  font-size: 200%;
+  margin-bottom: 10px;
+}
+
+.alert span {  
+  display: block;
 }
 
 .trip {
@@ -25,8 +35,16 @@ body {
   padding: 20px;
 }
 
-.trip-content {
-  padding: 0.5em 0;
+.trip button {
+  margin-top: 20px;
+}
+
+.trip-header h4 {
+  margin-bottom: 20px;
+}
+
+.trip-line-info {
+  margin-top: 20px;
 }
 
 .line {
