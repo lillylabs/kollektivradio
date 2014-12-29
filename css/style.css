@@ -15,6 +15,10 @@ body {
   bottom: 10px;
 }
 
+.alert {
+  margin: 20px 0;
+}
+
 .trip {
   background-color: white;
   margin: 20px 0;

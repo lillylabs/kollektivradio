@@ -51,10 +51,10 @@
     </nav>
     
     <div class="container">
-      <div ng-controller="AlertsCtrl" ng-if="alerts" class="row alerts">
+      <div ng-controller="AlertsCtrl" class="row alerts">
         <div class="col-md-12">
           <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
-            <button ng-click="removeAlert(alert)" class="close" data-dismiss="alert" aria-label="Close">
+            <button ng-click="removeAlert(alert)" ng-show="alert.dissmissable" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             {{alert.message}}
