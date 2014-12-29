@@ -42,11 +42,13 @@ angular.module('radio')
       console.log('Locator: Stop watching: ' + watchID);
       navigator.geolocation.clearWatch(watchID);
       watchID = null;
+      $rootScope.$broadcast('position:ended', pos);
     }
   };
 
   var errorHandler = function(err) {
-    broadcastError(err);
+    if(watchID)
+      broadcastError(err);
   };
 
   var watchPosition = function() {

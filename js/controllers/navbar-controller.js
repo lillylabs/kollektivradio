@@ -1,17 +1,9 @@
 angular.module('radio')
 
-.controller('NavbarCtrl', function($scope, Locator, MapUtil) {
+.controller('NavbarCtrl', function($scope, Player) {
   
-  $scope.showNavbar = true;
-  
-  //Observer
-  
-  $scope.$on('player:tripStarted', function(event) {
-    $scope.showNavbar = false;
-  });
-  
-  $scope.$on('player:tripEnded', function(event) {
-    $scope.showNavbar = true;
-  });
+  $scope.endTrip = function() {
+    Player.endTrip();
+  };
 
 });
