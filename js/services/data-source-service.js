@@ -1,6 +1,6 @@
 angular.module('radio')
 
-.factory('DataSource', function($http, $rootScope, $location, _) {
+.factory('DataSource', function($http, $rootScope, $location, _, environment) {
   
   var apiUrl = "https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip";
   
@@ -71,15 +71,10 @@ angular.module('radio')
     return tripJson.categories.Prod;
   };
   
-  var isProduction = function() {
-    var env = $location.search().env;
-    return !env || env == "prod";
-  };
-
   var fetchTrips = function() {
     return $http.get(apiUrl).then(function(response) {
       var filteredTrips = _.filter(response.data.posts, function (trip) {
-        return isTripJsonForProduction(trip) || !isProduction();
+        return isTripJsonForProduction(trip) || !environment.isProduction;
       });
       var mappedTrips = _.map(filteredTrips, function(trip) {
         return tripFromTripJson(trip);
