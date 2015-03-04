@@ -32,19 +32,18 @@ angular.module('radio')
   var findClosestClip = function(pos, clips) {
     var userLatLng = new google.maps.LatLng(pos.latitude, pos.longitude);
     var closestClip = null;
-    var closestDistance = null;
+    var closestDistance = Number.MAX_VALUE;
 
     angular.forEach(clips, function(clip) {
       var clipLatLng = new google.maps.LatLng(clip.locations.play.lat, clip.locations.play.lng);
       var distance = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, clipLatLng);
 
-      if( distance < clip.treshold &&
-         (!closestDistance || distance < closestDistance)) {
+      if (distance < clip.treshold && distance < closestDistance) {
         closestClip = clip;
         closestDistance = distance;
       }
     });
-    
+
     return closestClip;
   };
   
