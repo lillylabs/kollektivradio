@@ -68,24 +68,22 @@ angular.module('radio')
 
   var findAndPlayClosestClip = function() {
     
-    if(!trip || !Locator.getCurrentPos() || !Audio.isReady())
+    if(!trip || !Locator.getCurrentPos()) {
       return;
+    }
     
     var closestClip = findClosestClip(Locator.getCurrentPos(), trip.clips);
 
     if(closestClip) {
-      playClosestClip(closestClip);
+      Audio.isReady().then(function () {
+        playClosestClip(closestClip);
+      });
     }
   };
 
   //Observers
   
   $rootScope.$on('position:updated', function(event, newPos) {
-    findAndPlayClosestClip();
-  });
-
-  $rootScope.$on('audio:canplay', function(event) {
-    audioReady = true;
     findAndPlayClosestClip();
   });
 
