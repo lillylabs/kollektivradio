@@ -105,23 +105,18 @@ angular.module('radio')
   
   // Observers
   $scope.$on('position:updated', function(event, pos) {
-    $scope.$apply(function() {
-      updateCurrentLocation(pos.latitude, pos.longitude);
-    });
+    updateCurrentLocation(pos.latitude, pos.longitude);
   });
   
   $scope.$on('player:clipStarted', function(event, clip) {
-    $scope.$apply(function() {
-      $scope.map.markers[clip.id].icon = playingIcon;
-    });
+    $scope.map.markers[clip.id].icon = playingIcon;
   });
   
   $scope.$on('player:clipEnded', function(event, clip) {
-    $scope.$apply(function() {
-      angular.forEach($scope.map.markers, function(marker) {
-        if(marker.icon == playingIcon)
-          marker.icon = pausedIcon;
-      });
+    angular.forEach($scope.map.markers, function(marker) {
+      if(marker.icon == playingIcon)
+        marker.icon = pausedIcon;
+      }
     });
   });
 
