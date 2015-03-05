@@ -76,11 +76,13 @@ angular.module('radio')
   }
   
   function updateCurrentLocation(lat, lng) {
-    $scope.map.markers.currentLocation = {
-      lat: lat,
-      lng: lng,
-      icon: locationIcon
-    };
+    $scope.map.markers = angular.extend({}, $scope.map.markers, {
+      currentLocation: {
+        lat: lat,
+        lng: lng,
+        icon: locationIcon
+       }
+    });
   }
   
   function addClipMarker(clip) {
@@ -113,11 +115,17 @@ angular.module('radio')
   });
   
   $scope.$on('player:clipEnded', function(event, clip) {
+    var markers = [];
     angular.forEach($scope.map.markers, function(marker) {
-      if(marker.icon == playingIcon)
-        marker.icon = pausedIcon;
+      if(marker.icon == playingIcon) {
+        markers.push(angular.extend({}, marker, {
+            icon: pausedIcon
+        }));
+      } else {
+          markers.push(marker);
       }
     });
+    $scope.map.markers = markers;
   });
 
   $scope.$on('player:tripStarted', function(event) {
