@@ -111,18 +111,22 @@ angular.module('radio')
   });
   
   $scope.$on('player:clipStarted', function(event, clip) {
-    $scope.map.markers[clip.id].icon = playingIcon;
+    var markers = angular.extend({}, $scope.map.markers);
+    angular.forEach(markers, function (marker) {
+      if (marker === markers[clip.id]) {
+        marker.icon = playingIcon;
+      } else if (marker.icon === playingIcon) {
+        marker.icon = pausedIcon;
+      }
+    });
+    $scope.map.markers = markers;
   });
   
   $scope.$on('player:clipEnded', function(event, clip) {
-    var markers = [];
-    angular.forEach($scope.map.markers, function(marker) {
-      if(marker.icon == playingIcon) {
-        markers.push(angular.extend({}, marker, {
-            icon: pausedIcon
-        }));
-      } else {
-          markers.push(marker);
+    var markers = angular.extend({}, $scope.map.markers);
+    angular.forEach(markers, function(marker) {
+      if(marker.icon === playingIcon) {
+        marker.icon = pausedIcon;
       }
     });
     $scope.map.markers = markers;
