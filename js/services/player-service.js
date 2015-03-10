@@ -32,19 +32,18 @@ angular.module('radio')
   var findClosestClip = function(pos, clips) {
     var userLatLng = new google.maps.LatLng(pos.latitude, pos.longitude);
     var closestClip = null;
-    var closestDistance = null;
+    var closestDistance = Number.MAX_VALUE;
 
     angular.forEach(clips, function(clip) {
       var clipLatLng = new google.maps.LatLng(clip.locations.play.lat, clip.locations.play.lng);
       var distance = google.maps.geometry.spherical.computeDistanceBetween(userLatLng, clipLatLng);
 
-      if( distance < clip.treshold &&
-         (!closestDistance || distance < closestDistance)) {
+      if (distance < clip.treshold && distance < closestDistance) {
         closestClip = clip;
         closestDistance = distance;
       }
     });
-    
+
     return closestClip;
   };
   
@@ -69,24 +68,22 @@ angular.module('radio')
 
   var findAndPlayClosestClip = function() {
     
-    if(!trip || !Locator.getCurrentPos() || !Audio.isReady())
+    if(!trip || !Locator.getCurrentPos()) {
       return;
+    }
     
     var closestClip = findClosestClip(Locator.getCurrentPos(), trip.clips);
 
     if(closestClip) {
-      playClosestClip(closestClip);
+      Audio.isReady().then(function () {
+        playClosestClip(closestClip);
+      });
     }
   };
 
   //Observers
   
   $rootScope.$on('position:updated', function(event, newPos) {
-    findAndPlayClosestClip();
-  });
-
-  $rootScope.$on('audio:canplay', function(event) {
-    audioReady = true;
     findAndPlayClosestClip();
   });
 
