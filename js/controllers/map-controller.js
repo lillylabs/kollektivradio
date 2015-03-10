@@ -99,12 +99,6 @@ angular.module('radio')
     });
   }
   
-//  function removeClips() {
-//    $scope.map.markers = {
-//      currentLocation: $scope.map.markers.currentLocation
-//    };
-//  }
-  
   // Observers
   $scope.$on('position:updated', function(event, pos) {
     updateCurrentLocation(pos.latitude, pos.longitude);
