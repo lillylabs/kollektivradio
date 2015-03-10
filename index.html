@@ -17,6 +17,9 @@
     
     <!-- font awsome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+    <!-- lodash -->
+    <script src="/lib/lodash.min.js"></script>
     
     <!-- kollektivradio -->
     <link href="css/style.css" rel="stylesheet">
@@ -46,6 +49,9 @@
     
     <nav ng-controller="NavbarCtrl" class="navbar navbar-default navbar-fixed-top">
       <div class="container">
+        <ul class="pull-right nav navbar-nav">
+          <li><a ng-href="http://kollektivradio.lillylabs.wpengine.com/">&nbsp;<i class="fa fa-info"></i>&nbsp;</a></li>
+        </ul>
         <div class="navbar-header">
           <a class="navbar-brand" ng-click="endTrip()" href="#">Kollektivradio</a>
         </div>

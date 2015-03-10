@@ -76,17 +76,12 @@ angular.module('radio')
   }
   
   function updateCurrentLocation(lat, lng) {
-    $scope.map.markers.currentLocation = {
-      lat: lat,
-      lng: lng,
-      icon: locationIcon
-    };
-  }
-  
-  function pauseAllMarkers() {
-    angular.forEach($scope.map.markers, function(marker) {
-      if(marker.icon == playingIcon)
-        marker.icon = pausedIcon;
+    $scope.map.markers = angular.extend({}, $scope.map.markers, {
+      currentLocation: {
+        lat: lat,
+        lng: lng,
+        icon: locationIcon
+       }
     });
   }
   
@@ -104,30 +99,31 @@ angular.module('radio')
     });
   }
   
-//  function removeClips() {
-//    $scope.map.markers = {
-//      currentLocation: $scope.map.markers.currentLocation
-//    };
-//  }
-  
   // Observers
   $scope.$on('position:updated', function(event, pos) {
-    $scope.$apply(function() {
-      updateCurrentLocation(pos.latitude, pos.longitude);
-    });
+    updateCurrentLocation(pos.latitude, pos.longitude);
   });
   
   $scope.$on('player:clipStarted', function(event, clip) {
-    $scope.$apply(function() {
-      pauseAllMarkers();
-      $scope.map.markers[clip.id].icon = playingIcon;
+    var markers = angular.extend({}, $scope.map.markers);
+    angular.forEach(markers, function (marker) {
+      if (marker === markers[clip.id]) {
+        marker.icon = playingIcon;
+      } else if (marker.icon === playingIcon) {
+        marker.icon = pausedIcon;
+      }
     });
+    $scope.map.markers = markers;
   });
   
   $scope.$on('player:clipEnded', function(event, clip) {
-    $scope.$apply(function() {
-      pauseAllMarkers();
+    var markers = angular.extend({}, $scope.map.markers);
+    angular.forEach(markers, function(marker) {
+      if(marker.icon === playingIcon) {
+        marker.icon = pausedIcon;
+      }
     });
+    $scope.map.markers = markers;
   });
 
   $scope.$on('player:tripStarted', function(event) {

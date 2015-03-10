@@ -6,12 +6,14 @@ angular.module('radio')
   var pos = null;
 
   var setAndBroadcastNewPosition = function (newPos) {
-    pos = {
-      latitude: newPos.coords.latitude,
-      longitude: newPos.coords.longitude
-    };
-    console.log('Locator: Position updated');
-    $rootScope.$broadcast('position:updated', pos);
+    $rootScope.$apply(function () {
+      pos = {
+        latitude: newPos.coords.latitude,
+        longitude: newPos.coords.longitude
+      };
+      console.log('Locator: Position updated');
+      $rootScope.$broadcast('position:updated', pos);
+    });
   };
 
   var broadcastError = function (error) {
@@ -47,8 +49,11 @@ angular.module('radio')
   };
 
   var errorHandler = function(err) {
-    if(watchID)
-      broadcastError(err);
+    if (watchID) {
+      $rootScope.$apply(function () {
+        broadcastError(err);
+      });
+    }
   };
 
   var watchPosition = function() {

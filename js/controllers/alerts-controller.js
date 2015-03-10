@@ -42,15 +42,11 @@ angular.module('radio')
         break;
     }
     
-    $scope.$apply(function() {
-      $scope.alerts.position = alert;
-    });
+    $scope.alerts.position = alert;
   });
   
   $scope.$on('position:updated', function(event, pos) {
-    $scope.$apply(function() {
-      delete $scope.alerts.position;
-    });
+    delete $scope.alerts.position;
   });
   
   $scope.$on('position:ended', function(event, pos) {
