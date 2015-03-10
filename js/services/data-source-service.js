@@ -1,9 +1,8 @@
 angular.module('radio')
 
-.factory('DataSource', function($http, $rootScope, $location) {
+.factory('DataSource', function($http, $rootScope, $location, _, environment) {
   
   var apiUrl = "https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip";
-  var trips = null;
   
   var tripFromTripJson = function(tripJson) {
     var metadata = metadataFromTripJson(tripJson);
@@ -72,42 +71,21 @@ angular.module('radio')
     return tripJson.categories.Prod;
   };
   
-  var isProduction = function() {
-    var env = $location.search().env;
-    return !env || env == "prod";
-  };
-
-  var fetchAllTrips = function() {
-    $http.get(apiUrl).success(function(data, status, headers, config) {
-
-      trips = [];
-      angular.forEach(data.posts, function(post) {
-        if(isTripJsonForProduction(post))
-          trips.push(tripFromTripJson(post));  
-        else if(!isProduction())
-          trips.push(tripFromTripJson(post));
+  var fetchTrips = function() {
+    return $http.get(apiUrl).then(function(response) {
+      var filteredTrips = _.filter(response.data.posts, function (trip) {
+        return isTripJsonForProduction(trip) || !environment.isProduction;
       });
-      
-      console.log("Trips fetched:");
-      console.log(trips);
-      $rootScope.$broadcast('trips:fetched');
-    }).
-    error(function(data, status, headers, config) {
-      console.log("Trips could not be fetched:");
-      $rootScope.$broadcast('trips:error');
+      var mappedTrips = _.map(filteredTrips, function(trip) {
+        return tripFromTripJson(trip);
+      });
+
+      console.log("Trip IDs fetched: " + _.pluck(mappedTrips, "id").join());
+      return mappedTrips;
     });
   };
 
   return {
-    fetch: fetchAllTrips,
-    trips: function() {
-      return trips;
-    },
-    get: function(tripId) {
-      if(trips)
-        return trips[tripId];
-      else
-        return null;
-    }
+    trips: fetchTrips
   };
 });

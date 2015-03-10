@@ -5,11 +5,9 @@ angular.module('radio')
 
   // Set up
   
-  if(DataSource.trips()) {
-    $scope.trips = DataSource.trips() ;
-  } else {
-    DataSource.fetch();
-  }
+  DataSource.trips().then(function (trips) {
+    $scope.trips = trips;
+  });
   
   // Scope functions
   
@@ -33,10 +31,6 @@ angular.module('radio')
   };
   
   // Observers
-  
-  $scope.$on('trips:fetched', function(event) {
-    $scope.trips = DataSource.trips();
-  });
   
   $scope.$on('player:tripStarted', function(event) {
     $scope.showTrips = false;
