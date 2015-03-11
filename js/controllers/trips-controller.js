@@ -1,3 +1,4 @@
+'use strict';
 angular.module('radio')
 
 .controller('TripsCtrl', function($scope, $sce, DataSource, Locator, Player) {
@@ -16,14 +17,15 @@ angular.module('radio')
   };
   
   $scope.lineClass = function(line) {
-    if(line.number < 10)
-      return "metro";
-    else if(line.number >= 10 && line.number < 20) 
-      return "tram";
-    else if(line.number >= 20 && line.number < 90)
-      return "bus";
-    else if(line.number >= 90)
-      return "boat";
+    if(line.number < 10) {
+      return 'metro';
+    } else if(line.number >= 10 && line.number < 20) {
+      return 'tram';
+    } else if(line.number >= 20 && line.number < 90) {
+      return 'bus';
+    } else if(line.number >= 90) {
+      return 'boat';
+    }
   };
   
   $scope.trustHtml = function(html) {

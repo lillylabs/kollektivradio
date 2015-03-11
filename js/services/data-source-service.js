@@ -1,23 +1,23 @@
+'use strict';
 angular.module('radio')
 
 .factory('DataSource', function($http, $rootScope, $location, _, environment) {
   
-  var apiUrl = "https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip";
+  var apiUrl = 'https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip';
   
   var tripFromTripJson = function(tripJson) {
     var metadata = metadataFromTripJson(tripJson);
 
-    var clips = [];
-    for (i = 0, len = metadata.clips; i < len; i++) {
-      clips.push(clipFromMetadata(metadata, i));
-    }
+    var clips = _.times(metadata.clips, function (i) {
+      return clipFromMetadata(metadata, i);
+    });
 
-    var lines = [];
-    for (i = 0, len = metadata.lines; i < len; i++) {
-      lines.push(lineFromMetadata(metadata, i));
-    }
+    var lines = _.times(metadata.lines, function (i) {
+      return lineFromMetadata(metadata, i);
+    });
     
     var trip = {
+      /*jshint camelcase: false */
       id: tripJson.ID,
       title: tripJson.title,
       description: tripJson.content,
@@ -32,16 +32,14 @@ angular.module('radio')
   };
   
   var metadataFromTripJson = function(tripJson) {
-    var metadata = {};
-    for (var i = 0, len = tripJson.metadata.length; i < len; i++) {
-      metadata[tripJson.metadata[i].key] = tripJson.metadata[i].value;
-    }
-    return metadata;
+    return _.object(_.map(tripJson.metadata, function (tripMetaData) {
+      return [tripMetaData.key, tripMetaData.value];
+    }));
   };
   
   var clipFromMetadata = function(metadata, clipIndex) {
     var clip = {
-      id: "clip" + clipIndex,
+      id: 'clip' + clipIndex,
       title: metadata['clips_' + clipIndex + '_title'],
       start: metadata['clips_' + clipIndex + '_start'],
       end: metadata['clips_' + clipIndex + '_end'],
@@ -52,8 +50,9 @@ angular.module('radio')
       }
     };
 
-    if(!clip.locations.map)
+    if(!clip.locations.map) {
       clip.locations.map = clip.locations.play;
+    }
     
     return clip;
   };
@@ -80,7 +79,7 @@ angular.module('radio')
         return tripFromTripJson(trip);
       });
 
-      console.log("Trip IDs fetched: " + _.pluck(mappedTrips, "id").join());
+      console.log('Trip IDs fetched: ' + _.pluck(mappedTrips, 'id').join());
       return mappedTrips;
     });
   };

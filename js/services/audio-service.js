@@ -1,3 +1,4 @@
+'use strict';
 angular.module('radio')
 
 .factory('Audio', function($document, $rootScope, $q) {
@@ -8,7 +9,7 @@ angular.module('radio')
   var currentSprite = null;
 
   var isSpriteCurrentSprite = function(sprite) {
-    return sprite && currentSprite && currentSprite.start == sprite.start && currentSprite.end == sprite.end;  
+    return sprite && currentSprite && currentSprite.start === sprite.start && currentSprite.end === sprite.end;  
   };
 
   var setAudioSrc = function(src) {
@@ -22,7 +23,7 @@ angular.module('radio')
       audio.src = src;
       audio.load();
     } else {
-      audio.src = "";
+      audio.src = '';
       audio.load();
     }
   };
@@ -36,16 +37,17 @@ angular.module('radio')
   };
 
   var playAudioSprite = function(newSprite) {
-    if(!newSprite)
+    if(!newSprite) {
       return;
+    }
     
     if(!isSpriteCurrentSprite(newSprite)) {
-      console.log("New sprite");
+      console.log('New sprite');
       currentSprite = newSprite;
       audio.currentTime = currentSprite.start;
       audio.play();
     } else if(currentSprite.end < audio.currentTime) {
-      console.log("Old sprite");
+      console.log('Old sprite');
       audio.play();
     }
   };
@@ -60,26 +62,26 @@ angular.module('radio')
   
   audio.addEventListener('play', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Play from " + audio.currentTime);
+      console.log('Audio: Play from ' + audio.currentTime);
     });
   });
 
   audio.addEventListener('playing', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Playing from " + audio.currentTime);
+      console.log('Audio: Playing from ' + audio.currentTime);
       console.log(evt);
     });
   });
 
   audio.addEventListener('pause', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Pause at " + audio.currentTime);
+      console.log('Audio: Pause at ' + audio.currentTime);
     });
   });
 
   audio.addEventListener('ended', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Ended at " + audio.currentTime);
+      console.log('Audio: Ended at ' + audio.currentTime);
     });
   });
 
@@ -88,7 +90,7 @@ angular.module('radio')
       if (currentSprite && audio.currentTime >= currentSprite.end) {
         pauseAudio();
         currentSprite = null;
-        console.log("Audio: Sprite ended");
+        console.log('Audio: Sprite ended');
         $rootScope.$broadcast('audio:spriteEnded');
       }
     });

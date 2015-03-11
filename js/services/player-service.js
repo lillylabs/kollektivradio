@@ -1,3 +1,4 @@
+'use strict';
 angular.module('radio')
 
 .factory('Player', function($document, $rootScope, Locator, Audio) {
@@ -10,7 +11,7 @@ angular.module('radio')
     playedClips = [];
     Locator.watchPosition();
     Audio.setAudioSrc(trip.audio);
-    console.log("Player: Trip started");
+    console.log('Player: Trip started');
     $rootScope.$broadcast('player:tripStarted');
   };
 
@@ -19,13 +20,13 @@ angular.module('radio')
     playedClips = null;
     Locator.stopWatching();
     Audio.pauseAudio();
-    console.log("Player: Trip ended");
+    console.log('Player: Trip ended');
     $rootScope.$broadcast('player:tripEnded');
   };
 
   var playClip = function(clip) {
     Audio.playAudioSprite({start: clip.start, end: clip.end});
-    console.log("Player: Clip started - " + clip.id);
+    console.log('Player: Clip started - ' + clip.id);
     $rootScope.$broadcast('player:clipStarted', clip);
   };
   
@@ -50,7 +51,7 @@ angular.module('radio')
   var clipInClips = function(needle, haystack) {
     var clipInClips = false;
     angular.forEach(haystack, function(clip) {
-      if(needle == clip) {
+      if(needle === clip) {
         clipInClips = true;
       }
     });
@@ -62,7 +63,7 @@ angular.module('radio')
       playedClips.push(closestClip); 
       playClip(closestClip);
     } else {
-      console.log("Player: Clip already played");
+      console.log('Player: Clip already played');
     }
   };
 
@@ -88,7 +89,7 @@ angular.module('radio')
   });
 
   $rootScope.$on('audio:spriteEnded', function(event) {
-    console.log("Player: Clip ended");
+    console.log('Player: Clip ended');
     $rootScope.$broadcast('player:clipEnded');
   });
 
