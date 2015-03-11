@@ -1,6 +1,6 @@
 "use strict"
 
-describe('MapCtrl', function(){
+describe('MapCtrl', function() {
 
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
@@ -78,6 +78,16 @@ describe('MapCtrl', function(){
       });
     });
 
+    it('should set current position marker on location updates', function () {
+      var mockCurrentPosition = {latitude: 59.926342247, longitude: 10.7544};
+      $scope.$broadcast('position:updated', mockCurrentPosition);
+      expect($scope.map.markers.currentLocation).to.be.eql({
+        lat: mockCurrentPosition.latitude,
+        lng: mockCurrentPosition.longitude,
+        icon: MarkerIcons.locationIcon
+      });
+    });
+
     describe('when trip is ended', function () {
       beforeEach(function () {
         $scope.$broadcast('player:tripEnded');
@@ -92,8 +102,19 @@ describe('MapCtrl', function(){
       it('should have one map marker for each clip', function () {
         expect($scope.map.markers).to.eql({});
       });
+
+      it('should set current position marker on location updates', function () {
+        var mockCurrentPosition = {latitude: 59.926342247, longitude: 10.7544};
+        $scope.$broadcast('position:updated', mockCurrentPosition);
+        expect($scope.map.markers.currentLocation).to.be.eql({
+          lat: mockCurrentPosition.latitude,
+          lng: mockCurrentPosition.longitude,
+          icon: MarkerIcons.locationIcon
+        });
+      });
+
     });
+
   });
 
-})
-
+});
