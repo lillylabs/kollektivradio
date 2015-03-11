@@ -14,7 +14,7 @@
     "sinon": "^1.13.0"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS tests/karma.conf.js"
+    "test": "./node_modules/jshint/bin/jshint js tests && ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS tests/karma.conf.js"
   },
   "repository": {
     "type": "git",
