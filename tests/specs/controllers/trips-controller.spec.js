@@ -1,8 +1,6 @@
 "use strict"
 
-describe('Array', function(){
-  var apiUrl = 'https://public-api.wordpress.com/rest/v1/' +
-    'sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip';
+describe('TripsCtrl', function(){
 
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
