@@ -1,32 +1,29 @@
 'use strict';
 angular.module('radio')
 
-.controller('MapCtrl', function($scope, Locator, MapUtil, Player) {
-  
-  var locationIcon = {
-    iconUrl: '/img/marker_location.png',
+.constant('MarkerIcons', {
+  locationIcon: {
+    iconUrl: "/img/marker_location.png",
     iconSize: [26, 26],
     iconAnchor: [13, 13]
-  };
-  
-  var playingIcon = {
-    iconUrl: '/img/marker_playing.png',
+  },
+  playingIcon: {
+    iconUrl: "/img/marker_playing.png",
     iconSize: [50, 50],
     iconAnchor: [25, 47]
-  };
-  
-  var pausedIcon = {
-    iconUrl: '/img/marker_paused.png',
+  },
+  pausedIcon: {
+    iconUrl: "/img/marker_paused.png",
     iconSize: [26, 26],
     iconAnchor: [13, 13]
-  };
-  
-  var positron = {
+  },
+  positron: {
     name: 'Positron',
     url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
     type: 'xyz'
-  };
-  
+  }
+})
+.controller('MapCtrl', function($scope, Locator, MapUtil, Player, MarkerIcons) {
   var osloBounds = MapUtil.calculateBoundsForOslo();
   
   $scope.showMapControls = false;
@@ -36,7 +33,7 @@ angular.module('radio')
     markers: {},
     layers: {
       baselayers: {
-        base: positron
+        base: MarkerIcons.positron
       }
     },
     defaults: {
@@ -68,7 +65,7 @@ angular.module('radio')
       currentLocation: {
         lat: lat,
         lng: lng,
-        icon: locationIcon
+        icon: MarkerIcons.locationIcon
        }
     });
   }
@@ -77,7 +74,7 @@ angular.module('radio')
     $scope.map.markers[clip.id] = {
       lat: parseFloat(clip.locations.map.lat),
       lng: parseFloat(clip.locations.map.lng),
-      icon: pausedIcon
+      icon: MarkerIcons.pausedIcon
     };
   }
   
@@ -96,9 +93,9 @@ angular.module('radio')
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
       if (marker === markers[clip.id]) {
-        marker.icon = playingIcon;
-      } else if (marker.icon === playingIcon) {
-        marker.icon = pausedIcon;
+        marker.icon = MarkerIcons.playingIcon;
+      } else if (marker.icon === MarkerIcons.playingIcon) {
+        marker.icon = MarkerIcons.pausedIcon;
       }
     });
     $scope.map.markers = markers;
@@ -107,8 +104,8 @@ angular.module('radio')
   $scope.$on('player:clipEnded', function(event, clip) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function(marker) {
-      if(marker.icon === playingIcon) {
-        marker.icon = pausedIcon;
+      if(marker.icon === MarkerIcons.playingIcon) {
+        marker.icon = MarkerIcons.pausedIcon;
       }
     });
     $scope.map.markers = markers;
