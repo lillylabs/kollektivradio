@@ -8,6 +8,10 @@ body {
   text-align: center;
 }
 
+.navbar i {
+  font-size: 130%;
+}
+
 .map .footer {
   position: fixed;
   width: 100%;
