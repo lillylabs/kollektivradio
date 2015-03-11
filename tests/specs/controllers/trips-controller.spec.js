@@ -1,11 +1,11 @@
-"use strict"
+'use strict';
 
 describe('TripsCtrl', function(){
 
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
 
-  var tripsController, tripsDefer, tripsFixture, $httpBackend, $scope, mockTripsData, mockPlayer;
+  var tripsController, tripsDefer, $scope, mockTripsData, mockPlayer;
 
   beforeEach(inject(function($controller, $injector, $q) {
     $scope = $injector.get('$rootScope').$new();
@@ -17,7 +17,7 @@ describe('TripsCtrl', function(){
         tripsDefer = $q.defer();
         return tripsDefer.promise;
       }
-    }
+    };
 
     mockPlayer = {
       startTrip: sinon.spy()
@@ -33,8 +33,8 @@ describe('TripsCtrl', function(){
   describe('before trips are loaded', function(){
     it('should not have trips on scope', function() {
       expect($scope.trips).to.equal(undefined);
-    })
-  })
+    });
+  });
 
   describe('when trips are loaded', function(){
     beforeEach(function () {
@@ -45,7 +45,7 @@ describe('TripsCtrl', function(){
 
     it('should have trips on scope', function() {
       expect($scope.trips).to.eql(mockTripsData);
-    })
+    });
 
     it('should show trips on player:tripEnded event', function () {
       $scope.$broadcast('player:tripEnded');
@@ -73,7 +73,7 @@ describe('TripsCtrl', function(){
       expect(mockPlayer.startTrip.calledWith(tripToStart)).to.be.true;
     });
 
-  })
+  });
 
-})
+});
 

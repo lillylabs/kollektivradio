@@ -9,4 +9,4 @@
 
 ## Run jshint
 1. `npm install`
-2. `node_modules/jshint/bin/jshint js`
+2. `node_modules/jshint/bin/jshint js tests`

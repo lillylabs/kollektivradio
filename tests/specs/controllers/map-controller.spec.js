@@ -5,7 +5,7 @@ describe('MapCtrl', function() {
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
 
-  var mapController, $scope, mockTripsData, mockPlayer, mockTrip, MarkerIcons;
+  var mapController, $scope, mockPlayer, mockTrip, MarkerIcons;
   var mockOsloBounds = {
     northEast: {lat: 59.91, lng: 10.75},
     southWest: {lat: 59.91, lng: 10.75}
