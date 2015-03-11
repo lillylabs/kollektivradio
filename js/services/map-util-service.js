@@ -1,7 +1,7 @@
 'use strict';
 angular.module('radio')
 
-.factory('MapUtil', function($document, Locator) {
+.factory('MapUtil', function($document, Locator, google) {
   
   function leafletBoundsFromGoogleBounds(googleBounds) {
     var bounds = {

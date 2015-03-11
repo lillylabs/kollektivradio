@@ -9,6 +9,7 @@ angular.module('radio', ['leaflet-directive'])
   })()
 })
 .constant('_', window._)
+.constant('google', window.google)
 .config(function($locationProvider) { 
   $locationProvider.html5Mode(true);
 });
