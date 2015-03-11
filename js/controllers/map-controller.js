@@ -3,17 +3,17 @@ angular.module('radio')
 
 .constant('MarkerIcons', {
   locationIcon: {
-    iconUrl: "/img/marker_location.png",
+    iconUrl: '/img/marker_location.png',
     iconSize: [26, 26],
     iconAnchor: [13, 13]
   },
   playingIcon: {
-    iconUrl: "/img/marker_playing.png",
+    iconUrl: '/img/marker_playing.png',
     iconSize: [50, 50],
     iconAnchor: [25, 47]
   },
   pausedIcon: {
-    iconUrl: "/img/marker_paused.png",
+    iconUrl: '/img/marker_paused.png',
     iconSize: [26, 26],
     iconAnchor: [13, 13]
   },
