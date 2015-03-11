@@ -1,10 +1,11 @@
+'use strict';
 // Kollektivradio App
 
 angular.module('radio', ['leaflet-directive'])
 .constant('environment', {
   isProduction: (function isProduction() {
       var env = window.location.href.match(/[\?\&]env=([^&]*)/);
-      return !env || env[1].indexOf("prod") > -1;
+      return !env || env[1].indexOf('prod') > -1;
   })()
 })
 .constant('_', window._)

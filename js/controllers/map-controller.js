@@ -1,21 +1,22 @@
+'use strict';
 angular.module('radio')
 
 .controller('MapCtrl', function($scope, Locator, MapUtil, Player) {
   
   var locationIcon = {
-    iconUrl: "/img/marker_location.png",
+    iconUrl: '/img/marker_location.png',
     iconSize: [26, 26],
     iconAnchor: [13, 13]
   };
   
   var playingIcon = {
-    iconUrl: "/img/marker_playing.png",
+    iconUrl: '/img/marker_playing.png',
     iconSize: [50, 50],
     iconAnchor: [25, 47]
   };
   
   var pausedIcon = {
-    iconUrl: "/img/marker_paused.png",
+    iconUrl: '/img/marker_paused.png',
     iconSize: [26, 26],
     iconAnchor: [13, 13]
   };
@@ -57,22 +58,9 @@ angular.module('radio')
   }
   
   function updateBounds(bounds) {
-    if(bounds)
+    if (bounds) {
       $scope.map.bounds = bounds;
-  }
-  
-  function updateCenterToCurrentLocation() {
-    if($scope.map.markers.currentLocation) {
-      updateCenter($scope.map.markers.currentLocation.lat, $scope.map.markers.currentLocation.lng);
     }
-  }
-  
-  function updateCenter(lat, lng) {
-    $scope.map.center = {
-      lat: lat,
-      lng: lng,
-      zoom: 10
-    };
   }
   
   function updateCurrentLocation(lat, lng) {
