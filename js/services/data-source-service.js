@@ -79,7 +79,6 @@ angular.module('radio')
         return tripFromTripJson(trip);
       });
 
-      console.log('Trip IDs fetched: ' + _.pluck(mappedTrips, 'id').join());
       return mappedTrips;
     });
   };
