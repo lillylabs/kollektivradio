@@ -22,11 +22,6 @@ angular.module('radio')
     $rootScope.$broadcast('player:tripEnded');
   };
 
-  var playClip = function(clip) {
-    Audio.playAudioSprite({start: clip.start, end: clip.end});
-    $rootScope.$broadcast('player:clipStarted', clip);
-  };
-  
   var findClosestClip = function(position, clips) {
     var userLatLng = new google.maps.LatLng(position.latitude, position.longitude);
     var closestClip = null;
@@ -45,22 +40,13 @@ angular.module('radio')
     return closestClip;
   };
   
-  var clipInClips = function(needle, haystack) {
-    var clipInClips = false;
-    angular.forEach(haystack, function(clip) {
-      if(needle === clip) {
-        clipInClips = true;
-      }
-    });
-    return clipInClips;
-  };
-  
-  var playClosestClip = function(closestClip) {
-    if(!clipInClips(closestClip, playedClips)) {
-      playedClips.push(closestClip); 
-      playClip(closestClip);
-    } else {
-      console.log('Player: Clip already played');
+  var playClip = function(clip) {
+    if (!_.contains(playedClips, clip)) {
+      playedClips.push(clip);
+      Audio.isReady().then(function () {
+        Audio.playAudioSprite({start: clip.start, end: clip.end});
+        $rootScope.$broadcast('player:clipStarted', clip);
+      });
     }
   };
 
@@ -68,14 +54,12 @@ angular.module('radio')
     var closestClip = findClosestClip(position, trip.clips);
 
     if (closestClip) {
-      Audio.isReady().then(function () {
-        playClosestClip(closestClip);
-      });
+        playClip(closestClip);
     }
   };
 
   //Observers
-  
+
   $rootScope.$on('position:updated', function(event, position) {
     if (trip) {
       findAndPlayClosestClip(position);
