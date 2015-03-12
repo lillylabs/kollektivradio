@@ -3,7 +3,7 @@ angular.module('radio')
 
 .factory('Audio', function($document, $rootScope, $q) {
   
-  var audio = $document[0].createElement('audio');
+  var audio = new Audio();
   
   var audioIsReady = $q.defer();
   var currentSprite = null;
