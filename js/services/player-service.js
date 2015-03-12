@@ -1,7 +1,7 @@
 'use strict';
 angular.module('radio')
 
-.factory('Player', function($rootScope, Locator, Audio, google) {
+.factory('Player', function(_, $rootScope, Locator, Audio, google) {
   
   var trip = null;
   var playedClips = null;
