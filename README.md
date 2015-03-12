@@ -1,7 +1,7 @@
 # Kollektivradio
 
 [![Build Status](https://travis-ci.org/lillylabs/kollektivradio.svg?branch=develop)](https://travis-ci.org/lillylabs/kollektivradio)
-[![Coverage Status](https://coveralls.io/repos/lillylabs/kollektivradio/badge.svg)](https://coveralls.io/r/lillylabs/kollektivradio)
+[![Coverage Status](https://coveralls.io/repos/lillylabs/kollektivradio/badge.svg?branch=develop)](https://coveralls.io/r/lillylabs/kollektivradio?branch=develop)
 
 ## Run tests
 
