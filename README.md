@@ -1,5 +1,8 @@
 # Kollektivradio
 
+[![Build Status](https://travis-ci.org/lillylabs/kollektivradio.svg?branch=develop)](https://travis-ci.org/lillylabs/kollektivradio)
+[![Coverage Status](https://coveralls.io/repos/lillylabs/kollektivradio/badge.svg)](https://coveralls.io/r/lillylabs/kollektivradio)
+
 ## Run tests
 
 1. `npm install`
@@ -9,4 +12,4 @@
 
 ## Run jshint
 1. `npm install`
-2. `node_modules/jshint/bin/jshint js`
+2. `node_modules/jshint/bin/jshint js tests`

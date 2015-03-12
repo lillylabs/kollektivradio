@@ -1,7 +1,7 @@
-"use strict"
+'use strict';
 
 describe('DataSourceService', function() {
-  var apiUrl = "https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip";
+  var apiUrl = 'https://public-api.wordpress.com/rest/v1/sites/kollektivradio.lillylabs.wpengine.com/posts/?type=trip';
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
 
@@ -24,8 +24,8 @@ describe('DataSourceService', function() {
         done();
       });
       $httpBackend.flush();
-    })
-  })
+    });
+  });
 
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
