@@ -24,7 +24,6 @@ angular.module('radio')
 
   var playClip = function(clip) {
     Audio.playAudioSprite({start: clip.start, end: clip.end});
-    console.log('Player: Clip started - ' + clip.id);
     $rootScope.$broadcast('player:clipStarted', clip);
   };
   
