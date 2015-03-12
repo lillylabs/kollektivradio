@@ -5,6 +5,14 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai', 'sinon'],
     basePath: '../',
     autoWatch: true,
+    reporters: ['progress', 'coverage'],
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
+    },
+    preprocessors: {
+      'js/**/*.js': ['coverage']
+    },
     files: [
       'tests/lib/angular.js',
       'tests/lib/*.js',
