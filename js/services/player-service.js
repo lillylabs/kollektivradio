@@ -28,8 +28,8 @@ angular.module('radio')
     $rootScope.$broadcast('player:clipStarted', clip);
   };
   
-  var findClosestClip = function(pos, clips) {
-    var userLatLng = new google.maps.LatLng(pos.latitude, pos.longitude);
+  var findClosestClip = function(position, clips) {
+    var userLatLng = new google.maps.LatLng(position.latitude, position.longitude);
     var closestClip = null;
     var closestDistance = Number.MAX_VALUE;
 
