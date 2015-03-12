@@ -8,6 +8,7 @@ angular.module('radio', ['leaflet-directive'])
       return !env || env[1].indexOf('prod') > -1;
   })()
 })
+.value('radioAudio', new Audio())
 .constant('_', window._)
 .constant('google', window.google)
 .config(function($locationProvider) { 
