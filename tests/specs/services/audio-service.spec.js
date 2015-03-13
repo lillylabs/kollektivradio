@@ -54,6 +54,12 @@ describe('AudioService', function() {
     it('should start loading', function () {
       expect(mockAudio.load.calledOnce).to.be.true;
     });
+    it('should resolve isReady on canplay event', function (done) {
+      Audio.isReady().then(function () {
+        done();
+      });
+      mockAudio.eventListeners.canplay();
+    });
 
     describe('when clip is played', function() {
       var clip;
