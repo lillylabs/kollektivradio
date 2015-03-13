@@ -3,6 +3,11 @@ angular.module('radio')
 
 .factory('Audio', function($document, $rootScope, $q, radioAudio) {
 
+  if (!radioAudio) {
+    window.alert('Audio is not supported by browser.');
+    return;
+  }
+
   var audioIsReady = $q.defer();
   var currentSprite = null;
 
