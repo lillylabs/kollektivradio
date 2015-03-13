@@ -6,18 +6,19 @@ describe('AudioService', function() {
 
   var Audio, mockAudio, mockTrip, $q;
   beforeEach(module(function ($provide) {
-    var isPlaying = false;
     mockAudio = {
-      isPlaying: isPlaying,
+      isPlaying: false,
+      eventListeners: {},
       pause: function () {
-        isPlaying = false;
+        mockAudio.isPlaying = false;
       },
       play: function () {
-        isPlaying = true;
+        mockAudio.isPlaying = true;
       },
       load: sinon.spy(),
-      addEventListener: _.noop,
-      removeEventListener: _.noop,
+      addEventListener: function (eventName, listener) {
+        mockAudio.eventListeners[eventName] = listener;
+      },
       src: null
     };
     $provide.value('radioAudio', mockAudio);
@@ -30,7 +31,7 @@ describe('AudioService', function() {
   }));
 
   describe('before clip is loaded and started', function () {
-    it('should not have empty src', function () {
+    it('should have empty src', function () {
       expect(mockAudio.src).to.be.null;
     });
     it('should not be playing', function () {
@@ -53,5 +54,43 @@ describe('AudioService', function() {
     it('should start loading', function () {
       expect(mockAudio.load.calledOnce).to.be.true;
     });
+
+    describe('when clip is played', function() {
+      var clip;
+
+      beforeEach(function () {
+        clip = mockTrip.clips[1];
+      });
+
+      beforeEach(function () {
+        Audio.playAudioSprite({start: clip.start, end: clip.end});
+      });
+
+      it ('should set sprite current time to clip start', function () {
+        expect(mockAudio.currentTime).to.equal(clip.start);
+      });
+      it ('should start audio', function () {
+        expect(mockAudio.isPlaying).to.be.true;
+      });
+
+      describe('when current time reaches clip end', function () {
+        var spriteEndedBroadcasts;
+        beforeEach(inject(function ($rootScope) {
+          spriteEndedBroadcasts = sinon.spy();
+          $rootScope.$on('audio:spriteEnded', spriteEndedBroadcasts);
+          mockAudio.currentTime = clip.end;
+          mockAudio.eventListeners.timeupdate();
+        }));
+
+        it ('should stop to play', function () {
+          expect(mockAudio.isPlaying).to.be.false;
+        });
+        it('should broadcast audio:spriteEnded once', function () {
+          expect(spriteEndedBroadcasts.calledOnce).to.be.true;
+        });
+      });
+
+    });
+
   });
 });

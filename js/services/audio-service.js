@@ -40,7 +40,6 @@ angular.module('radio')
     }
     
     if(!isSpriteCurrentSprite(newSprite)) {
-      console.log('New sprite');
       currentSprite = newSprite;
       radioAudio.currentTime = currentSprite.start;
       radioAudio.play();
@@ -88,7 +87,6 @@ angular.module('radio')
       if (currentSprite && radioAudio.currentTime >= currentSprite.end) {
         pauseAudio();
         currentSprite = null;
-        console.log('Audio: Sprite ended');
         $rootScope.$broadcast('audio:spriteEnded');
       }
     });
