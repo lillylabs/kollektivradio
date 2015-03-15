@@ -58,19 +58,18 @@
       </div>
     </nav>
     
-    <div class="container">
-      <div ng-controller="AlertsCtrl" class="row alerts">
-        <div class="col-md-12">
-          <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
-            <button ng-click="removeAlert(alert)" ng-show="alert.dissmisable" class="close" data-dismiss="alert" aria-label="Steng">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-            <i ng-show="alert.icon == 'spinner'" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
-            <i ng-show="alert.icon != 'spinner'" class="fa fa-{{alert.icon}}" aria-hidden="true"></i>
-            <span>{{alert.message}}</span>
-          </div>
-         </div> 
+    <div ng-controller="AlertsCtrl" class="alerts">
+      <div class="container">
+        <div ng-repeat="alert in alerts" class="alert alert-{{alert.type}}">
+          <button ng-click="removeAlert(alert)" ng-show="alert.dissmisable" class="close" data-dismiss="alert" aria-label="Steng">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+          <i ng-show="alert.icon == 'spinner'" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i ng-show="alert.icon != 'spinner'" class="fa fa-{{alert.icon}}" aria-hidden="true"></i>
+          <span>{{alert.message}}</span>
+        </div>
       </div>
+    </div>
 
       <div ng-controller="TripsCtrl" ng-show="showTrips" class="row trips">
         <div class="col-md-12">
