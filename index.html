@@ -34,7 +34,7 @@
     <script src="js/services/map-util-service.js"></script>
     <script src="js/services/player-service.js"></script>
   </head>
-  <body ng-app="radio">
+  <body ng-app="radio" ng-cloak>
     
     <div class="map" ng-controller="MapCtrl">
       
@@ -71,6 +71,7 @@
       </div>
     </div>
 
+    <div class="container">
       <div ng-controller="TripsCtrl" ng-show="showTrips" class="row trips">
         <div class="col-md-12">
           
