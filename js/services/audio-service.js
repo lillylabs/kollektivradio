@@ -1,14 +1,18 @@
+'use strict';
 angular.module('radio')
 
-.factory('Audio', function($document, $rootScope, $q) {
-  
-  var audio = $document[0].createElement('audio');
-  
+.factory('Audio', function($document, $rootScope, $q, radioAudio) {
+
+  if (!radioAudio) {
+    window.alert('Audio is not supported by browser.');
+    return;
+  }
+
   var audioIsReady = $q.defer();
   var currentSprite = null;
 
   var isSpriteCurrentSprite = function(sprite) {
-    return sprite && currentSprite && currentSprite.start == sprite.start && currentSprite.end == sprite.end;  
+    return sprite && currentSprite && currentSprite.start === sprite.start && currentSprite.end === sprite.end;  
   };
 
   var setAudioSrc = function(src) {
@@ -18,77 +22,76 @@ angular.module('radio')
     audioIsReady.reject();
     audioIsReady = $q.defer();
     
-    if(src) {
-      audio.src = src;
-      audio.load();
+    if (src) {
+      radioAudio.src = src;
+      radioAudio.load();
     } else {
-      audio.src = "";
-      audio.load();
+      radioAudio.src = '';
+      radioAudio.load();
     }
   };
 
   var playAudio = function() {
-    audio.play();
+    radioAudio.play();
   };
 
   var pauseAudio = function() {
-    audio.pause();
+    radioAudio.pause();
   };
 
   var playAudioSprite = function(newSprite) {
-    if(!newSprite)
+    if(!newSprite) {
       return;
+    }
     
     if(!isSpriteCurrentSprite(newSprite)) {
-      console.log("New sprite");
       currentSprite = newSprite;
-      audio.currentTime = currentSprite.start;
-      audio.play();
-    } else if(currentSprite.end < audio.currentTime) {
-      console.log("Old sprite");
-      audio.play();
+      radioAudio.currentTime = currentSprite.start;
+      radioAudio.play();
+    } else if(currentSprite.end < radioAudio.currentTime) {
+      console.log('Old sprite');
+      radioAudio.play();
     }
   };
   
   // Observers
   
-  audio.addEventListener('canplay', function(evt) {
+  radioAudio.addEventListener('canplay', function(evt) {
     $rootScope.$apply(function () {
       audioIsReady.resolve();
     });
   });
   
-  audio.addEventListener('play', function(evt) {
+  radioAudio.addEventListener('play', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Play from " + audio.currentTime);
+      console.log('radioAudio: Play from ' + radioAudio.currentTime);
     });
   });
 
-  audio.addEventListener('playing', function(evt) {
+  radioAudio.addEventListener('playing', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Playing from " + audio.currentTime);
+      console.log('Audio: Playing from ' + radioAudio.currentTime);
       console.log(evt);
     });
   });
 
-  audio.addEventListener('pause', function(evt) {
+  radioAudio.addEventListener('pause', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Pause at " + audio.currentTime);
+      console.log('Audio: Pause at ' + radioAudio.currentTime);
     });
   });
 
-  audio.addEventListener('ended', function(evt) {
+  radioAudio.addEventListener('ended', function(evt) {
     $rootScope.$apply(function () {
-      console.log("Audio: Ended at " + audio.currentTime);
+      console.log('Audio: Ended at ' + radioAudio.currentTime);
     });
   });
 
-  audio.addEventListener('timeupdate', function(evt) {
+  radioAudio.addEventListener('timeupdate', function(evt) {
     $rootScope.$apply(function () {
-      if (currentSprite && audio.currentTime >= currentSprite.end) {
+      if (currentSprite && radioAudio.currentTime >= currentSprite.end) {
         pauseAudio();
         currentSprite = null;
-        console.log("Audio: Sprite ended");
         $rootScope.$broadcast('audio:spriteEnded');
       }
     });

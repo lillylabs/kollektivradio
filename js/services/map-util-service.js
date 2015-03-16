@@ -1,6 +1,7 @@
+'use strict';
 angular.module('radio')
 
-.factory('MapUtil', function($document, Locator) {
+.factory('MapUtil', function($document, Locator, google) {
   
   function leafletBoundsFromGoogleBounds(googleBounds) {
     var bounds = {
@@ -18,8 +19,9 @@ angular.module('radio')
   }
   
   var calculateBoundsForClips = function(clips) {
-    if(!clips || clips.length === 0)
+    if (!clips || clips.length === 0) {
       return;
+    }
     
     var googleBounds = new google.maps.LatLngBounds();
 
