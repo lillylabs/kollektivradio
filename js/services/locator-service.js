@@ -61,8 +61,9 @@ angular.module('radio')
     stopWatching();
 
     if(navigator.geolocation) {
-      // timeout at 60000 milliseconds (60 seconds)
-      var options = { timeout:60000 };
+      var options = {
+        enableHighAccuracy: true
+      };
       watchID = navigator.geolocation.watchPosition(setAndBroadcastNewPosition, errorHandler, options);
       console.log('Locator: Start watching ' + watchID);
     } else {
