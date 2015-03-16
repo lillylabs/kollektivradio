@@ -9,9 +9,11 @@ angular.module('radio', ['leaflet-directive'])
   })()
 })
 .value('radioAudio', window.Audio ? new Audio() : undefined)
-.value('GoogleAnalytics', {ga: window.ga})
 .constant('_', window._)
 .value('google', window.google)
 .config(function($locationProvider) { 
   $locationProvider.html5Mode(true);
+})
+.controller('ApplicationCtrl', function (Analytics) {
+  // Starts modules listening to rootscope events
 });
