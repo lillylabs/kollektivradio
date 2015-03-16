@@ -7,10 +7,8 @@ describe('AudioService', function() {
   var Analytics, mockGA, mockTrip, scope;
 
   beforeEach(module(function ($provide) {
-    mockGA = {
-      ga: sinon.spy()
-    };
-    $provide.value('GoogleAnalytics', mockGA);
+    mockGA = sinon.spy();
+    $provide.value('$window', {ga: mockGA});
   }));
 
   beforeEach(inject(function(_Analytics_, $injector, $rootScope) {
@@ -26,7 +24,7 @@ describe('AudioService', function() {
     });
 
     it('should send event to GA', function () {
-      expect(mockGA.ga.calledWith(
+      expect(mockGA.calledWith(
         'send', 'event', 'player', 'clipStarted', mockTrip.clips[0].id)
       ).to.be.true;
     });
@@ -39,7 +37,7 @@ describe('AudioService', function() {
     });
 
     it('should send event to GA', function () {
-      expect(mockGA.ga.calledWith(
+      expect(mockGA.calledWith(
         'send', 'event', 'player', 'tripStarted', mockTrip.id)
       ).to.be.true;
     });
