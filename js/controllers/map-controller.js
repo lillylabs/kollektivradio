@@ -76,6 +76,10 @@ angular.module('radio')
         icon: MarkerIcons.locationIcon
        }
     });
+
+    var clips = Player.getSelectedTrip().clips;
+    var points = boundingPointsFromClips(clips).concat([{lat: lat, lng: lng}]);
+    updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
   
   function addClipMarker(clip) {

@@ -104,6 +104,14 @@ describe('MapCtrl', function() {
           icon: MarkerIcons.locationIcon
         });
       });
+      it('should include current position in map bounds', function () {
+        var expectBoundPoints = mockTripLocationPoints.concat({
+          lat: mockCurrentPosition.latitude,
+          lng: mockCurrentPosition.longitude
+        });
+
+        expect(mockMapUtil.calculateBoundsForPoints.calledWith(expectBoundPoints)).to.be.true;
+      });
     });
 
     describe('when trip is ended', function () {
