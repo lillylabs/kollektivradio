@@ -9,6 +9,7 @@ angular.module('radio', ['leaflet-directive'])
   })()
 })
 .value('radioAudio', window.Audio ? new Audio() : undefined)
+.value('GoogleAnalytics', {ga: window.ga})
 .constant('_', window._)
 .value('google', window.google)
 .config(function($locationProvider) { 
