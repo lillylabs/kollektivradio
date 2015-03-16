@@ -5,7 +5,9 @@ describe('MapCtrl', function() {
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
 
-  var mapController, $scope, mockPlayer, mockTrip, MarkerIcons;
+  var mapController, $scope, mockPlayer,
+    mockTrip, MarkerIcons,
+    mockMapUtil, mockTripLocationPoints;
   var mockOsloBounds = {
     northEast: {lat: 59.91, lng: 10.75},
     southWest: {lat: 59.91, lng: 10.75}
@@ -19,14 +21,20 @@ describe('MapCtrl', function() {
    $scope = $injector.get('$rootScope').$new();
     MarkerIcons = _MarkerIcons_;
     mockTrip = $injector.get('mockTripsData')[0];
+    mockTripLocationPoints = _.reduce(mockTrip.clips, function (locations, clip) {
+      return locations.concat([
+        _.pick(clip.locations.map, ['lat', 'lng']),
+        _.pick(clip.locations.play, ['lat', 'lng'])
+        ]);
+    }, []);
     mockPlayer = {
       getSelectedTrip: function () {
         return mockTrip;
       }
     };
-    var mockMapUtil = {
+    mockMapUtil = {
       calculateBoundsForOslo: _.constant(mockOsloBounds),
-      calculateBoundsForClips: _.constant(mockClipBounds)
+      calculateBoundsForPoints: sinon.stub().returns(mockClipBounds)
     };
 
     mapController = $controller('MapCtrl', {
@@ -77,14 +85,24 @@ describe('MapCtrl', function() {
         });
       });
     });
+    it('should not include current position in map bounds', function () {
+      expect(mockMapUtil.calculateBoundsForPoints.calledWith(mockTripLocationPoints)).to.be.true;
+    });
 
-    it('should set current position marker on location updates', function () {
+    describe('on updated position', function () {
+
       var mockCurrentPosition = {latitude: 59.926342247, longitude: 10.7544};
-      $scope.$broadcast('position:updated', mockCurrentPosition);
-      expect($scope.map.markers.currentLocation).to.be.eql({
-        lat: mockCurrentPosition.latitude,
-        lng: mockCurrentPosition.longitude,
-        icon: MarkerIcons.locationIcon
+
+      beforeEach(function () {
+        $scope.$broadcast('position:updated', mockCurrentPosition);
+      });
+
+      it('should set current position marker on location updates', function () {
+        expect($scope.map.markers.currentLocation).to.be.eql({
+          lat: mockCurrentPosition.latitude,
+          lng: mockCurrentPosition.longitude,
+          icon: MarkerIcons.locationIcon
+        });
       });
     });
 
