@@ -73,6 +73,7 @@ describe('PlayerService', function() {
     });
     it('should broadcast trip started event', function() {
       expect(tripStartedListener.calledOnce).to.be.true;
+      expect(tripStartedListener.calledWith(sinon.match.any, mockTrip)).to.be.true;
       expect(tripEndedListener.called).to.be.false;
     });
 

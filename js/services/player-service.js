@@ -11,7 +11,7 @@ angular.module('radio')
     playedClips = [];
     Locator.watchPosition();
     Audio.setAudioSrc(trip.audio);
-    $rootScope.$broadcast('player:tripStarted');
+    $rootScope.$broadcast('player:tripStarted', tripToBeStarted);
   };
 
   var endTrip = function(tripToBeEnded) {
