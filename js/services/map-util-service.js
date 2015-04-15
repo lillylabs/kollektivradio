@@ -18,19 +18,19 @@ angular.module('radio')
     return bounds;
   }
   
-  var calculateBoundsForClips = function(clips) {
-    if (!clips || clips.length === 0) {
+  var calculateBoundsForPoints = function(points) {
+    if (!points || points.length === 0) {
       return;
     }
-    
+
     var googleBounds = new google.maps.LatLngBounds();
 
-    // loop through all clips and create bounds
-    angular.forEach(clips, function(clip, i) {
-      var latlng = new google.maps.LatLng(clip.locations.map.lat, clip.locations.map.lng);
-      googleBounds.extend( latlng );
+    angular.forEach(points, function(point) {
+      googleBounds.extend(
+        new google.maps.LatLng(point.lat, point.lng)
+      );
     });
-  
+
     return leafletBoundsFromGoogleBounds(googleBounds);
   };
   
@@ -48,7 +48,7 @@ angular.module('radio')
   };
 
   return {
-    calculateBoundsForClips: calculateBoundsForClips,
+    calculateBoundsForPoints: calculateBoundsForPoints,
     calculateBoundsForOslo: calculateBoundsForOslo
   };
 });
