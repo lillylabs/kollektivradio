@@ -23,7 +23,7 @@ angular.module('radio')
     type: 'xyz'
   }
 })
-.controller('MapCtrl', function($scope, Locator, MapUtil, Player, MarkerIcons) {
+.controller('MapCtrl', function(_, $scope, Locator, MapUtil, Player, MarkerIcons) {
   var osloBounds = MapUtil.calculateBoundsForOslo();
   
   $scope.showMapControls = false;
@@ -51,8 +51,16 @@ angular.module('radio')
   
   // Functions
   function fitMapToClips(clips) {
-    updateBounds(MapUtil.calculateBoundsForClips(clips));
+    updateBounds(MapUtil.calculateBoundsForPoints(boundingPointsFromClips(clips)));
   }
+
+  var boundingPointsFromClips = function (clips) {
+    return _.reduce(clips, function (locations, clip) {
+      locations.push(_.pick(clip.locations.map, ['lat', 'lng']));
+      locations.push(_.pick(clip.locations.play, ['lat', 'lng']));
+      return locations;
+    }, []);
+  };
   
   function updateBounds(bounds) {
     if (bounds) {
@@ -68,6 +76,10 @@ angular.module('radio')
         icon: MarkerIcons.locationIcon
        }
     });
+
+    var clips = Player.getSelectedTrip().clips;
+    var points = boundingPointsFromClips(clips).concat([{lat: lat, lng: lng}]);
+    updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
   
   function addClipMarker(clip) {
