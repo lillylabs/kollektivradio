@@ -49,19 +49,15 @@ describe('PlayerService', function() {
 
   describe('when starting trip', function() {
 
-    var tripStartedBroadcasts;
-    var tripEndedBroadcasts;
+    var tripStartedListener;
+    var tripEndedListener;
 
     beforeEach(inject(function ($rootScope) {
-      tripStartedBroadcasts = 0;
-      tripEndedBroadcasts = 0;
+      tripStartedListener = sinon.spy();
+      tripEndedListener = sinon.spy();
 
-      $rootScope.$on('player:tripStarted', function () {
-        tripStartedBroadcasts += 1;
-      });
-      $rootScope.$on('player:tripEnded', function () {
-        tripEndedBroadcasts += 1;
-      });
+      $rootScope.$on('player:tripStarted', tripStartedListener);
+      $rootScope.$on('player:tripEnded', tripEndedListener);
 
       Player.startTrip(mockTrip);
     }));
@@ -76,19 +72,18 @@ describe('PlayerService', function() {
       expect(mockAudio.setAudioSrc.calledWith(mockTrip.audio)).to.be.true;
     });
     it('should broadcast trip started event', function() {
-      expect(tripStartedBroadcasts).to.eq(1);
-      expect(tripEndedBroadcasts).to.eq(0);
+      expect(tripStartedListener.calledOnce).to.be.true;
+      expect(tripStartedListener.calledWith(sinon.match.any, mockTrip)).to.be.true;
+      expect(tripEndedListener.called).to.be.false;
     });
 
     describe('when receiving position update', function () {
-      var $rootScope, mockPosition = {}, clipStartedEvents = 0;
+      var $rootScope, mockPosition = {}, clipStartedListener;
       beforeEach(inject(function (_$rootScope_) {
         $rootScope = _$rootScope_;
 
-        clipStartedEvents = 0;
-        $rootScope.$on('player:clipStarted', function () {
-          clipStartedEvents += 1;
-        });
+        clipStartedListener = sinon.spy();
+        $rootScope.$on('player:clipStarted', clipStartedListener);
 
         mockAudio.playAudioSprite.reset();
 
@@ -103,12 +98,12 @@ describe('PlayerService', function() {
         })).to.be.true;
       });
       it('should broadcast player:clipStarted event', function () {
-        expect(clipStartedEvents).to.equal(1);
+        expect(clipStartedListener.calledOnce).to.be.true;
       });
       it('should not play same clip again on later position updates', function () {
         $rootScope.$broadcast('position:updated', mockPosition);
         $rootScope.$apply();
-        expect(clipStartedEvents).to.equal(1);
+        expect(clipStartedListener.calledOnce).to.be.true;
         expect(mockAudio.playAudioSprite.calledOnce).to.be.true;
       });
     });
@@ -129,8 +124,8 @@ describe('PlayerService', function() {
         expect(mockAudio.pauseAudio.called).to.be.true;
       });
       it('should broadcast trip ended event and no extra started event', function() {
-        expect(tripStartedBroadcasts).to.eq(1);
-        expect(tripEndedBroadcasts).to.eq(1);
+        expect(tripStartedListener.calledOnce).to.be.true;
+        expect(tripEndedListener.calledOnce).to.be.true;
       });
 
     });

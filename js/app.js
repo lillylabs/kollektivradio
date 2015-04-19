@@ -13,4 +13,7 @@ angular.module('radio', ['leaflet-directive'])
 .value('google', window.google)
 .config(function($locationProvider) { 
   $locationProvider.html5Mode(true);
+})
+.controller('ApplicationCtrl', function (Analytics) {
+  // Starts modules listening to rootscope events
 });
