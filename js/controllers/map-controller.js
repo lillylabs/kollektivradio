@@ -23,7 +23,7 @@ angular.module('radio')
     type: 'xyz'
   }
 })
-.controller('MapCtrl', function(_, $scope, Locator, MapUtil, Player, MarkerIcons) {
+.controller('MapCtrl', function(_, $scope, $timeout, Locator, MapUtil, Player, MarkerIcons) {
   var osloBounds = MapUtil.calculateBoundsForOslo();
   
   $scope.showMapControls = false;
@@ -62,11 +62,13 @@ angular.module('radio')
     }, []);
   };
   
-  function updateBounds(bounds) {
-    if (bounds) {
-      $scope.map.bounds = bounds;
-    }
-  }
+  var updateBounds = _.throttle(function updateBounds(bounds) {
+    $timeout(function () {
+      if (bounds) {
+        $scope.map.bounds = bounds;
+      }
+    });
+  }, 150, {leading: false, trailing: true});
   
   function updateCurrentLocation(lat, lng) {
     $scope.map.markers = angular.extend({}, $scope.map.markers, {
