@@ -46,11 +46,16 @@ angular.module('radio')
       return acc;
     }, {});
 
+    var sightKeyMapping = {
+      /*jshint camelcase: false */
+      map_location: 'location',
+      title: 'title'
+    };
     var sights = _.reduce(clipMetadata, function (acc, value, key) {
       var keyMatch = key.match(/^sights_(\d+)_/);
       if (keyMatch) {
         var sightsIndex = parseInt(keyMatch[1], 10);
-        var propertyName = key.substr(keyMatch[0].length);
+        var propertyName = sightKeyMapping[key.substr(keyMatch[0].length)];
 
         acc[sightsIndex] = acc[sightsIndex] || {};
         acc[sightsIndex][propertyName] = value;
