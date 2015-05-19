@@ -75,7 +75,17 @@ describe('MapCtrl', function() {
     it('should set map bounds to clip bounds', function () {
       expect($scope.map.bounds).to.eql(mockClipBounds);
     });
-    it('should have one map marker for each sight', function () {
+    it('should have one map marker for each play location', function () {
+      _.each(mockTrip.clips, function (clip) {
+        expect($scope.map.markers[clip.id]).to.eql({
+          id: clip.id,
+          lat: parseFloat(clip.locations.play.lat),
+          lng: parseFloat(clip.locations.play.lng),
+          icon: MarkerIcons.pausedIcon
+        });
+      });
+    });
+    it('should have one disabled map marker for each sight', function () {
       _.each(mockTrip.clips, function (clip) {
         _.each(clip.sights, function (sight) {
           expect($scope.map.markers[sight.id]).to.eql({
@@ -83,7 +93,7 @@ describe('MapCtrl', function() {
             clipId: clip.id,
             lat: parseFloat(sight.location.lat),
             lng: parseFloat(sight.location.lng),
-            icon: MarkerIcons.pausedIcon
+            icon: MarkerIcons.inactiveSightIcon
           });
         });
       });
@@ -101,12 +111,14 @@ describe('MapCtrl', function() {
 
       it('should set marker sights as active', function () {
         _.each($scope.map.markers, function (marker) {
-          if (marker.clipId === activeClip.id) {
+          if (marker.id === activeClip.id) {
             expect(marker.icon).to.eq(MarkerIcons.playingIcon);
-            expect(marker.className).to.eq('active');
-          } else {
+          } else if (marker.clipId === activeClip.id) {
+            expect(marker.icon).to.eq(MarkerIcons.activeSightIcon);
+          } else if (marker.clipId) {
+            expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
+          } else if (marker.icon != MarkerIcons.locationIcon) {
             expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
-            expect(marker.className).to.be.undefined;
           }
         });
       });

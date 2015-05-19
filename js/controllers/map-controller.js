@@ -11,12 +11,26 @@ angular.module('radio')
   playingIcon: {
     iconUrl: '/img/marker_playing.png',
     iconSize: [50, 50],
-    iconAnchor: [25, 47]
+    iconAnchor: [25, 47],
+    className: 'marker-play-location active'
   },
   pausedIcon: {
     iconUrl: '/img/marker_paused.png',
     iconSize: [26, 26],
-    iconAnchor: [13, 13]
+    iconAnchor: [13, 13],
+    className: 'marker-play-location'
+  },
+  activeSightIcon: {
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+    className: 'marker-sight active'
+  },
+  inactiveSightIcon: {
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+    className: 'marker-sight'
   },
   positron: {
     name: 'Positron',
@@ -84,19 +98,29 @@ angular.module('radio')
     var points = boundingPointsFromClips(clips).concat([{lat: lat, lng: lng}]);
     updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
-  
+
+  function addPlayLocation(clip) {
+    $scope.map.markers[clip.id] = {
+      id: clip.id,
+      lat: parseFloat(clip.locations.play.lat),
+      lng: parseFloat(clip.locations.play.lng),
+      icon: MarkerIcons.pausedIcon
+    };
+  }
+
   function addClipSight(clip, sight) {
     $scope.map.markers[sight.id] = {
       id: sight.id,
       clipId: clip.id,
       lat: parseFloat(sight.location.lat),
       lng: parseFloat(sight.location.lng),
-      icon: MarkerIcons.pausedIcon
+      icon: MarkerIcons.inactiveSightIcon
     };
   }
-  
+
   function addClips(clips) {
     _.each(clips, function(clip) {
+      addPlayLocation(clip);
       _.each(clip.sights, function (sight) {
         addClipSight(clip, sight);
       });
@@ -111,12 +135,14 @@ angular.module('radio')
   $scope.$on('player:clipStarted', function(event, clip) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
-      if (marker.clipId === clip.id) {
+      if (marker.id === clip.id) {
         marker.icon = MarkerIcons.playingIcon;
-        marker.className = 'active';
+      } else if (marker.clipId === clip.id) {
+        marker.icon = MarkerIcons.activeSightIcon;
       } else if (marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
-        marker.className = undefined;
+      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+        marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
     $scope.map.markers = markers;
