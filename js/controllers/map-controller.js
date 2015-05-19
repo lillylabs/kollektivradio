@@ -84,8 +84,10 @@ angular.module('radio')
     updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
   
-  function addClipSight(sight) {
+  function addClipSight(clip, sight) {
     $scope.map.markers[sight.id] = {
+      id: sight.id,
+      clipId: clip.id,
       lat: parseFloat(sight.location.lat),
       lng: parseFloat(sight.location.lng),
       icon: MarkerIcons.pausedIcon
@@ -95,7 +97,7 @@ angular.module('radio')
   function addClips(clips) {
     _.each(clips, function(clip) {
       _.each(clip.sights, function (sight) {
-        addClipSight(sight);
+        addClipSight(clip, sight);
       });
     });
   }
@@ -108,10 +110,12 @@ angular.module('radio')
   $scope.$on('player:clipStarted', function(event, clip) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
-      if (marker === markers[clip.id]) {
+      if (marker.clipId === clip.id) {
         marker.icon = MarkerIcons.playingIcon;
+        marker.className = 'active';
       } else if (marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
+        marker.className = undefined;
       }
     });
     $scope.map.markers = markers;

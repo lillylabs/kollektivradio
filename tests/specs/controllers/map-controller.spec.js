@@ -79,6 +79,8 @@ describe('MapCtrl', function() {
       _.each(mockTrip.clips, function (clip) {
         _.each(clip.sights, function (sight) {
           expect($scope.map.markers[sight.id]).to.eql({
+            id: sight.id,
+            clipId: clip.id,
             lat: parseFloat(sight.location.lat),
             lng: parseFloat(sight.location.lng),
             icon: MarkerIcons.pausedIcon
@@ -88,6 +90,26 @@ describe('MapCtrl', function() {
     });
     it('should not include current position in map bounds', function () {
       expect(mockMapUtil.calculateBoundsForPoints.calledWith(mockTripSightPoints)).to.be.true;
+    });
+
+    describe('when clip is started', function () {
+      var activeClip;
+      beforeEach(function () {
+        activeClip = mockTrip.clips[0];
+        $scope.$broadcast('player:clipStarted', activeClip);
+      });
+
+      it('should set marker sights as active', function () {
+        _.each($scope.map.markers, function (marker) {
+          if (marker.clipId === activeClip.id) {
+            expect(marker.icon).to.eq(MarkerIcons.playingIcon);
+            expect(marker.className).to.eq('active');
+          } else {
+            expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
+            expect(marker.className).to.be.undefined;
+          }
+        });
+      });
     });
 
     describe('on updated position', function () {
