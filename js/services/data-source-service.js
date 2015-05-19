@@ -38,6 +38,7 @@ angular.module('radio')
   };
   
   var clipFromMetadata = function(metadata, clipIndex) {
+    var clipId = 'clip' + clipIndex;
     var clipPrefix = 'clips_' + clipIndex + '_';
     var clipMetadata = _.reduce(metadata, function (acc, value, key) {
       if (key.indexOf(clipPrefix) === 0) {
@@ -57,7 +58,9 @@ angular.module('radio')
         var sightsIndex = parseInt(keyMatch[1], 10);
         var propertyName = sightKeyMapping[key.substr(keyMatch[0].length)];
 
-        acc[sightsIndex] = acc[sightsIndex] || {};
+        acc[sightsIndex] = acc[sightsIndex] || {
+          id: clipId + '_sight' + sightsIndex
+        };
         acc[sightsIndex][propertyName] = value;
       }
 
@@ -66,7 +69,7 @@ angular.module('radio')
 
     var clip = {
       /*jshint camelcase: false */
-      id: 'clip' + clipIndex,
+      id: clipId,
       title: clipMetadata.title,
       start: clipMetadata.start,
       end: clipMetadata.end,

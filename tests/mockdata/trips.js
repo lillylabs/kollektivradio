@@ -2195,7 +2195,7 @@ angular.module('mockdata', [])
             'address': 'Storgata 18, 0184 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9147177','lng':'10.7537691','address':'Storgata, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip0_sight0', 'location':{'lat':'59.9147177','lng':'10.7537691','address':'Storgata, Oslo, Norge'},'title':''}],
         'start': '0',
         'treshold': '100',
         'id': 'clip0'
@@ -2215,7 +2215,7 @@ angular.module('mockdata', [])
             'address': 'Brugata, Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9141351','lng':'10.754077199999983','address':'Brugata 6-8, 0186 Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip1_sight0', 'location':{'lat':'59.9141351','lng':'10.754077199999983','address':'Brugata 6-8, 0186 Oslo, Norge'},'title':''}],
         'start': '78',
         'treshold': '100',
         'id': 'clip1'
@@ -2235,7 +2235,7 @@ angular.module('mockdata', [])
             'address': 'Trondheimsveien 2C, 0560 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9195916','lng':'10.758214599999974','address':'Markveien 56F, 0550 Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip2_sight0', 'location':{'lat':'59.9195916','lng':'10.758214599999974','address':'Markveien 56F, 0550 Oslo, Norge'},'title':''}],
         'start': '162',
         'treshold': '150',
         'id': 'clip2'
@@ -2255,7 +2255,7 @@ angular.module('mockdata', [])
             'address': 'Thorvald Meyers gate 51, 0555 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9238678','lng':'10.757842299999993','address':'Grünerløkka, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip3_sight0', 'location':{'lat':'59.9238678','lng':'10.757842299999993','address':'Grünerløkka, Oslo, Norge'},'title':''}],
         'start': '298',
         'treshold': '50',
         'id': 'clip3'
@@ -2275,7 +2275,7 @@ angular.module('mockdata', [])
             'address': 'Thorvald Meyers gate 31, 0555 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9263529','lng':'10.757923300000016','address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip4_sight0', 'location':{'lat':'59.9263529','lng':'10.757923300000016','address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'title':''}],
         'start': '393',
         'treshold': '50',
         'id': 'clip4'
@@ -2295,7 +2295,7 @@ angular.module('mockdata', [])
             'address': 'Biermanns gate 9-11, 0474 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.9308705','lng':'10.75919870000007','address':'Sagene skole, Biermanns gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip5_sight0', 'location':{'lat':'59.9308705','lng':'10.75919870000007','address':'Sagene skole, Biermanns gate, Oslo, Norge'},'title':''}],
         'start': '452',
         'treshold': '100',
         'id': 'clip5'
@@ -2315,7 +2315,7 @@ angular.module('mockdata', [])
             'address': 'Vogts gate 57A, 0477 Oslo, Norge'
           }
         },
-        'sights': [{'location':{'lat':'59.93479359999999','lng':'10.764704499999993','address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip6_sight0', 'location':{'lat':'59.93479359999999','lng':'10.764704499999993','address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'title':''}],
         'start': '550',
         'treshold': '100',
         'id': 'clip6'
