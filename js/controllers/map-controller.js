@@ -56,7 +56,9 @@ angular.module('radio')
 
   var boundingPointsFromClips = function (clips) {
     return _.reduce(clips, function (locations, clip) {
-      locations.push(_.pick(clip.locations.map, ['lat', 'lng']));
+      _.each(clip.sights, function (sight) {
+        locations.push(_.pick(sight.location, ['lat', 'lng']));
+      });
       locations.push(_.pick(clip.locations.play, ['lat', 'lng']));
       return locations;
     }, []);
@@ -82,17 +84,19 @@ angular.module('radio')
     updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
   
-  function addClipMarker(clip) {
-    $scope.map.markers[clip.id] = {
-      lat: parseFloat(clip.locations.map.lat),
-      lng: parseFloat(clip.locations.map.lng),
+  function addClipSight(sight) {
+    $scope.map.markers[sight.id] = {
+      lat: parseFloat(sight.location.lat),
+      lng: parseFloat(sight.location.lng),
       icon: MarkerIcons.pausedIcon
     };
   }
   
   function addClips(clips) {
-    angular.forEach(clips, function(clip) {
-      addClipMarker(clip);
+    _.each(clips, function(clip) {
+      _.each(clip.sights, function (sight) {
+        addClipSight(sight);
+      });
     });
   }
   
