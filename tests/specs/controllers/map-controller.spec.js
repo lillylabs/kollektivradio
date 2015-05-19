@@ -117,7 +117,7 @@ describe('MapCtrl', function() {
             expect(marker.icon).to.eq(MarkerIcons.activeSightIcon);
           } else if (marker.clipId) {
             expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
-          } else if (marker.icon != MarkerIcons.locationIcon) {
+          } else if (marker.icon !== MarkerIcons.locationIcon) {
             expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
           }
         });
