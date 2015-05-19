@@ -102,8 +102,8 @@ angular.module('radio')
   function addPlayLocation(clip) {
     $scope.map.markers[clip.id] = {
       id: clip.id,
-      lat: parseFloat(clip.locations.play.lat),
-      lng: parseFloat(clip.locations.play.lng),
+      lat: clip.locations.play.lat,
+      lng: clip.locations.play.lng,
       icon: MarkerIcons.pausedIcon
     };
   }
@@ -112,8 +112,8 @@ angular.module('radio')
     $scope.map.markers[sight.id] = {
       id: sight.id,
       clipId: clip.id,
-      lat: parseFloat(sight.location.lat),
-      lng: parseFloat(sight.location.lng),
+      lat: sight.location.lat,
+      lng: sight.location.lng,
       icon: MarkerIcons.inactiveSightIcon
     };
   }

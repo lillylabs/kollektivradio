@@ -2185,17 +2185,17 @@ angular.module('mockdata', [])
         'title': 'Storgata',
         'locations': {
           'map': {
-            'lat': '59.9137503',
-            'lng': '10.750747199999978',
+            'lat': parseFloat('59.9137503'),
+            'lng': parseFloat('10.750747199999978'),
             'address': 'Storgata, Oslo, Norge'
           },
           'play': {
-            'lat': '59.913799746026626',
-            'lng': '10.750926733016968',
+            'lat': parseFloat('59.913799746026626'),
+            'lng': parseFloat('10.750926733016968'),
             'address': 'Storgata 18, 0184 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip0_sight0', 'location':{'lat':'59.9147177','lng':'10.7537691','address':'Storgata, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip0_sight0', 'location':{'lat': parseFloat('59.9147177'),'lng': parseFloat('10.7537691'),'address':'Storgata, Oslo, Norge'},'title':''}],
         'start': '0',
         'treshold': '100',
         'id': 'clip0'
@@ -2205,17 +2205,17 @@ angular.module('mockdata', [])
         'title': 'Brugata',
         'locations': {
           'map': {
-            'lat': '59.91427573019375',
-            'lng': '10.754032731056213',
+            'lat': parseFloat('59.91427573019375'),
+            'lng': parseFloat('10.754032731056213'),
             'address': 'Brugata 6-8, 0186 Oslo, Norge'
           },
           'play': {
-            'lat': '59.914498',
-            'lng': '10.75318100000004',
+            'lat': parseFloat('59.914498'),
+            'lng': parseFloat('10.75318100000004'),
             'address': 'Brugata, Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip1_sight0', 'location':{'lat':'59.9141351','lng':'10.754077199999983','address':'Brugata 6-8, 0186 Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip1_sight0', 'location':{'lat': parseFloat('59.9141351'),'lng': parseFloat('10.754077199999983'),'address':'Brugata 6-8, 0186 Oslo, Norge'},'title':''}],
         'start': '78',
         'treshold': '100',
         'id': 'clip1'
@@ -2225,17 +2225,17 @@ angular.module('mockdata', [])
         'title': 'Sidsel',
         'locations': {
           'map': {
-            'lat': '59.91959885169308',
-            'lng': '10.758257624328621',
+            'lat': parseFloat('59.91959885169308'),
+            'lng': parseFloat('10.758257624328621'),
             'address': 'Markveien 56F, 0550 Oslo, Norge'
           },
           'play': {
-            'lat': '59.917870938128104',
-            'lng': '10.759327411651611',
+            'lat': parseFloat('59.917870938128104'),
+            'lng': parseFloat('10.759327411651611'),
             'address': 'Trondheimsveien 2C, 0560 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip2_sight0', 'location':{'lat':'59.9195916','lng':'10.758214599999974','address':'Markveien 56F, 0550 Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip2_sight0', 'location':{'lat': parseFloat('59.9195916'),'lng': parseFloat('10.758214599999974'),'address':'Markveien 56F, 0550 Oslo, Norge'},'title':''}],
         'start': '162',
         'treshold': '150',
         'id': 'clip2'
@@ -2245,17 +2245,17 @@ angular.module('mockdata', [])
         'title': 'L\u00f8ken',
         'locations': {
           'map': {
-            'lat': '59.9238678',
-            'lng': '10.757842299999993',
+            'lat': parseFloat('59.9238678'),
+            'lng': parseFloat('10.757842299999993'),
             'address': 'Gr\u00fcnerl\u00f8kka, Oslo, Norge'
           },
           'play': {
-            'lat': '59.92386779999984',
-            'lng': '10.759215591015618',
+            'lat': parseFloat('59.92386779999984'),
+            'lng': parseFloat('10.759215591015618'),
             'address': 'Thorvald Meyers gate 51, 0555 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip3_sight0', 'location':{'lat':'59.9238678','lng':'10.757842299999993','address':'Grünerløkka, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip3_sight0', 'location':{'lat': parseFloat('59.9238678'),'lng': parseFloat('10.757842299999993'),'address':'Grünerløkka, Oslo, Norge'},'title':''}],
         'start': '298',
         'treshold': '50',
         'id': 'clip3'
@@ -2265,17 +2265,17 @@ angular.module('mockdata', [])
         'title': 'Mercedesdeler i kirken',
         'locations': {
           'map': {
-            'lat': '59.926353',
-            'lng': '10.757923000000005',
+            'lat': parseFloat('59.926353'),
+            'lng': parseFloat('10.757923000000005'),
             'address': 'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'
           },
           'play': {
-            'lat': '59.92634224728479',
-            'lng': '10.759146087310796',
+            'lat': parseFloat('59.92634224728479'),
+            'lng': parseFloat('10.759146087310796'),
             'address': 'Thorvald Meyers gate 31, 0555 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip4_sight0', 'location':{'lat':'59.9263529','lng':'10.757923300000016','address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip4_sight0', 'location':{'lat': parseFloat('59.9263529'),'lng': parseFloat('10.757923300000016'),'address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'title':''}],
         'start': '393',
         'treshold': '50',
         'id': 'clip4'
@@ -2285,17 +2285,17 @@ angular.module('mockdata', [])
         'title': 'Eiendomsmegler',
         'locations': {
           'map': {
-            'lat': '59.930794',
-            'lng': '10.759289999999964',
+            'lat': parseFloat('59.930794'),
+            'lng': parseFloat('10.759289999999964'),
             'address': 'Sagene skole, Biermanns gate, Oslo, Norge'
           },
           'play': {
-            'lat': '59.93042018926602',
-            'lng': '10.761151313781738',
+            'lat': parseFloat('59.93042018926602'),
+            'lng': parseFloat('10.761151313781738'),
             'address': 'Biermanns gate 9-11, 0474 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip5_sight0', 'location':{'lat':'59.9308705','lng':'10.75919870000007','address':'Sagene skole, Biermanns gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip5_sight0', 'location':{'lat': parseFloat('59.9308705'),'lng': parseFloat('10.75919870000007'),'address':'Sagene skole, Biermanns gate, Oslo, Norge'},'title':''}],
         'start': '452',
         'treshold': '100',
         'id': 'clip5'
@@ -2305,17 +2305,17 @@ angular.module('mockdata', [])
         'title': 'Kaffegutta',
         'locations': {
           'map': {
-            'lat': '59.935819',
-            'lng': '10.764870999999971',
+            'lat': parseFloat('59.935819'),
+            'lng': parseFloat('10.764870999999971'),
             'address': 'Kaffegutta AS, Vogts gate, Oslo, Norge'
           },
           'play': {
-            'lat': '59.93566645519462',
-            'lng': '10.765550136566162',
+            'lat': parseFloat('59.93566645519462'),
+            'lng': parseFloat('10.765550136566162'),
             'address': 'Vogts gate 57A, 0477 Oslo, Norge'
           }
         },
-        'sights': [{'id': 'clip6_sight0', 'location':{'lat':'59.93479359999999','lng':'10.764704499999993','address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'title':''}],
+        'sights': [{'id': 'clip6_sight0', 'location':{'lat': parseFloat('59.93479359999999'),'lng': parseFloat('10.764704499999993'),'address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'title':''}],
         'start': '550',
         'treshold': '100',
         'id': 'clip6'

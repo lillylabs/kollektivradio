@@ -47,6 +47,13 @@ angular.module('radio')
       return acc;
     }, {});
 
+    var parseLatLng = function (obj) {
+      return _.extend({}, obj, {
+        lat: parseFloat(obj.lat),
+        lng: parseFloat(obj.lng)
+      });
+    };
+
     var sightKeyMapping = {
       /*jshint camelcase: false */
       map_location: 'location',
@@ -61,6 +68,9 @@ angular.module('radio')
         acc[sightsIndex] = acc[sightsIndex] || {
           id: clipId + '_sight' + sightsIndex
         };
+        if (value.lat && value.lng) {
+          value = parseLatLng(value);
+        }
         acc[sightsIndex][propertyName] = value;
       }
 
@@ -76,8 +86,8 @@ angular.module('radio')
       treshold: clipMetadata.treshold,
       sights: sights,
       locations: {
-        map: clipMetadata.map_location,
-        play: clipMetadata.play_location,
+        map: parseLatLng(clipMetadata.map_location),
+        play: parseLatLng(clipMetadata.play_location),
       }
     };
 
