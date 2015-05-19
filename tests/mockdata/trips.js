@@ -2322,6 +2322,7 @@ angular.module('mockdata', [])
       }
     ],
     'audio': 'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur1-Linje12.mp3',
+    'delayClipStart': false,
     'startStation': 'Jernbanetorget',
     'id': 110
   }

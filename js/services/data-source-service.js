@@ -25,7 +25,10 @@ angular.module('radio')
       endStation: metadata.end_station,
       lines: lines,
       audio: metadata.audio_url,
-      clips: clips
+      clips: clips,
+      delayClipStart: _.reduce(lines, function (shouldDelay, line) {
+        return shouldDelay || line.number >= 90;
+      }, false)
     };
     
     return trip;
