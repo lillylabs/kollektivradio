@@ -85,11 +85,25 @@ angular.module('radio')
     }
   };
 
+  var waitingClip;
   var findAndPlayClosestClip = function(position) {
     var closestClip = findClosestClip(position, trip.clips);
 
-    if (closestClip) {
-        playClip(closestClip);
+    if (waitingClip) {
+      waitingClip(position);
+    } else if (closestClip && trip.delayClipStart) {
+      waitingClip = function(newPosition) {
+        var clipLatLng = new google.maps.LatLng(closestClip.locations.play.lat, closestClip.locations.play.lng);
+        var positionLatLng = new google.maps.LatLng(newPosition.latitude, newPosition.longitude);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(positionLatLng, clipLatLng);
+
+        if (distance > closestClip.treshold) {
+          playClip(closestClip);
+          waitingClip = undefined;
+        }
+      };
+    } else if (closestClip) {
+      playClip(closestClip);
     }
   };
 
