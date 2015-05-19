@@ -122,6 +122,22 @@ describe('MapCtrl', function() {
           }
         });
       });
+
+      describe('then clip is ended', function () {
+        beforeEach(function () {
+          $scope.$broadcast('player:clipEnded', activeClip);
+        });
+
+        it('should set marker sights as inactive', function () {
+          _.each($scope.map.markers, function (marker) {
+            if (marker.icon === activeClip.id) {
+              expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
+            } else if (marker.clipId === activeClip.id) {
+              expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
+            }
+          });
+        });
+      });
     });
 
     describe('on updated position', function () {

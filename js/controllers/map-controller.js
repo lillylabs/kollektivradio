@@ -153,6 +153,8 @@ angular.module('radio')
     angular.forEach(markers, function(marker) {
       if(marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
+      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+          marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
     $scope.map.markers = markers;
