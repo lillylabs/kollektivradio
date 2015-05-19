@@ -5,7 +5,8 @@ angular.module('radio')
   locationIcon: {
     iconUrl: '/img/marker_location.png',
     iconSize: [26, 26],
-    iconAnchor: [13, 13]
+    iconAnchor: [13, 13],
+    className: 'marker-current-location'
   },
   playingIcon: {
     iconUrl: '/img/marker_playing.png',
