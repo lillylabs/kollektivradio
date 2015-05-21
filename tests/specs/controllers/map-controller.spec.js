@@ -5,20 +5,32 @@ describe('MapCtrl', function() {
   beforeEach(module('radio'));
   beforeEach(module('mockdata'));
 
-  var mapController, $scope, mockPlayer,
+  var clock,
+    mapController,
+    $scope, $timeout,
+    mockPlayer,
     mockTrip, MarkerIcons,
     mockMapUtil, mockTripSightPoints;
   var mockOsloBounds = {
     northEast: {lat: 59.91, lng: 10.75},
     southWest: {lat: 59.91, lng: 10.75}
   };
+
   var mockClipBounds = {
     northEast: {lat: 59.935819, lng: 10.764870999999971},
     southWest: {lat: 59.9137503, lng: 10.750747199999978}
   };
 
-  beforeEach(inject(function($controller, $injector, $q, _MarkerIcons_) {
-   $scope = $injector.get('$rootScope').$new();
+  beforeEach(function () {
+      clock = sinon.useFakeTimers();
+      module(function ($provide) {
+          $provide.constant('_', window._.runInContext());
+      });
+  });
+
+  beforeEach(inject(function($controller, $injector, _$timeout_, $q, _MarkerIcons_) {
+    $timeout = _$timeout_;
+    $scope = $injector.get('$rootScope').$new();
     MarkerIcons = _MarkerIcons_;
     mockTrip = $injector.get('mockTripsData')[0];
     mockTripSightPoints = _.reduce(mockTrip.clips, function (locations, clip) {
@@ -42,6 +54,10 @@ describe('MapCtrl', function() {
       Player: mockPlayer
     });
   }));
+
+  afterEach(function () {
+      clock.restore();
+  });
 
   describe('before clip is started', function() {
     it('should have oslo as map bounds', function() {
@@ -72,8 +88,14 @@ describe('MapCtrl', function() {
     it('should show map controls', function () {
       expect($scope.showMapControls).to.be.true;
     });
-    it('should set map bounds to clip bounds', function () {
+    it('should set map bounds to clip bounds after 150ms', function () {
+      clock.tick(150);
+      $timeout.flush();
       expect($scope.map.bounds).to.eql(mockClipBounds);
+    });
+    it('should not set map bounds to clip bounds before 150ms', function () {
+      clock.tick(149);
+      expect($timeout.flush).to.throw('No deferred tasks to be flushed');
     });
     it('should have one map marker for each play location', function () {
       _.each(mockTrip.clips, function (clip) {
