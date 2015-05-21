@@ -25,7 +25,10 @@ angular.module('radio')
       endStation: metadata.end_station,
       lines: lines,
       audio: metadata.audio_url,
-      clips: clips
+      clips: clips,
+      delayClipStart: _.reduce(lines, function (shouldDelay, line) {
+        return shouldDelay || line.number >= 90;
+      }, false)
     };
     
     return trip;
@@ -38,25 +41,66 @@ angular.module('radio')
   };
   
   var clipFromMetadata = function(metadata, clipIndex) {
+    var clipId = 'clip' + clipIndex;
+    var clipPrefix = 'clips_' + clipIndex + '_';
+    var clipMetadata = _.reduce(metadata, function (acc, value, key) {
+      if (key.indexOf(clipPrefix) === 0) {
+        acc[key.substr(clipPrefix.length)] = value;
+      }
+      return acc;
+    }, {});
+
+    var parseLatLng = function (obj) {
+      return _.extend({}, obj, {
+        lat: parseFloat(obj.lat),
+        lng: parseFloat(obj.lng)
+      });
+    };
+
+    var sightKeyMapping = {
+      /*jshint camelcase: false */
+      map_location: 'location',
+      title: 'title'
+    };
+    var sights = _.reduce(clipMetadata, function (acc, value, key) {
+      var keyMatch = key.match(/^sights_(\d+)_/);
+      if (keyMatch) {
+        var sightsIndex = parseInt(keyMatch[1], 10);
+        var propertyName = sightKeyMapping[key.substr(keyMatch[0].length)];
+
+        acc[sightsIndex] = acc[sightsIndex] || {
+          id: clipId + '_sight' + sightsIndex
+        };
+        if (value.lat && value.lng) {
+          value = parseLatLng(value);
+        }
+        acc[sightsIndex][propertyName] = value;
+      }
+
+      return acc;
+    }, []);
+
     var clip = {
-      id: 'clip' + clipIndex,
-      title: metadata['clips_' + clipIndex + '_title'],
-      start: metadata['clips_' + clipIndex + '_start'],
-      end: metadata['clips_' + clipIndex + '_end'],
-      treshold: metadata['clips_' + clipIndex + '_treshold'],
+      /*jshint camelcase: false */
+      id: clipId,
+      title: clipMetadata.title,
+      start: clipMetadata.start,
+      end: clipMetadata.end,
+      treshold: clipMetadata.treshold,
+      sights: sights,
       locations: {
-        map: metadata['clips_' + clipIndex + '_map_location'],
-        play: metadata['clips_' + clipIndex + '_play_location'],
+        map: parseLatLng(clipMetadata.map_location),
+        play: parseLatLng(clipMetadata.play_location),
       }
     };
 
     if(!clip.locations.map) {
       clip.locations.map = clip.locations.play;
     }
-    
+
     return clip;
   };
-  
+
   var lineFromMetadata = function(metadata, lineIndex) {
     var line = {
       number: metadata['lines_' + lineIndex + '_number'],

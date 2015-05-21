@@ -10,8 +10,7 @@ describe('MapCtrl', function() {
     $scope, $timeout,
     mockPlayer,
     mockTrip, MarkerIcons,
-    mockMapUtil, mockTripLocationPoints;
-
+    mockMapUtil, mockTripSightPoints;
   var mockOsloBounds = {
     northEast: {lat: 59.91, lng: 10.75},
     southWest: {lat: 59.91, lng: 10.75}
@@ -34,11 +33,10 @@ describe('MapCtrl', function() {
     $scope = $injector.get('$rootScope').$new();
     MarkerIcons = _MarkerIcons_;
     mockTrip = $injector.get('mockTripsData')[0];
-    mockTripLocationPoints = _.reduce(mockTrip.clips, function (locations, clip) {
-      return locations.concat([
-        _.pick(clip.locations.map, ['lat', 'lng']),
-        _.pick(clip.locations.play, ['lat', 'lng'])
-        ]);
+    mockTripSightPoints = _.reduce(mockTrip.clips, function (locations, clip) {
+      return locations.concat(_.map(clip.sights, function (sight) {
+        return _.pick(sight.location, ['lat', 'lng']);
+      })).concat(_.pick(clip.locations.play, ['lat', 'lng']));
     }, []);
     mockPlayer = {
       getSelectedTrip: function () {
@@ -99,17 +97,69 @@ describe('MapCtrl', function() {
       clock.tick(149);
       expect($timeout.flush).to.throw('No deferred tasks to be flushed');
     });
-    it('should have one map marker for each clip', function () {
+    it('should have one map marker for each play location', function () {
       _.each(mockTrip.clips, function (clip) {
         expect($scope.map.markers[clip.id]).to.eql({
-          lat: parseFloat(clip.locations.map.lat),
-          lng: parseFloat(clip.locations.map.lng),
+          id: clip.id,
+          lat: parseFloat(clip.locations.play.lat),
+          lng: parseFloat(clip.locations.play.lng),
           icon: MarkerIcons.pausedIcon
         });
       });
     });
+    it('should have one disabled map marker for each sight', function () {
+      _.each(mockTrip.clips, function (clip) {
+        _.each(clip.sights, function (sight) {
+          expect($scope.map.markers[sight.id]).to.eql({
+            id: sight.id,
+            clipId: clip.id,
+            lat: parseFloat(sight.location.lat),
+            lng: parseFloat(sight.location.lng),
+            icon: MarkerIcons.inactiveSightIcon
+          });
+        });
+      });
+    });
     it('should not include current position in map bounds', function () {
-      expect(mockMapUtil.calculateBoundsForPoints.calledWith(mockTripLocationPoints)).to.be.true;
+      expect(mockMapUtil.calculateBoundsForPoints.calledWith(mockTripSightPoints)).to.be.true;
+    });
+
+    describe('when clip is started', function () {
+      var activeClip;
+      beforeEach(function () {
+        activeClip = mockTrip.clips[0];
+        $scope.$broadcast('player:clipStarted', activeClip);
+      });
+
+      it('should set marker sights as active', function () {
+        _.each($scope.map.markers, function (marker) {
+          if (marker.id === activeClip.id) {
+            expect(marker.icon).to.eq(MarkerIcons.playingIcon);
+          } else if (marker.clipId === activeClip.id) {
+            expect(marker.icon).to.eq(MarkerIcons.activeSightIcon);
+          } else if (marker.clipId) {
+            expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
+          } else if (marker.icon !== MarkerIcons.locationIcon) {
+            expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
+          }
+        });
+      });
+
+      describe('then clip is ended', function () {
+        beforeEach(function () {
+          $scope.$broadcast('player:clipEnded', activeClip);
+        });
+
+        it('should set marker sights as inactive', function () {
+          _.each($scope.map.markers, function (marker) {
+            if (marker.icon === activeClip.id) {
+              expect(marker.icon).to.eq(MarkerIcons.pausedIcon);
+            } else if (marker.clipId === activeClip.id) {
+              expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
+            }
+          });
+        });
+      });
     });
 
     describe('on updated position', function () {
@@ -128,7 +178,7 @@ describe('MapCtrl', function() {
         });
       });
       it('should include current position in map bounds', function () {
-        var expectBoundPoints = mockTripLocationPoints.concat({
+        var expectBoundPoints = mockTripSightPoints.concat({
           lat: mockCurrentPosition.latitude,
           lng: mockCurrentPosition.longitude
         });

@@ -12,6 +12,41 @@ angular.module('radio')
     Locator.watchPosition();
     Audio.setAudioSrc(trip.audio);
     $rootScope.$broadcast('player:tripStarted', tripToBeStarted);
+
+    if (window.location.href.indexOf('emulate=true') > -1) {
+      emulateTrip();
+    }
+  };
+
+  var emulateTrip = function () {
+    var stepsPerClip = 20;
+    var currentClipIndex = 0;
+    var latOffset = 0;
+    var lngOffset = 0;
+    var intervalId = setInterval(function () {
+      $rootScope.$apply(function () {
+        if (playedClips.length > currentClipIndex + 1) {
+          latOffset = 0;
+          lngOffset = 0;
+          currentClipIndex += 1;
+        }
+        if (currentClipIndex + 1 >= trip.clips.length) {
+          clearInterval(intervalId);
+          return;
+        } else {
+          var clipLocation = trip.clips[currentClipIndex].locations.play;
+          var nextClipLocation = trip.clips[currentClipIndex + 1].locations.play;
+
+          $rootScope.$broadcast('position:updated', {
+            latitude: clipLocation.lat + latOffset,
+            longitude: clipLocation.lng + lngOffset
+          });
+
+          latOffset += (nextClipLocation.lat - clipLocation.lat) / stepsPerClip;
+          lngOffset += (nextClipLocation.lng - clipLocation.lng) / stepsPerClip;
+        }
+      });
+    }, 250);
   };
 
   var endTrip = function(tripToBeEnded) {
@@ -50,11 +85,25 @@ angular.module('radio')
     }
   };
 
+  var waitingClip;
   var findAndPlayClosestClip = function(position) {
     var closestClip = findClosestClip(position, trip.clips);
 
-    if (closestClip) {
-        playClip(closestClip);
+    if (waitingClip) {
+      waitingClip(position);
+    } else if (closestClip && trip.delayClipStart) {
+      waitingClip = function(newPosition) {
+        var clipLatLng = new google.maps.LatLng(closestClip.locations.play.lat, closestClip.locations.play.lng);
+        var positionLatLng = new google.maps.LatLng(newPosition.latitude, newPosition.longitude);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(positionLatLng, clipLatLng);
+
+        if (distance > closestClip.treshold) {
+          playClip(closestClip);
+          waitingClip = undefined;
+        }
+      };
+    } else if (closestClip) {
+      playClip(closestClip);
     }
   };
 

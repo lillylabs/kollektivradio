@@ -5,17 +5,32 @@ angular.module('radio')
   locationIcon: {
     iconUrl: '/img/marker_location.png',
     iconSize: [26, 26],
-    iconAnchor: [13, 13]
+    iconAnchor: [13, 13],
+    className: 'marker-current-location'
   },
   playingIcon: {
     iconUrl: '/img/marker_playing.png',
     iconSize: [50, 50],
-    iconAnchor: [25, 47]
+    iconAnchor: [25, 47],
+    className: 'marker-play-location active'
   },
   pausedIcon: {
     iconUrl: '/img/marker_paused.png',
     iconSize: [26, 26],
-    iconAnchor: [13, 13]
+    iconAnchor: [13, 13],
+    className: 'marker-play-location'
+  },
+  activeSightIcon: {
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+    className: 'marker-sight active'
+  },
+  inactiveSightIcon: {
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13],
+    className: 'marker-sight'
   },
   positron: {
     name: 'Positron',
@@ -56,7 +71,9 @@ angular.module('radio')
 
   var boundingPointsFromClips = function (clips) {
     return _.reduce(clips, function (locations, clip) {
-      locations.push(_.pick(clip.locations.map, ['lat', 'lng']));
+      _.each(clip.sights, function (sight) {
+        locations.push(_.pick(sight.location, ['lat', 'lng']));
+      });
       locations.push(_.pick(clip.locations.play, ['lat', 'lng']));
       return locations;
     }, []);
@@ -83,18 +100,32 @@ angular.module('radio')
     var points = boundingPointsFromClips(clips).concat([{lat: lat, lng: lng}]);
     updateBounds(MapUtil.calculateBoundsForPoints(points));
   }
-  
-  function addClipMarker(clip) {
+
+  function addPlayLocation(clip) {
     $scope.map.markers[clip.id] = {
-      lat: parseFloat(clip.locations.map.lat),
-      lng: parseFloat(clip.locations.map.lng),
+      id: clip.id,
+      lat: clip.locations.play.lat,
+      lng: clip.locations.play.lng,
       icon: MarkerIcons.pausedIcon
     };
   }
-  
+
+  function addClipSight(clip, sight) {
+    $scope.map.markers[sight.id] = {
+      id: sight.id,
+      clipId: clip.id,
+      lat: sight.location.lat,
+      lng: sight.location.lng,
+      icon: MarkerIcons.inactiveSightIcon
+    };
+  }
+
   function addClips(clips) {
-    angular.forEach(clips, function(clip) {
-      addClipMarker(clip);
+    _.each(clips, function(clip) {
+      addPlayLocation(clip);
+      _.each(clip.sights, function (sight) {
+        addClipSight(clip, sight);
+      });
     });
   }
   
@@ -106,10 +137,14 @@ angular.module('radio')
   $scope.$on('player:clipStarted', function(event, clip) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
-      if (marker === markers[clip.id]) {
+      if (marker.id === clip.id) {
         marker.icon = MarkerIcons.playingIcon;
+      } else if (marker.clipId === clip.id) {
+        marker.icon = MarkerIcons.activeSightIcon;
       } else if (marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
+      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+        marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
     $scope.map.markers = markers;
@@ -120,6 +155,8 @@ angular.module('radio')
     angular.forEach(markers, function(marker) {
       if(marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
+      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+          marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
     $scope.map.markers = markers;

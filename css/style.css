@@ -87,6 +87,36 @@ body {
   background-color: black;
 }
 
+@keyframes blinker {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+@-webkit-keyframes blinker {
+  0% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+.map .marker-current-location {
+  animation: blinker 1.7s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+  -webkit-animation: blinker 1.7s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+
+.map .marker-play-location {
+  filter: grayscale(50%);
+  -webkit-filter: grayscale(50%);
+  opacity: 0.5;
+}
+.map .marker-play-location.active {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  opacity: 1;
+}
+.map .marker-sight {
+  display: none;
+}
+.map .marker-sight.active {
+  display: block;
+}
+
 .angular-leaflet-map {
   height: 100%;
 }
