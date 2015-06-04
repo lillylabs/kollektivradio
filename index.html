@@ -37,7 +37,7 @@
   </head>
   <body ng-app="radio" ng-controller="ApplicationCtrl" ng-cloak>
     
-    <div class="map" ng-controller="MapCtrl">
+    <div class="map" ng-controller="MapCtrl" ng-class="{'test-env': isTestEnv}">
       
       <leaflet center="map.center" bounds="map.bounds" layers="map.layers" markers="map.markers" defaults="map.defaults"></leaflet>
       
