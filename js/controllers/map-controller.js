@@ -21,9 +21,9 @@ angular.module('radio')
     className: 'marker-play-location'
   },
   activeSightIcon: {
-    iconUrl: '/img/marker_paused.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    iconUrl: '/img/marker_playing.png',
+    iconSize: [50, 50],
+    iconAnchor: [25, 47],
     className: 'marker-sight active'
   },
   inactiveSightIcon: {
