@@ -101,20 +101,33 @@ body {
 }
 
 .map .marker-play-location {
+  display: none;
+}
+
+.map.test-env .marker-play-location {
+  display: block;
+}
+
+.map .marker-play-location {
   filter: grayscale(50%);
   -webkit-filter: grayscale(50%);
-  opacity: 0.5;
+  opacity: 0.2;
 }
 .map .marker-play-location.active {
   filter: grayscale(0%);
   -webkit-filter: grayscale(0%);
-  opacity: 1;
+  opacity: 0.5;
 }
+
 .map .marker-sight {
-  display: none;
+  filter: grayscale(50%);
+  -webkit-filter: grayscale(50%);
+  opacity: 0.5;
 }
 .map .marker-sight.active {
-  display: block;
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  opacity: 1;
 }
 
 .angular-leaflet-map {

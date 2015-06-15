@@ -9,9 +9,9 @@ angular.module('radio')
     className: 'marker-current-location'
   },
   playingIcon: {
-    iconUrl: '/img/marker_playing.png',
-    iconSize: [50, 50],
-    iconAnchor: [25, 47],
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13], 
     className: 'marker-play-location active'
   },
   pausedIcon: {
@@ -21,9 +21,9 @@ angular.module('radio')
     className: 'marker-play-location'
   },
   activeSightIcon: {
-    iconUrl: '/img/marker_paused.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    iconUrl: '/img/marker_playing.png',
+    iconSize: [50, 50],
+    iconAnchor: [25, 47],
     className: 'marker-sight active'
   },
   inactiveSightIcon: {
@@ -38,9 +38,10 @@ angular.module('radio')
     type: 'xyz'
   }
 })
-.controller('MapCtrl', function(_, $scope, $timeout, Locator, MapUtil, Player, MarkerIcons) {
+.controller('MapCtrl', function(_, $scope, $timeout, Locator, MapUtil, Player, MarkerIcons, environment) {
   var osloBounds = MapUtil.calculateBoundsForOslo();
   
+  $scope.isTestEnv = !environment.isProduction;
   $scope.showMapControls = false;
   
   $scope.map = {
