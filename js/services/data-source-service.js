@@ -60,7 +60,9 @@ angular.module('radio')
     var sightKeyMapping = {
       /*jshint camelcase: false */
       map_location: 'location',
-      title: 'title'
+      title: 'title',
+      start_time_in_clip: 'startTime',
+      end_time_in_clip: 'endTime'
     };
     var sights = _.reduce(clipMetadata, function (acc, value, key) {
       var keyMatch = key.match(/^sights_(\d+)_/);
@@ -73,7 +75,10 @@ angular.module('radio')
         };
         if (value.lat && value.lng) {
           value = parseLatLng(value);
+        } else if (value && !isNaN(value)) {
+          value = parseFloat(value);
         }
+
         acc[sightsIndex][propertyName] = value;
       }
 
