@@ -17,19 +17,54 @@ describe('DataSourceService', function() {
     DataSource = _DataSource_;
   }));
 
-  describe('trips', function(){
-    it('should return trips for current environment', function(done) {
-      DataSource.trips().then(function (trips) {
-        expect(trips).to.eql(tripsMockData);
-        done();
-      });
-      $httpBackend.flush();
-    });
-  });
-
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  describe('trips', function() {
+    var trips;
+
+    beforeEach(function () {
+      DataSource.trips().then(function (_trips_) {
+        trips = _trips_;
+      });
+      $httpBackend.flush();
+    });
+
+    it('should have equal first trips', function () {
+      expect(JSON.parse(JSON.stringify(trips[0]))).to.deep.equal(JSON.parse(JSON.stringify(tripsMockData[0])));
+    });
+
+    it('should return same number of trips as response', function () {
+      expect(trips.length).to.eql(tripsMockData.length);
+    });
+
+  });
+
+  describe('trips for production', function () {
+    var trips, environment, isProduction;
+
+    beforeEach(inject(function (environment) {
+      isProduction = environment.isProduction;
+      environment.isProduction = true;
+    }));
+
+    beforeEach(function () {
+      DataSource.trips().then(function(_trips_) {
+        trips = _trips_;
+      });
+      $httpBackend.flush();
+    });
+
+    afterEach(inject(function (environment) {
+      environment.isProduction = isProduction;
+    }));
+
+    it('should only have production trips', function () {
+      expect(trips.length).to.eq(1);
+    });
+
   });
 
 });

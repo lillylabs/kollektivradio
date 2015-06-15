@@ -35,7 +35,9 @@ describe('PlayerService', function() {
   }));
 
   beforeEach(inject(function(_Player_, $injector, _$q_) {
-    mockTrip = $injector.get('mockTripsData')[0];
+    mockTrip = _.findWhere($injector.get('mockTripsData'), {
+      title: 'En historisk tur fra sentrum til Torshov'
+    });
     $q = _$q_;
 
     Player = _Player_;

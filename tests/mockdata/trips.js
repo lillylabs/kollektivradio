@@ -2402,6 +2402,708 @@ angular.module('mockdata', [])
 })
 .value('mockTripsData', [
     {
+        "id": 245,
+        "title": "Båt 92",
+        "description": "<p>Velkommen til Båt 92. Bon voyage!</p>\n",
+        "startStation": "Rådhuskaia",
+        "endStation": "Rådhuskaia",
+        "lines": [
+            {
+                "number": "92",
+                "endStation": "Rådhuskaia"
+            }
+        ],
+        "audio": "https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Battur1-Linje92.mp3",
+        "clips": [
+            {
+                "id": "clip0",
+                "title": "Rådhuskaia  - Hovedøya",
+                "start": "0",
+                "end": "250",
+                "treshold": "200",
+                "sights": [
+                    {
+                        "id": "clip0_sight0",
+                        "undefined": "80",
+                        "location": {
+                            "lat": 59.8974561731207,
+                            "lng": 10.72812795639038,
+                            "address": "Hovedøya, 0150 Oslo, Norge"
+                        },
+                        "title": "Lavetthuset"
+                    },
+                    {
+                        "id": "clip0_sight1",
+                        "undefined": "109",
+                        "location": {
+                            "lat": 59.89892516416984,
+                            "lng": 10.734930038452148,
+                            "address": "Gressholmen, 0150 Oslo, Norge"
+                        },
+                        "title": "Danmark"
+                    },
+                    {
+                        "id": "clip0_sight2",
+                        "undefined": "140",
+                        "location": {
+                            "lat": 59.89606183226787,
+                            "lng": 10.739843497900438,
+                            "address": "Gressholmen, 0150 Oslo, Norge"
+                        },
+                        "title": "Hodet"
+                    }
+                ],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.90977154795232,
+                        "lng": 10.7309784179688,
+                        "address": "Rådhusbrygge 3 1, 0160 Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip1",
+                "title": "Hovedøya - Lindøya",
+                "start": "300",
+                "end": "773",
+                "treshold": "50",
+                "sights": [
+                    {
+                        "id": "clip1_sight0",
+                        "undefined": "315",
+                        "location": {
+                            "lat": 59.89864473878639,
+                            "lng": 10.729200492529344,
+                            "address": "Gressholmen, 0150 Oslo, Norge"
+                        },
+                        "title": "Isskuringer"
+                    },
+                    {
+                        "id": "clip1_sight1",
+                        "undefined": "441",
+                        "location": {
+                            "lat": 59.897095018976664,
+                            "lng": 10.724393973974657,
+                            "address": "Hovedøya, 0150 Oslo, Norge"
+                        },
+                        "title": "Vestre store krutthus"
+                    },
+                    {
+                        "id": "clip1_sight2",
+                        "undefined": "370",
+                        "location": {
+                            "lat": 59.894804,
+                            "lng": 10.688309000000004,
+                            "address": "Dyna fyr, Oslo, Norge"
+                        },
+                        "title": "Dyna fyr"
+                    },
+                    {
+                        "id": "clip1_sight3",
+                        "undefined": "375",
+                        "location": {
+                            "lat": 59.900787,
+                            "lng": 10.721802000000025,
+                            "address": "Kavringen, Norge"
+                        },
+                        "title": "Kavringen"
+                    },
+                    {
+                        "id": "clip1_sight4",
+                        "undefined": "378",
+                        "location": {
+                            "lat": 59.8948042,
+                            "lng": 10.68830939999998,
+                            "address": "Galten oslo"
+                        },
+                        "title": "Galten"
+                    },
+                    {
+                        "id": "clip1_sight5",
+                        "undefined": "385",
+                        "location": {
+                            "lat": 59.89735331063272,
+                            "lng": 10.72405065122075,
+                            "address": "Hovedøya, 0150 Oslo, Norge"
+                        },
+                        "title": "Isskuringer"
+                    },
+                    {
+                        "id": "clip1_sight6",
+                        "undefined": "472",
+                        "location": {
+                            "lat": 59.8969228234235,
+                            "lng": 10.729715476660203,
+                            "address": "Gressholmen, 0150 Oslo, Norge"
+                        },
+                        "title": "Klosterruinen på Hovedøya"
+                    },
+                    {
+                        "id": "clip1_sight7",
+                        "undefined": "484",
+                        "location": {
+                            "lat": 59.89198983214383,
+                            "lng": 10.715099041308576,
+                            "address": "Lindøya 866, 0150 Oslo, Norge"
+                        },
+                        "title": "Romertoppen"
+                    },
+                    {
+                        "id": "clip1_sight8",
+                        "undefined": "540",
+                        "location": {
+                            "lat": 59.889758,
+                            "lng": 10.73931760000005,
+                            "address": "Bleikøya, Oslo, Norge"
+                        },
+                        "title": "Bleikøya"
+                    },
+                    {
+                        "id": "clip1_sight9",
+                        "undefined": "545",
+                        "location": {
+                            "lat": 59.8844444,
+                            "lng": 10.720277799999963,
+                            "address": "Gressholmen, Oslo, Norge"
+                        },
+                        "title": "Gressholmen"
+                    },
+                    {
+                        "id": "clip1_sight10",
+                        "undefined": "610",
+                        "location": {
+                            "lat": 59.907586,
+                            "lng": 10.737083999999982,
+                            "address": "Akershus Festning, Oslo, Norge"
+                        },
+                        "title": "Akershus festning"
+                    }
+                ],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.89890902176408,
+                        "lng": 10.730702877044678,
+                        "address": "Gressholmen, 0150 Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip2",
+                "title": "Lindøya - Nakholmen",
+                "start": "780",
+                "end": "950",
+                "treshold": "50",
+                "sights": [
+                    {
+                        "id": "clip2_sight0",
+                        "undefined": "807",
+                        "location": {
+                            "lat": 59.8907046,
+                            "lng": 10.693547800000033,
+                            "address": "Nakkholmen, Norge"
+                        },
+                        "title": "Nakkholmen"
+                    },
+                    {
+                        "id": "clip2_sight1",
+                        "undefined": "912",
+                        "location": {
+                            "lat": 59.90012247269252,
+                            "lng": 10.678235859863321,
+                            "address": "Huk Aveny 67H, 0287 Oslo, Norge"
+                        },
+                        "title": "Bygdøy"
+                    },
+                    {
+                        "id": "clip2_sight2",
+                        "undefined": "922",
+                        "location": {
+                            "lat": 59.907586,
+                            "lng": 10.737083999999982,
+                            "address": "Akershus Festning, Oslo, Norge"
+                        },
+                        "title": "Akershus festning"
+                    }
+                ],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.88999,
+                        "lng": 10.706437999999935,
+                        "address": "Lindøya vest, Oslo, Norge"
+                    }
+                }
+            }
+        ],
+        "delayClipStart": true
+    },
+    {
+        "id": 177,
+        "title": "Lydbilder fra Paris",
+        "description": "<p>Lydlige smakebiter til deg som lengter etter Paris.</p>\n",
+        "startStation": "",
+        "endStation": "",
+        "lines": [],
+        "audio": "https://dl.dropboxusercontent.com/s/arm5el89f4jkil7/Lydspor%20til%20Paris.mp3",
+        "clips": [
+            {
+                "id": "clip0",
+                "title": "Barn i Rue Vieille du Temp",
+                "start": "0",
+                "end": "10",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.8606353,
+                        "lng": 2.3618604000000687,
+                        "address": "109 Rue Vieille du Temple, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.8606353,
+                        "lng": 2.3618604000000687,
+                        "address": "109 Rue Vieille du Temple, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip1",
+                "title": "Gatemusikk på Pont Saint-Louis",
+                "start": "12",
+                "end": "34",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.852900652366195,
+                        "lng": 2.3531671804259986,
+                        "address": "Pont Saint-Louis, 75004 Paris, Frankrike"
+                    },
+                    "play": {
+                        "lat": 48.85285617092492,
+                        "lng": 2.353219985961914,
+                        "address": "Pont Saint-Louis, 75004 Paris, Frankrike"
+                    }
+                }
+            },
+            {
+                "id": "clip2",
+                "title": "Fête du pain på Place Jean-Paul-II",
+                "start": "36",
+                "end": "70",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 48.85344295118288,
+                        "lng": 2.3482003571472205,
+                        "address": "1 Parvis Notre-Dame - place Jean-Paul-II, 75004 Paris, Frankrike"
+                    }
+                }
+            },
+            {
+                "id": "clip3",
+                "title": "Gare d'Austerlitz",
+                "start": "71",
+                "end": "123",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 48.842635,
+                        "lng": 2.3649689999999737,
+                        "address": "Gare d'Austerlitz, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip4",
+                "title": "Jardin des Plantes",
+                "start": "124",
+                "end": "182",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.8439621,
+                        "lng": 2.359599600000024,
+                        "address": "Jardin des Plantes, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.8439621,
+                        "lng": 2.359599600000024,
+                        "address": "Jardin des Plantes, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip5",
+                "title": "153 Rue Amelot",
+                "start": "183",
+                "end": "217",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.865539,
+                        "lng": 2.3660198999999693,
+                        "address": "153 Rue Amelot, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.865539,
+                        "lng": 2.3660198999999693,
+                        "address": "153 Rue Amelot, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip6",
+                "title": "Republique metro",
+                "start": "218",
+                "end": "378",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.867503,
+                        "lng": 2.3638109999999415,
+                        "address": "République, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.867503,
+                        "lng": 2.3638109999999415,
+                        "address": "République, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip7",
+                "title": "Rue Vieille du Temple",
+                "start": "379",
+                "end": "417",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 48.85864464364366,
+                        "lng": 2.3587560653686523,
+                        "address": "50 Rue Vieille du Temple, 75004 Paris, Frankrike"
+                    }
+                }
+            },
+            {
+                "id": "clip8",
+                "title": "Ecole des Mines",
+                "start": "418",
+                "end": "437",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.845585,
+                        "lng": 2.3396319999999378,
+                        "address": "École Nationale Supérieure des Mines, Boulevard Saint-Michel, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.845585,
+                        "lng": 2.3396319999999378,
+                        "address": "École Nationale Supérieure des Mines, Boulevard Saint-Michel, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip9",
+                "title": "Place de la République",
+                "start": "438",
+                "end": "536",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.86820179999999,
+                        "lng": 2.3638922000000093,
+                        "address": "12 Place de la République, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.86806759326866,
+                        "lng": 2.363253100524844,
+                        "address": "12 Place de la République, 75003 Paris, Frankrike"
+                    }
+                }
+            },
+            {
+                "id": "clip10",
+                "title": "Place de la Republique",
+                "start": "537",
+                "end": "580",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.8668705,
+                        "lng": 2.3636797000000342,
+                        "address": "13 Place de la République, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.86760180428164,
+                        "lng": 2.3636607962951075,
+                        "address": "13 Place de la République, 75003 Paris 3eme, Frankrike"
+                    }
+                }
+            },
+            {
+                "id": "clip11",
+                "title": "Au Limonaire",
+                "start": "581",
+                "end": "600",
+                "treshold": "10",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.8723681,
+                        "lng": 2.344967600000018,
+                        "address": "18 Cité Bergère, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.8723681,
+                        "lng": 2.344967600000018,
+                        "address": "18 Cité Bergère, Paris, France"
+                    }
+                }
+            },
+            {
+                "id": "clip12",
+                "title": "La Caféothèque",
+                "start": "601",
+                "end": "621",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": 48.8544464,
+                        "lng": 2.3557591,
+                        "address": "52 Rue de l'Hôtel de ville, Paris, France"
+                    },
+                    "play": {
+                        "lat": 48.8544464,
+                        "lng": 2.3557591,
+                        "address": "52 Rue de l'Hôtel de ville, Paris, France"
+                    }
+                }
+            }
+        ],
+        "delayClipStart": false
+    },
+    {
+        "id": 128,
+        "title": "Christiania Torv til Vigelandsparken",
+        "description": "",
+        "startStation": "Christiania Torv",
+        "endStation": "Vigelandsparken",
+        "lines": [
+            {
+                "number": "12",
+                "endStation": "Kjelsås/Grefsen st."
+            }
+        ],
+        "audio": "https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur2-Linje12.mp3",
+        "clips": [
+            {
+                "id": "clip0",
+                "title": "Utdrag fra Amtmannens døtre av Camilla Collett",
+                "start": "540",
+                "end": "687",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.911167,
+                        "lng": 10.739503000000013,
+                        "address": "Christiania torv, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip1",
+                "title": "Utdrag fra Fra Christiania Bohemen av Hans Jæger",
+                "start": "360",
+                "end": "532",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.910975970796784,
+                        "lng": 10.729694366455078,
+                        "address": "Aker brygge, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip2",
+                "title": "Utdrag fra Beatles av Lars Saabye Christensen",
+                "start": "180",
+                "end": "320",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.9148065,
+                        "lng": 10.717414700000063,
+                        "address": "Solli plass, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip3",
+                "title": "Utdrag fra Lillelord av Johan Borgen",
+                "start": "0",
+                "end": "173",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.919491,
+                        "lng": 10.708740000000034,
+                        "address": "Elisenberg, Oslo, Norge"
+                    }
+                }
+            }
+        ],
+        "delayClipStart": false
+    },
+    {
+        "id": 126,
+        "title": "Vigelandsparken til Christiania Torv",
+        "description": "",
+        "startStation": "Vigelandsparken",
+        "endStation": "Christiania Torv",
+        "lines": [
+            {
+                "number": "12",
+                "endStation": "Majorstuen"
+            }
+        ],
+        "audio": "https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur2-Linje12.mp3",
+        "clips": [
+            {
+                "id": "clip0",
+                "title": "Utdrag fra Lillelord av Johan Borgen",
+                "start": "0",
+                "end": "173",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.924696,
+                        "lng": 10.708382000000029,
+                        "address": "Vigelandsparken, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip1",
+                "title": "Utdrag fra Beatles av Lars Saabye Christensen",
+                "start": "180",
+                "end": "320",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.919491,
+                        "lng": 10.708740000000034,
+                        "address": "Elisenberg, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip2",
+                "title": "Utdrag fra Fra Christiania Bohemen av Hans Jæger",
+                "start": "360",
+                "end": "532",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.9148065,
+                        "lng": 10.717414700000063,
+                        "address": "Solli plass, Oslo, Norge"
+                    }
+                }
+            },
+            {
+                "id": "clip3",
+                "title": "Utdrag fra Amtmannens døtre av Camilla Collett",
+                "start": "540",
+                "end": "687",
+                "treshold": "50",
+                "sights": [],
+                "locations": {
+                    "map": {
+                        "lat": null,
+                        "lng": null
+                    },
+                    "play": {
+                        "lat": 59.91096521309855,
+                        "lng": 10.729715824127197,
+                        "address": "Aker brygge, Oslo, Norge"
+                    }
+                }
+            }
+        ],
+        "delayClipStart": false
+    },
+    {
         "id": 110,
         "title": "En historisk tur fra sentrum til Torshov",
         "description": "<p>Bli bedre kjent med byens historie på vei fra sentrum til Torshov.</p>\n",

@@ -13,11 +13,15 @@ module.exports = function(config) {
     preprocessors: {
       'js/**/*.js': ['coverage']
     },
+    exclude: [
+      'js/environment.js'
+    ],
     files: [
       'tests/lib/angular.js',
       'tests/lib/*.js',
       'lib/*.js',
       'js/**/*.js',
+      'tests/environment.js',
       'tests/mockdata/*.js',
       'tests/specs/**/*.js'
     ]
