@@ -43,7 +43,7 @@ describe('DataSourceService', function() {
   });
 
   describe('trips for production', function () {
-    var trips, environment, isProduction;
+    var trips, isProduction;
 
     beforeEach(inject(function (environment) {
       isProduction = environment.isProduction;
