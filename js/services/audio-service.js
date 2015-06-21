@@ -1,7 +1,7 @@
 'use strict';
 angular.module('radio')
 
-.factory('Audio', function($document, $rootScope, $q, radioAudio) {
+.factory('Audio', function($document, $rootScope, $q, _, radioAudio) {
 
   if (!radioAudio) {
     window.alert('Audio is not supported by browser.');
