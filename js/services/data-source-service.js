@@ -75,6 +75,8 @@ angular.module('radio')
         };
         if (value.lat && value.lng) {
           value = parseLatLng(value);
+        } else if (value === '') {
+          value = null;
         } else if (value && !isNaN(value)) {
           value = parseFloat(value);
         }

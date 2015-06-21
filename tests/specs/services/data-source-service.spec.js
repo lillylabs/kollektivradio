@@ -67,6 +67,25 @@ describe('DataSourceService', function() {
 
   });
 
+  describe('tram trip', function () {
+    var tramTrip;
+
+    beforeEach(function () {
+      DataSource.trips().then(function (trips) {
+        tramTrip = _.findWhere(trips, {title: 'En historisk tur fra sentrum til Torshov'});
+      });
+      $httpBackend.flush();
+    });
+
+    it('should parse empty start time as null', function () {
+      expect(tramTrip.clips[0].sights[0].startTime).to.be.null;
+    });
+
+    it('should parse empty end time as null', function () {
+      expect(tramTrip.clips[0].sights[0].startTime).to.be.null;
+    });
+  });
+
   describe('boat trip', function () {
     var boatTrip;
 
