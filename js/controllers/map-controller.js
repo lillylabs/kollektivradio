@@ -151,7 +151,7 @@ angular.module('radio')
     $scope.map.markers = markers;
   });
   
-  $scope.$on('player:clipEnded', function(event, clip) {
+  $scope.$on('player:clipEnded', function(event) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function(marker) {
       if(marker.icon === MarkerIcons.playingIcon) {
