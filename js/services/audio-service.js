@@ -87,12 +87,18 @@ angular.module('radio')
     });
   });
 
+  var broadcastTimeUpdate = _.throttle(function (time) {
+    $rootScope.$broadcast('audio:timeUpdate', Math.floor(time));
+  }, 1000);
+
   radioAudio.addEventListener('timeupdate', function(evt) {
     $rootScope.$apply(function () {
       if (currentSprite && radioAudio.currentTime >= currentSprite.end) {
         pauseAudio();
         currentSprite = null;
         $rootScope.$broadcast('audio:spriteEnded');
+      } else if (currentSprite) {
+        broadcastTimeUpdate(radioAudio.currentTime);
       }
     });
   });

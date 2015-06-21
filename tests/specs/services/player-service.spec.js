@@ -108,6 +108,19 @@ describe('PlayerService', function() {
         expect(clipStartedListener.calledOnce).to.be.true;
         expect(mockAudio.playAudioSprite.calledOnce).to.be.true;
       });
+
+      describe('and receiving audio time update', function () {
+        var timeUpdateListener;
+        beforeEach(inject(function ($rootScope) {
+          timeUpdateListener = sinon.spy();
+          $rootScope.$on('player:timeUpdate', timeUpdateListener);
+          $rootScope.$broadcast('audio:timeUpdate', 100);
+          $rootScope.$apply();
+        }));
+        it('should broadcast a player:timeUpdate event with the current clip', function () {
+          expect(timeUpdateListener.calledWith(sinon.match.any, mockTrip.clips[0], 100)).to.be.true;
+        });
+      });
     });
 
     describe('when ending trip', function() {
