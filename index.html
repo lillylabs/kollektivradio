@@ -7,8 +7,11 @@
     
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAhODo7kYoy-tc_kG4F8TswHM-AQYusbdg&sensor=true&libraries=geometry"></script>
     
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+    <!-- angular --->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
+
+    <!-- leaflet -->
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
     <script src="/lib/angular-leaflet-directive.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
     
@@ -36,6 +39,7 @@
     <script src="js/services/player-service.js"></script>
     <script src="js/services/analytics-service.js"></script>
   </head>
+
   <body ng-app="radio" ng-controller="ApplicationCtrl" ng-cloak>
     
     <div class="map" ng-controller="MapCtrl" ng-class="{'test-env': isTestEnv}">
