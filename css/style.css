@@ -100,23 +100,23 @@ body {
   -webkit-animation: blinker 1.7s cubic-bezier(.5, 0, 1, 1) infinite alternate;
 }
 
-.map .marker-play-location {
+.map .marker-clip {
   display: none;
 }
 
-.map.test-env .marker-play-location {
+.map.test-env .marker-clip {
   display: block;
 }
 
-.map .marker-play-location {
+.map .marker-clip {
   filter: grayscale(50%);
   -webkit-filter: grayscale(50%);
-  opacity: 0.2;
+  opacity: 0.5;
 }
-.map .marker-play-location.active {
+.map .marker-clip.active {
   filter: grayscale(0%);
   -webkit-filter: grayscale(0%);
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .map .marker-sight {
@@ -124,7 +124,8 @@ body {
   -webkit-filter: grayscale(50%);
   opacity: 0.5;
 }
-.map .marker-sight.active {
+.map .marker-sight.active,
+.map .marker-sight.in-clip {
   filter: grayscale(0%);
   -webkit-filter: grayscale(0%);
   opacity: 1;
