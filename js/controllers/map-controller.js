@@ -9,9 +9,9 @@ angular.module('radio')
     className: 'marker-current-location'
   },
   playingIcon: {
-    iconUrl: '/img/marker_playing.png',
-    iconSize: [50, 50],
-    iconAnchor: [25, 47],
+    iconUrl: '/img/marker_paused.png',
+    iconSize: [26, 26],
+    iconAnchor: [13, 13], 
     className: 'marker-play-location active'
   },
   pausedIcon: {
@@ -21,9 +21,9 @@ angular.module('radio')
     className: 'marker-play-location'
   },
   activeSightIcon: {
-    iconUrl: '/img/marker_paused.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    iconUrl: '/img/marker_playing.png',
+    iconSize: [50, 50],
+    iconAnchor: [25, 47],
     className: 'marker-sight active'
   },
   inactiveSightIcon: {
@@ -38,9 +38,10 @@ angular.module('radio')
     type: 'xyz'
   }
 })
-.controller('MapCtrl', function(_, $scope, $timeout, Locator, MapUtil, Player, MarkerIcons) {
+.controller('MapCtrl', function(_, $scope, $timeout, Locator, MapUtil, Player, MarkerIcons, environment) {
   var osloBounds = MapUtil.calculateBoundsForOslo();
   
+  $scope.isTestEnv = !environment.isProduction;
   $scope.showMapControls = false;
   
   $scope.map = {
@@ -133,14 +134,28 @@ angular.module('radio')
   $scope.$on('position:updated', function(event, pos) {
     updateCurrentLocation(pos.latitude, pos.longitude);
   });
+
+  $scope.$on('player:timeUpdate', function (event, clip, time) {
+    var activeSightIds = _.pluck(_.filter(clip.sights, function (sight) {
+      return (sight.startTime === null ||
+        sight.startTime <= time && (sight.endTime === null || time < sight.endTime));
+    }), 'id');
+    var markers = angular.extend({}, $scope.map.markers);
+    angular.forEach(markers, function (marker) {
+      if (marker.clipId === clip.id && _.contains(activeSightIds, marker.id)) {
+        marker.icon = MarkerIcons.activeSightIcon;
+      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+        marker.icon = MarkerIcons.inactiveSightIcon;
+      }
+    });
+    $scope.map.markers = markers;
+  });
   
   $scope.$on('player:clipStarted', function(event, clip) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
       if (marker.id === clip.id) {
         marker.icon = MarkerIcons.playingIcon;
-      } else if (marker.clipId === clip.id) {
-        marker.icon = MarkerIcons.activeSightIcon;
       } else if (marker.icon === MarkerIcons.playingIcon) {
         marker.icon = MarkerIcons.pausedIcon;
       } else if (marker.icon === MarkerIcons.activeSightIcon) {
@@ -150,7 +165,7 @@ angular.module('radio')
     $scope.map.markers = markers;
   });
   
-  $scope.$on('player:clipEnded', function(event, clip) {
+  $scope.$on('player:clipEnded', function(event) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function(marker) {
       if(marker.icon === MarkerIcons.playingIcon) {

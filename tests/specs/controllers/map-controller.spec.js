@@ -131,12 +131,30 @@ describe('MapCtrl', function() {
         $scope.$broadcast('player:clipStarted', activeClip);
       });
 
-      it('should set marker sights as active', function () {
+      describe('on time update events', function () {
+        var currentTime, expectActiveSights;
+        beforeEach(function () {
+          currentTime = _.pluck(activeClip.sights, 'startTime')[1];
+          expectActiveSights = _.filter(activeClip.sights, function (sight) {
+            return sight.startTime <= currentTime && currentTime < sight.endTime;
+          });
+          $scope.$broadcast('player:timeUpdate', activeClip, currentTime);
+        });
+        it('should show sights without or within time boundaries', function () {
+          _.each($scope.map.markers, function (marker) {
+            if (_.findWhere(expectActiveSights, {id: marker.id}) !== undefined) {
+              expect(marker.icon).to.be.equal(MarkerIcons.activeSightIcon);
+            } else if (_.findWhere(activeClip.sights, {id: marker.id}) !== undefined) {
+              expect(marker.icon).to.be.equal(MarkerIcons.inactiveSightIcon);
+            }
+          });
+        });
+      });
+
+      it('should set marker sights as inactive', function () {
         _.each($scope.map.markers, function (marker) {
           if (marker.id === activeClip.id) {
             expect(marker.icon).to.eq(MarkerIcons.playingIcon);
-          } else if (marker.clipId === activeClip.id) {
-            expect(marker.icon).to.eq(MarkerIcons.activeSightIcon);
           } else if (marker.clipId) {
             expect(marker.icon).to.eq(MarkerIcons.inactiveSightIcon);
           } else if (marker.icon !== MarkerIcons.locationIcon) {

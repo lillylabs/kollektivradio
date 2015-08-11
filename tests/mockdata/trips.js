@@ -39,7 +39,7 @@ angular.module('mockdata', [])
           'key': '_wpas_done_all'
         },
         {
-          'value': 'https://www.dropbox.com/s/s0jipnwcnymotkf/b%C3%A5t%200605.mp3?dl=0',
+          'value': 'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Battur1-Linje92.mp3',
           'id': '995',
           'key': 'audio_url'
         },
@@ -73,6 +73,11 @@ angular.module('mockdata', [])
           'key': 'clips_0_sights'
         },
         {
+          'value': '100',
+          'id': '1013',
+          'key': 'clips_0_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.8974561731207',
             'lng': '10.72812795639038',
@@ -82,9 +87,19 @@ angular.module('mockdata', [])
           'key': 'clips_0_sights_0_map_location'
         },
         {
+          'value': '80',
+          'id': '1011',
+          'key': 'clips_0_sights_0_start_time_in_clip'
+        },
+        {
           'value': 'Lavetthuset',
           'id': '1009',
           'key': 'clips_0_sights_0_title'
+        },
+        {
+          'value': '134',
+          'id': '1025',
+          'key': 'clips_0_sights_1_end_time_in_clip'
         },
         {
           'value': {
@@ -96,9 +111,19 @@ angular.module('mockdata', [])
           'key': 'clips_0_sights_1_map_location'
         },
         {
+          'value': '109',
+          'id': '1023',
+          'key': 'clips_0_sights_1_start_time_in_clip'
+        },
+        {
           'value': 'Danmark',
           'id': '1021',
           'key': 'clips_0_sights_1_title'
+        },
+        {
+          'value': '180',
+          'id': '1033',
+          'key': 'clips_0_sights_2_end_time_in_clip'
         },
         {
           'value': {
@@ -108,6 +133,11 @@ angular.module('mockdata', [])
           },
           'id': '1035',
           'key': 'clips_0_sights_2_map_location'
+        },
+        {
+          'value': '140',
+          'id': '1031',
+          'key': 'clips_0_sights_2_start_time_in_clip'
         },
         {
           'value': 'Hodet',
@@ -154,6 +184,11 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights'
         },
         {
+          'value': '325',
+          'id': '1085',
+          'key': 'clips_1_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.89864473878639',
             'lng': '10.729200492529344',
@@ -163,9 +198,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_0_map_location'
         },
         {
+          'value': '315',
+          'id': '1083',
+          'key': 'clips_1_sights_0_start_time_in_clip'
+        },
+        {
           'value': 'Isskuringer',
           'id': '1081',
           'key': 'clips_1_sights_0_title'
+        },
+        {
+          'value': '470',
+          'id': '1093',
+          'key': 'clips_1_sights_1_end_time_in_clip'
         },
         {
           'value': {
@@ -177,9 +222,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_1_map_location'
         },
         {
+          'value': '441',
+          'id': '1091',
+          'key': 'clips_1_sights_1_start_time_in_clip'
+        },
+        {
           'value': 'Vestre store krutthus',
           'id': '1089',
           'key': 'clips_1_sights_1_title'
+        },
+        {
+          'value': '640',
+          'id': '1165',
+          'key': 'clips_1_sights_10_end_time_in_clip'
         },
         {
           'value': {
@@ -191,9 +246,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_10_map_location'
         },
         {
+          'value': '610',
+          'id': '1163',
+          'key': 'clips_1_sights_10_start_time_in_clip'
+        },
+        {
           'value': 'Akershus festning',
           'id': '1161',
           'key': 'clips_1_sights_10_title'
+        },
+        {
+          'value': '375',
+          'id': '1101',
+          'key': 'clips_1_sights_2_end_time_in_clip'
         },
         {
           'value': {
@@ -205,9 +270,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_2_map_location'
         },
         {
+          'value': '370',
+          'id': '1099',
+          'key': 'clips_1_sights_2_start_time_in_clip'
+        },
+        {
           'value': 'Dyna fyr',
           'id': '1097',
           'key': 'clips_1_sights_2_title'
+        },
+        {
+          'value': '378',
+          'id': '1109',
+          'key': 'clips_1_sights_3_end_time_in_clip'
         },
         {
           'value': {
@@ -219,9 +294,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_3_map_location'
         },
         {
+          'value': '375',
+          'id': '1107',
+          'key': 'clips_1_sights_3_start_time_in_clip'
+        },
+        {
           'value': 'Kavringen',
           'id': '1105',
           'key': 'clips_1_sights_3_title'
+        },
+        {
+          'value': '380',
+          'id': '1117',
+          'key': 'clips_1_sights_4_end_time_in_clip'
         },
         {
           'value': {
@@ -233,9 +318,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_4_map_location'
         },
         {
+          'value': '378',
+          'id': '1115',
+          'key': 'clips_1_sights_4_start_time_in_clip'
+        },
+        {
           'value': 'Galten',
           'id': '1113',
           'key': 'clips_1_sights_4_title'
+        },
+        {
+          'value': '440',
+          'id': '1125',
+          'key': 'clips_1_sights_5_end_time_in_clip'
         },
         {
           'value': {
@@ -247,9 +342,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_5_map_location'
         },
         {
+          'value': '385',
+          'id': '1123',
+          'key': 'clips_1_sights_5_start_time_in_clip'
+        },
+        {
           'value': 'Isskuringer',
           'id': '1121',
           'key': 'clips_1_sights_5_title'
+        },
+        {
+          'value': '480',
+          'id': '1133',
+          'key': 'clips_1_sights_6_end_time_in_clip'
         },
         {
           'value': {
@@ -261,9 +366,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_6_map_location'
         },
         {
+          'value': '472',
+          'id': '1131',
+          'key': 'clips_1_sights_6_start_time_in_clip'
+        },
+        {
           'value': 'Klosterruinen p\u00e5 Hoved\u00f8ya',
           'id': '1129',
           'key': 'clips_1_sights_6_title'
+        },
+        {
+          'value': '540',
+          'id': '1141',
+          'key': 'clips_1_sights_7_end_time_in_clip'
         },
         {
           'value': {
@@ -275,9 +390,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_7_map_location'
         },
         {
+          'value': '484',
+          'id': '1139',
+          'key': 'clips_1_sights_7_start_time_in_clip'
+        },
+        {
           'value': 'Romertoppen',
           'id': '1137',
           'key': 'clips_1_sights_7_title'
+        },
+        {
+          'value': '545',
+          'id': '1149',
+          'key': 'clips_1_sights_8_end_time_in_clip'
         },
         {
           'value': {
@@ -289,9 +414,19 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights_8_map_location'
         },
         {
+          'value': '540',
+          'id': '1147',
+          'key': 'clips_1_sights_8_start_time_in_clip'
+        },
+        {
           'value': 'Bleik\u00f8ya',
           'id': '1145',
           'key': 'clips_1_sights_8_title'
+        },
+        {
+          'value': '550',
+          'id': '1157',
+          'key': 'clips_1_sights_9_end_time_in_clip'
         },
         {
           'value': {
@@ -301,6 +436,11 @@ angular.module('mockdata', [])
           },
           'id': '1159',
           'key': 'clips_1_sights_9_map_location'
+        },
+        {
+          'value': '545',
+          'id': '1155',
+          'key': 'clips_1_sights_9_start_time_in_clip'
         },
         {
           'value': 'Gressholmen',
@@ -347,6 +487,11 @@ angular.module('mockdata', [])
           'key': 'clips_2_sights'
         },
         {
+          'value': '850',
+          'id': '1173',
+          'key': 'clips_2_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.8907046',
             'lng': '10.693547800000033',
@@ -356,9 +501,19 @@ angular.module('mockdata', [])
           'key': 'clips_2_sights_0_map_location'
         },
         {
+          'value': '807',
+          'id': '1171',
+          'key': 'clips_2_sights_0_start_time_in_clip'
+        },
+        {
           'value': 'Nakkholmen',
           'id': '1169',
           'key': 'clips_2_sights_0_title'
+        },
+        {
+          'value': '921',
+          'id': '1181',
+          'key': 'clips_2_sights_1_end_time_in_clip'
         },
         {
           'value': {
@@ -370,9 +525,19 @@ angular.module('mockdata', [])
           'key': 'clips_2_sights_1_map_location'
         },
         {
+          'value': '912',
+          'id': '1179',
+          'key': 'clips_2_sights_1_start_time_in_clip'
+        },
+        {
           'value': 'Bygd\u00f8y',
           'id': '1177',
           'key': 'clips_2_sights_1_title'
+        },
+        {
+          'value': '930',
+          'id': '1189',
+          'key': 'clips_2_sights_2_end_time_in_clip'
         },
         {
           'value': {
@@ -382,6 +547,11 @@ angular.module('mockdata', [])
           },
           'id': '1191',
           'key': 'clips_2_sights_2_map_location'
+        },
+        {
+          'value': '922',
+          'id': '1187',
+          'key': 'clips_2_sights_2_start_time_in_clip'
         },
         {
           'value': 'Akershus festning',
@@ -447,11 +617,11 @@ angular.module('mockdata', [])
         'name': 'mari',
         'URL': '',
         'email': false,
-        'avatar_URL': 'http://0.gravatar.com/avatar/afe92b1241e8782b4548a69c115e9b46?s=96&d=http%3\u2026%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D96&r=G',
+        'avatar_URL': 'http://1.gravatar.com/avatar/afe92b1241e8782b4548a69c115e9b46?s=96&d=mm&r=g',
         'ID': 4,
         'profile_URL': 'http://en.gravatar.com/afe92b1241e8782b4548a69c115e9b46'
       },
-      'modified': '2015-05-08T08:33:15+00:00',
+      'modified': '2015-06-04T20:36:34+00:00',
       'likes_enabled': true,
       'meta': {
         'links': {
@@ -1084,7 +1254,7 @@ angular.module('mockdata', [])
         'name': 'lillylabs',
         'URL': 'http://lillylabs.wpengine.com',
         'email': false,
-        'avatar_URL': 'http://0.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=http%3\u2026%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D96&r=G',
+        'avatar_URL': 'http://1.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=mm&r=g',
         'ID': 2,
         'profile_URL': 'http://en.gravatar.com/4bb0aea86d8e6604e0485e7ed1eaa07f'
       },
@@ -1345,7 +1515,7 @@ angular.module('mockdata', [])
         'name': 'lillylabs',
         'URL': 'http://lillylabs.wpengine.com',
         'email': false,
-        'avatar_URL': 'http://0.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=http%3\u2026%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D96&r=G',
+        'avatar_URL': 'http://1.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=mm&r=g',
         'ID': 2,
         'profile_URL': 'http://en.gravatar.com/4bb0aea86d8e6604e0485e7ed1eaa07f'
       },
@@ -1606,7 +1776,7 @@ angular.module('mockdata', [])
         'name': 'lillylabs',
         'URL': 'http://lillylabs.wpengine.com',
         'email': false,
-        'avatar_URL': 'http://0.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=http%3\u2026%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D96&r=G',
+        'avatar_URL': 'http://1.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=mm&r=g',
         'ID': 2,
         'profile_URL': 'http://en.gravatar.com/4bb0aea86d8e6604e0485e7ed1eaa07f'
       },
@@ -1691,13 +1861,23 @@ angular.module('mockdata', [])
           'key': 'clips_0_sights'
         },
         {
+          'value': '',
+          'id': '844',
+          'key': 'clips_0_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
-            'lat': '59.9147177',
-            'lng': '10.7537691',
-            'address': 'Storgata, Oslo, Norge'
+            'lat': '59.9137031',
+            'lng': '10.750998900000013',
+            'address': 'Storgata 18, 0184 Oslo, Norge'
           },
           'id': '838',
           'key': 'clips_0_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '842',
+          'key': 'clips_0_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -1748,6 +1928,11 @@ angular.module('mockdata', [])
           'key': 'clips_1_sights'
         },
         {
+          'value': '',
+          'id': '854',
+          'key': 'clips_1_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.9141351',
             'lng': '10.754077199999983',
@@ -1755,6 +1940,11 @@ angular.module('mockdata', [])
           },
           'id': '848',
           'key': 'clips_1_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '852',
+          'key': 'clips_1_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -1805,6 +1995,11 @@ angular.module('mockdata', [])
           'key': 'clips_2_sights'
         },
         {
+          'value': '',
+          'id': '864',
+          'key': 'clips_2_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.9195916',
             'lng': '10.758214599999974',
@@ -1812,6 +2007,11 @@ angular.module('mockdata', [])
           },
           'id': '858',
           'key': 'clips_2_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '862',
+          'key': 'clips_2_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -1862,6 +2062,11 @@ angular.module('mockdata', [])
           'key': 'clips_3_sights'
         },
         {
+          'value': '',
+          'id': '874',
+          'key': 'clips_3_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.9238678',
             'lng': '10.757842299999993',
@@ -1869,6 +2074,11 @@ angular.module('mockdata', [])
           },
           'id': '868',
           'key': 'clips_3_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '872',
+          'key': 'clips_3_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -1919,6 +2129,11 @@ angular.module('mockdata', [])
           'key': 'clips_4_sights'
         },
         {
+          'value': '',
+          'id': '884',
+          'key': 'clips_4_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.9263529',
             'lng': '10.757923300000016',
@@ -1926,6 +2141,11 @@ angular.module('mockdata', [])
           },
           'id': '878',
           'key': 'clips_4_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '882',
+          'key': 'clips_4_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -1976,6 +2196,11 @@ angular.module('mockdata', [])
           'key': 'clips_5_sights'
         },
         {
+          'value': '',
+          'id': '894',
+          'key': 'clips_5_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.9308705',
             'lng': '10.75919870000007',
@@ -1983,6 +2208,11 @@ angular.module('mockdata', [])
           },
           'id': '888',
           'key': 'clips_5_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '892',
+          'key': 'clips_5_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -2033,6 +2263,11 @@ angular.module('mockdata', [])
           'key': 'clips_6_sights'
         },
         {
+          'value': '',
+          'id': '904',
+          'key': 'clips_6_sights_0_end_time_in_clip'
+        },
+        {
           'value': {
             'lat': '59.93479359999999',
             'lng': '10.764704499999993',
@@ -2040,6 +2275,11 @@ angular.module('mockdata', [])
           },
           'id': '898',
           'key': 'clips_6_sights_0_map_location'
+        },
+        {
+          'value': '',
+          'id': '902',
+          'key': 'clips_6_sights_0_start_time_in_clip'
         },
         {
           'value': '',
@@ -2141,11 +2381,11 @@ angular.module('mockdata', [])
         'name': 'lillylabs',
         'URL': 'http://lillylabs.wpengine.com',
         'email': false,
-        'avatar_URL': 'http://0.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=http%3\u2026%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D96&r=G',
+        'avatar_URL': 'http://1.gravatar.com/avatar/4bb0aea86d8e6604e0485e7ed1eaa07f?s=96&d=mm&r=g',
         'ID': 2,
         'profile_URL': 'http://en.gravatar.com/4bb0aea86d8e6604e0485e7ed1eaa07f'
       },
-      'modified': '2015-04-19T14:17:15+00:00',
+      'modified': '2015-06-04T20:23:24+00:00',
       'likes_enabled': true,
       'meta': {
         'links': {
@@ -2160,170 +2400,4 @@ angular.module('mockdata', [])
     }
   ]
 })
-.value('mockTripsData', [
-  {
-    'description': '<p>Bli bedre kjent med byens historie p\u00e5 vei fra sentrum til Torshov.</p>\n',
-    'title': 'En historisk tur fra sentrum til Torshov',
-    'endStation': 'Thorshov',
-    'lines': [
-      {
-        'endStation': 'Kjels\u00e5s',
-        'number': '11'
-      },
-      {
-        'endStation': 'Kjels\u00e5s',
-        'number': '12'
-      },
-      {
-        'endStation': 'Grefsen st',
-        'number': '13'
-      }
-    ],
-    'clips': [
-      {
-        'end': '74',
-        'title': 'Storgata',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.9137503'),
-            'lng': parseFloat('10.750747199999978'),
-            'address': 'Storgata, Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.913799746026626'),
-            'lng': parseFloat('10.750926733016968'),
-            'address': 'Storgata 18, 0184 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip0_sight0', 'location':{'lat': parseFloat('59.9147177'),'lng': parseFloat('10.7537691'),'address':'Storgata, Oslo, Norge'},'title':''}],
-        'start': '0',
-        'treshold': '100',
-        'id': 'clip0'
-      },
-      {
-        'end': '157',
-        'title': 'Brugata',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.91427573019375'),
-            'lng': parseFloat('10.754032731056213'),
-            'address': 'Brugata 6-8, 0186 Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.914498'),
-            'lng': parseFloat('10.75318100000004'),
-            'address': 'Brugata, Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip1_sight0', 'location':{'lat': parseFloat('59.9141351'),'lng': parseFloat('10.754077199999983'),'address':'Brugata 6-8, 0186 Oslo, Norge'},'title':''}],
-        'start': '78',
-        'treshold': '100',
-        'id': 'clip1'
-      },
-      {
-        'end': '292',
-        'title': 'Sidsel',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.91959885169308'),
-            'lng': parseFloat('10.758257624328621'),
-            'address': 'Markveien 56F, 0550 Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.917870938128104'),
-            'lng': parseFloat('10.759327411651611'),
-            'address': 'Trondheimsveien 2C, 0560 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip2_sight0', 'location':{'lat': parseFloat('59.9195916'),'lng': parseFloat('10.758214599999974'),'address':'Markveien 56F, 0550 Oslo, Norge'},'title':''}],
-        'start': '162',
-        'treshold': '150',
-        'id': 'clip2'
-      },
-      {
-        'end': '387',
-        'title': 'L\u00f8ken',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.9238678'),
-            'lng': parseFloat('10.757842299999993'),
-            'address': 'Gr\u00fcnerl\u00f8kka, Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.92386779999984'),
-            'lng': parseFloat('10.759215591015618'),
-            'address': 'Thorvald Meyers gate 51, 0555 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip3_sight0', 'location':{'lat': parseFloat('59.9238678'),'lng': parseFloat('10.757842299999993'),'address':'Grünerløkka, Oslo, Norge'},'title':''}],
-        'start': '298',
-        'treshold': '50',
-        'id': 'clip3'
-      },
-      {
-        'end': '445',
-        'title': 'Mercedesdeler i kirken',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.926353'),
-            'lng': parseFloat('10.757923000000005'),
-            'address': 'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.92634224728479'),
-            'lng': parseFloat('10.759146087310796'),
-            'address': 'Thorvald Meyers gate 31, 0555 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip4_sight0', 'location':{'lat': parseFloat('59.9263529'),'lng': parseFloat('10.757923300000016'),'address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'title':''}],
-        'start': '393',
-        'treshold': '50',
-        'id': 'clip4'
-      },
-      {
-        'end': '542',
-        'title': 'Eiendomsmegler',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.930794'),
-            'lng': parseFloat('10.759289999999964'),
-            'address': 'Sagene skole, Biermanns gate, Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.93042018926602'),
-            'lng': parseFloat('10.761151313781738'),
-            'address': 'Biermanns gate 9-11, 0474 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip5_sight0', 'location':{'lat': parseFloat('59.9308705'),'lng': parseFloat('10.75919870000007'),'address':'Sagene skole, Biermanns gate, Oslo, Norge'},'title':''}],
-        'start': '452',
-        'treshold': '100',
-        'id': 'clip5'
-      },
-      {
-        'end': '625',
-        'title': 'Kaffegutta',
-        'locations': {
-          'map': {
-            'lat': parseFloat('59.935819'),
-            'lng': parseFloat('10.764870999999971'),
-            'address': 'Kaffegutta AS, Vogts gate, Oslo, Norge'
-          },
-          'play': {
-            'lat': parseFloat('59.93566645519462'),
-            'lng': parseFloat('10.765550136566162'),
-            'address': 'Vogts gate 57A, 0477 Oslo, Norge'
-          }
-        },
-        'sights': [{'id': 'clip6_sight0', 'location':{'lat': parseFloat('59.93479359999999'),'lng': parseFloat('10.764704499999993'),'address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'title':''}],
-        'start': '550',
-        'treshold': '100',
-        'id': 'clip6'
-      }
-    ],
-    'audio': 'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur1-Linje12.mp3',
-    'delayClipStart': false,
-    'startStation': 'Jernbanetorget',
-    'id': 110
-  }
-]);
+.value('mockTripsData', [{'id':245,'title':'Båt 92','description':'<p>Velkommen til Båt 92. Bon voyage!</p>\n','startStation':'Rådhuskaia','endStation':'Rådhuskaia','lines':[{'number':'92','endStation':'Rådhuskaia'}],'audio':'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Battur1-Linje92.mp3','clips':[{'id':'clip0','title':'Rådhuskaia  - Hovedøya','start':'0','end':'250','treshold':'200','sights':[{'id':'clip0_sight0','endTime':100,'location':{'lat':59.8974561731207,'lng':10.72812795639038,'address':'Hovedøya, 0150 Oslo, Norge'},'startTime':80,'title':'Lavetthuset'},{'id':'clip0_sight1','endTime':134,'location':{'lat':59.89892516416984,'lng':10.734930038452148,'address':'Gressholmen, 0150 Oslo, Norge'},'startTime':109,'title':'Danmark'},{'id':'clip0_sight2','endTime':180,'location':{'lat':59.89606183226787,'lng':10.739843497900438,'address':'Gressholmen, 0150 Oslo, Norge'},'startTime':140,'title':'Hodet'}],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.90977154795232,'lng':10.7309784179688,'address':'Rådhusbrygge 3 1, 0160 Oslo, Norge'}}},{'id':'clip1','title':'Hovedøya - Lindøya','start':'300','end':'773','treshold':'50','sights':[{'id':'clip1_sight0','endTime':325,'location':{'lat':59.89864473878639,'lng':10.729200492529344,'address':'Gressholmen, 0150 Oslo, Norge'},'startTime':315,'title':'Isskuringer'},{'id':'clip1_sight1','endTime':470,'location':{'lat':59.897095018976664,'lng':10.724393973974657,'address':'Hovedøya, 0150 Oslo, Norge'},'startTime':441,'title':'Vestre store krutthus'},{'id':'clip1_sight2','endTime':375,'location':{'lat':59.894804,'lng':10.688309000000004,'address':'Dyna fyr, Oslo, Norge'},'startTime':370,'title':'Dyna fyr'},{'id':'clip1_sight3','endTime':378,'location':{'lat':59.900787,'lng':10.721802000000025,'address':'Kavringen, Norge'},'startTime':375,'title':'Kavringen'},{'id':'clip1_sight4','endTime':380,'location':{'lat':59.8948042,'lng':10.68830939999998,'address':'Galten oslo'},'startTime':378,'title':'Galten'},{'id':'clip1_sight5','endTime':440,'location':{'lat':59.89735331063272,'lng':10.72405065122075,'address':'Hovedøya, 0150 Oslo, Norge'},'startTime':385,'title':'Isskuringer'},{'id':'clip1_sight6','endTime':480,'location':{'lat':59.8969228234235,'lng':10.729715476660203,'address':'Gressholmen, 0150 Oslo, Norge'},'startTime':472,'title':'Klosterruinen på Hovedøya'},{'id':'clip1_sight7','endTime':540,'location':{'lat':59.89198983214383,'lng':10.715099041308576,'address':'Lindøya 866, 0150 Oslo, Norge'},'startTime':484,'title':'Romertoppen'},{'id':'clip1_sight8','endTime':545,'location':{'lat':59.889758,'lng':10.73931760000005,'address':'Bleikøya, Oslo, Norge'},'startTime':540,'title':'Bleikøya'},{'id':'clip1_sight9','endTime':550,'location':{'lat':59.8844444,'lng':10.720277799999963,'address':'Gressholmen, Oslo, Norge'},'startTime':545,'title':'Gressholmen'},{'id':'clip1_sight10','endTime':640,'location':{'lat':59.907586,'lng':10.737083999999982,'address':'Akershus Festning, Oslo, Norge'},'startTime':610,'title':'Akershus festning'}],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.89890902176408,'lng':10.730702877044678,'address':'Gressholmen, 0150 Oslo, Norge'}}},{'id':'clip2','title':'Lindøya - Nakholmen','start':'780','end':'950','treshold':'50','sights':[{'id':'clip2_sight0','endTime':850,'location':{'lat':59.8907046,'lng':10.693547800000033,'address':'Nakkholmen, Norge'},'startTime':807,'title':'Nakkholmen'},{'id':'clip2_sight1','endTime':921,'location':{'lat':59.90012247269252,'lng':10.678235859863321,'address':'Huk Aveny 67H, 0287 Oslo, Norge'},'startTime':912,'title':'Bygdøy'},{'id':'clip2_sight2','endTime':930,'location':{'lat':59.907586,'lng':10.737083999999982,'address':'Akershus Festning, Oslo, Norge'},'startTime':922,'title':'Akershus festning'}],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.88999,'lng':10.706437999999935,'address':'Lindøya vest, Oslo, Norge'}}}],'delayClipStart':true},{'id':177,'title':'Lydbilder fra Paris','description':'<p>Lydlige smakebiter til deg som lengter etter Paris.</p>\n','startStation':'','endStation':'','lines':[],'audio':'https://dl.dropboxusercontent.com/s/arm5el89f4jkil7/Lydspor%20til%20Paris.mp3','clips':[{'id':'clip0','title':'Barn i Rue Vieille du Temp','start':'0','end':'10','treshold':'10','sights':[],'locations':{'map':{'lat':48.8606353,'lng':2.3618604000000687,'address':'109 Rue Vieille du Temple, Paris, France'},'play':{'lat':48.8606353,'lng':2.3618604000000687,'address':'109 Rue Vieille du Temple, Paris, France'}}},{'id':'clip1','title':'Gatemusikk på Pont Saint-Louis','start':'12','end':'34','treshold':'10','sights':[],'locations':{'map':{'lat':48.852900652366195,'lng':2.3531671804259986,'address':'Pont Saint-Louis, 75004 Paris, Frankrike'},'play':{'lat':48.85285617092492,'lng':2.353219985961914,'address':'Pont Saint-Louis, 75004 Paris, Frankrike'}}},{'id':'clip2','title':'Fête du pain på Place Jean-Paul-II','start':'36','end':'70','treshold':'10','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':48.85344295118288,'lng':2.3482003571472205,'address':'1 Parvis Notre-Dame - place Jean-Paul-II, 75004 Paris, Frankrike'}}},{'id':'clip3','title':'Gare d\'Austerlitz','start':'71','end':'123','treshold':'10','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':48.842635,'lng':2.3649689999999737,'address':'Gare d\'Austerlitz, Paris, France'}}},{'id':'clip4','title':'Jardin des Plantes','start':'124','end':'182','treshold':'10','sights':[],'locations':{'map':{'lat':48.8439621,'lng':2.359599600000024,'address':'Jardin des Plantes, Paris, France'},'play':{'lat':48.8439621,'lng':2.359599600000024,'address':'Jardin des Plantes, Paris, France'}}},{'id':'clip5','title':'153 Rue Amelot','start':'183','end':'217','treshold':'10','sights':[],'locations':{'map':{'lat':48.865539,'lng':2.3660198999999693,'address':'153 Rue Amelot, Paris, France'},'play':{'lat':48.865539,'lng':2.3660198999999693,'address':'153 Rue Amelot, Paris, France'}}},{'id':'clip6','title':'Republique metro','start':'218','end':'378','treshold':'10','sights':[],'locations':{'map':{'lat':48.867503,'lng':2.3638109999999415,'address':'République, Paris, France'},'play':{'lat':48.867503,'lng':2.3638109999999415,'address':'République, Paris, France'}}},{'id':'clip7','title':'Rue Vieille du Temple','start':'379','end':'417','treshold':'10','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':48.85864464364366,'lng':2.3587560653686523,'address':'50 Rue Vieille du Temple, 75004 Paris, Frankrike'}}},{'id':'clip8','title':'Ecole des Mines','start':'418','end':'437','treshold':'10','sights':[],'locations':{'map':{'lat':48.845585,'lng':2.3396319999999378,'address':'École Nationale Supérieure des Mines, Boulevard Saint-Michel, Paris, France'},'play':{'lat':48.845585,'lng':2.3396319999999378,'address':'École Nationale Supérieure des Mines, Boulevard Saint-Michel, Paris, France'}}},{'id':'clip9','title':'Place de la République','start':'438','end':'536','treshold':'10','sights':[],'locations':{'map':{'lat':48.86820179999999,'lng':2.3638922000000093,'address':'12 Place de la République, Paris, France'},'play':{'lat':48.86806759326866,'lng':2.363253100524844,'address':'12 Place de la République, 75003 Paris, Frankrike'}}},{'id':'clip10','title':'Place de la Republique','start':'537','end':'580','treshold':'10','sights':[],'locations':{'map':{'lat':48.8668705,'lng':2.3636797000000342,'address':'13 Place de la République, Paris, France'},'play':{'lat':48.86760180428164,'lng':2.3636607962951075,'address':'13 Place de la République, 75003 Paris 3eme, Frankrike'}}},{'id':'clip11','title':'Au Limonaire','start':'581','end':'600','treshold':'10','sights':[],'locations':{'map':{'lat':48.8723681,'lng':2.344967600000018,'address':'18 Cité Bergère, Paris, France'},'play':{'lat':48.8723681,'lng':2.344967600000018,'address':'18 Cité Bergère, Paris, France'}}},{'id':'clip12','title':'La Caféothèque','start':'601','end':'621','treshold':'50','sights':[],'locations':{'map':{'lat':48.8544464,'lng':2.3557591,'address':'52 Rue de l\'Hôtel de ville, Paris, France'},'play':{'lat':48.8544464,'lng':2.3557591,'address':'52 Rue de l\'Hôtel de ville, Paris, France'}}}],'delayClipStart':false},{'id':128,'title':'Christiania Torv til Vigelandsparken','description':'','startStation':'Christiania Torv','endStation':'Vigelandsparken','lines':[{'number':'12','endStation':'Kjelsås/Grefsen st.'}],'audio':'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur2-Linje12.mp3','clips':[{'id':'clip0','title':'Utdrag fra Amtmannens døtre av Camilla Collett','start':'540','end':'687','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.911167,'lng':10.739503000000013,'address':'Christiania torv, Oslo, Norge'}}},{'id':'clip1','title':'Utdrag fra Fra Christiania Bohemen av Hans Jæger','start':'360','end':'532','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.910975970796784,'lng':10.729694366455078,'address':'Aker brygge, Oslo, Norge'}}},{'id':'clip2','title':'Utdrag fra Beatles av Lars Saabye Christensen','start':'180','end':'320','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.9148065,'lng':10.717414700000063,'address':'Solli plass, Oslo, Norge'}}},{'id':'clip3','title':'Utdrag fra Lillelord av Johan Borgen','start':'0','end':'173','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.919491,'lng':10.708740000000034,'address':'Elisenberg, Oslo, Norge'}}}],'delayClipStart':false},{'id':126,'title':'Vigelandsparken til Christiania Torv','description':'','startStation':'Vigelandsparken','endStation':'Christiania Torv','lines':[{'number':'12','endStation':'Majorstuen'}],'audio':'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur2-Linje12.mp3','clips':[{'id':'clip0','title':'Utdrag fra Lillelord av Johan Borgen','start':'0','end':'173','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.924696,'lng':10.708382000000029,'address':'Vigelandsparken, Oslo, Norge'}}},{'id':'clip1','title':'Utdrag fra Beatles av Lars Saabye Christensen','start':'180','end':'320','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.919491,'lng':10.708740000000034,'address':'Elisenberg, Oslo, Norge'}}},{'id':'clip2','title':'Utdrag fra Fra Christiania Bohemen av Hans Jæger','start':'360','end':'532','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.9148065,'lng':10.717414700000063,'address':'Solli plass, Oslo, Norge'}}},{'id':'clip3','title':'Utdrag fra Amtmannens døtre av Camilla Collett','start':'540','end':'687','treshold':'50','sights':[],'locations':{'map':{'lat':null,'lng':null},'play':{'lat':59.91096521309855,'lng':10.729715824127197,'address':'Aker brygge, Oslo, Norge'}}}],'delayClipStart':false},{'id':110,'title':'En historisk tur fra sentrum til Torshov','description':'<p>Bli bedre kjent med byens historie på vei fra sentrum til Torshov.</p>\n','startStation':'Jernbanetorget','endStation':'Thorshov','lines':[{'number':'11','endStation':'Kjelsås'},{'number':'12','endStation':'Kjelsås'},{'number':'13','endStation':'Grefsen st'}],'audio':'https://dl.dropboxusercontent.com/u/21145298/Trikkeradio/Trikketur1-Linje12.mp3','clips':[{'id':'clip0','title':'Storgata','start':'0','end':'74','treshold':'100','sights':[{'id':'clip0_sight0','endTime':null,'location':{'lat':59.9137031,'lng':10.750998900000013,'address':'Storgata 18, 0184 Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.9137503,'lng':10.750747199999978,'address':'Storgata, Oslo, Norge'},'play':{'lat':59.913799746026626,'lng':10.750926733016968,'address':'Storgata 18, 0184 Oslo, Norge'}}},{'id':'clip1','title':'Brugata','start':'78','end':'157','treshold':'100','sights':[{'id':'clip1_sight0','endTime':null,'location':{'lat':59.9141351,'lng':10.754077199999983,'address':'Brugata 6-8, 0186 Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.91427573019375,'lng':10.754032731056213,'address':'Brugata 6-8, 0186 Oslo, Norge'},'play':{'lat':59.914498,'lng':10.75318100000004,'address':'Brugata, Oslo, Norge'}}},{'id':'clip2','title':'Sidsel','start':'162','end':'292','treshold':'150','sights':[{'id':'clip2_sight0','endTime':null,'location':{'lat':59.9195916,'lng':10.758214599999974,'address':'Markveien 56F, 0550 Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.91959885169308,'lng':10.758257624328621,'address':'Markveien 56F, 0550 Oslo, Norge'},'play':{'lat':59.917870938128104,'lng':10.759327411651611,'address':'Trondheimsveien 2C, 0560 Oslo, Norge'}}},{'id':'clip3','title':'Løken','start':'298','end':'387','treshold':'50','sights':[{'id':'clip3_sight0','endTime':null,'location':{'lat':59.9238678,'lng':10.757842299999993,'address':'Grünerløkka, Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.9238678,'lng':10.757842299999993,'address':'Grünerløkka, Oslo, Norge'},'play':{'lat':59.92386779999984,'lng':10.759215591015618,'address':'Thorvald Meyers gate 51, 0555 Oslo, Norge'}}},{'id':'clip4','title':'Mercedesdeler i kirken','start':'393','end':'445','treshold':'50','sights':[{'id':'clip4_sight0','endTime':null,'location':{'lat':59.9263529,'lng':10.757923300000016,'address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.926353,'lng':10.757923000000005,'address':'Paulus kirke, Thorvald Meyers gate, Oslo, Norge'},'play':{'lat':59.92634224728479,'lng':10.759146087310796,'address':'Thorvald Meyers gate 31, 0555 Oslo, Norge'}}},{'id':'clip5','title':'Eiendomsmegler','start':'452','end':'542','treshold':'100','sights':[{'id':'clip5_sight0','endTime':null,'location':{'lat':59.9308705,'lng':10.75919870000007,'address':'Sagene skole, Biermanns gate, Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.930794,'lng':10.759289999999964,'address':'Sagene skole, Biermanns gate, Oslo, Norge'},'play':{'lat':59.93042018926602,'lng':10.761151313781738,'address':'Biermanns gate 9-11, 0474 Oslo, Norge'}}},{'id':'clip6','title':'Kaffegutta','start':'550','end':'625','treshold':'100','sights':[{'id':'clip6_sight0','endTime':null,'location':{'lat':59.93479359999999,'lng':10.764704499999993,'address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'startTime':null,'title':''}],'locations':{'map':{'lat':59.935819,'lng':10.764870999999971,'address':'Kaffegutta AS, Vogts gate, Oslo, Norge'},'play':{'lat':59.93566645519462,'lng':10.765550136566162,'address':'Vogts gate 57A, 0477 Oslo, Norge'}}}],'delayClipStart':false}]);
