@@ -115,6 +115,10 @@ angular.module('radio')
     }
   });
 
+  $rootScope.$on('audio:timeUpdate', function(event, time) {
+    $rootScope.$broadcast('player:timeUpdate', playedClips[playedClips.length - 1], time);
+  });
+
   $rootScope.$on('audio:spriteEnded', function(event) {
     console.log('Player: Clip ended');
     $rootScope.$broadcast('player:clipEnded');

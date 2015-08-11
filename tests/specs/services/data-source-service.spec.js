@@ -17,19 +17,97 @@ describe('DataSourceService', function() {
     DataSource = _DataSource_;
   }));
 
-  describe('trips', function(){
-    it('should return trips for current environment', function(done) {
-      DataSource.trips().then(function (trips) {
-        expect(trips).to.eql(tripsMockData);
-        done();
-      });
-      $httpBackend.flush();
-    });
-  });
-
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  describe('trips', function() {
+    var trips;
+
+    beforeEach(function () {
+      DataSource.trips().then(function (_trips_) {
+        trips = _trips_;
+      });
+      $httpBackend.flush();
+    });
+
+    it('should have equal first trips', function () {
+      expect(JSON.stringify(trips[0])).to.equal(JSON.stringify(tripsMockData[0]));
+    });
+
+    it('should return same number of trips as response', function () {
+      expect(trips.length).to.eql(tripsMockData.length);
+    });
+
+  });
+
+  describe('trips for production', function () {
+    var trips, isProduction;
+
+    beforeEach(inject(function (environment) {
+      isProduction = environment.isProduction;
+      environment.isProduction = true;
+    }));
+
+    beforeEach(function () {
+      DataSource.trips().then(function(_trips_) {
+        trips = _trips_;
+      });
+      $httpBackend.flush();
+    });
+
+    afterEach(inject(function (environment) {
+      environment.isProduction = isProduction;
+    }));
+
+    it('should only have production trips', function () {
+      expect(trips.length).to.eq(1);
+    });
+
+  });
+
+  describe('tram trip', function () {
+    var tramTrip;
+
+    beforeEach(function () {
+      DataSource.trips().then(function (trips) {
+        tramTrip = _.findWhere(trips, {title: 'En historisk tur fra sentrum til Torshov'});
+      });
+      $httpBackend.flush();
+    });
+
+    it('should parse empty start time as null', function () {
+      expect(tramTrip.clips[0].sights[0].startTime).to.be.null;
+    });
+
+    it('should parse empty end time as null', function () {
+      expect(tramTrip.clips[0].sights[0].startTime).to.be.null;
+    });
+  });
+
+  describe('boat trip', function () {
+    var boatTrip;
+
+    beforeEach(function () {
+      DataSource.trips().then(function (trips) {
+        boatTrip = _.findWhere(trips, {title: 'Båt 92'});
+      });
+      $httpBackend.flush();
+    });
+
+    it('should have expected id', function () {
+      expect(boatTrip.id, 245);
+    });
+
+    it('should have start time defined on sight', function () {
+      expect(boatTrip.clips[0].sights[0].startTime).to.equal(80);
+    });
+
+    it('should have end time defined on sight', function () {
+      expect(boatTrip.clips[0].sights[0].endTime).to.equal(100);
+    });
+
   });
 
 });

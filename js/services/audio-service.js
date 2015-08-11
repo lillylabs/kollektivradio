@@ -1,7 +1,7 @@
 'use strict';
 angular.module('radio')
 
-.factory('Audio', function($document, $rootScope, $q, radioAudio) {
+.factory('Audio', function($document, $rootScope, $q, _, radioAudio) {
 
   if (!radioAudio) {
     window.alert('Audio is not supported by browser.');
@@ -87,12 +87,18 @@ angular.module('radio')
     });
   });
 
+  var broadcastTimeUpdate = _.throttle(function (time) {
+    $rootScope.$broadcast('audio:timeUpdate', Math.floor(time));
+  }, 1000);
+
   radioAudio.addEventListener('timeupdate', function(evt) {
     $rootScope.$apply(function () {
       if (currentSprite && radioAudio.currentTime >= currentSprite.end) {
         pauseAudio();
         currentSprite = null;
         $rootScope.$broadcast('audio:spriteEnded');
+      } else if (currentSprite) {
+        broadcastTimeUpdate(radioAudio.currentTime);
       }
     });
   });
