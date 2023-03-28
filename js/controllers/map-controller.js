@@ -3,34 +3,40 @@ angular.module('radio')
 
 .constant('MarkerIcons', {
   locationIcon: {
-    iconUrl: '/img/marker_location.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    iconUrl: '/img/marker_user_location.png',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
     className: 'marker-current-location'
   },
-  playingIcon: {
-    iconUrl: '/img/marker_paused.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13], 
-    className: 'marker-play-location active'
+  playingClipIcon: {
+    iconUrl: '/img/marker_audio.png',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    className: 'marker-clip playing'
   },
-  pausedIcon: {
-    iconUrl: '/img/marker_paused.png',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-    className: 'marker-play-location'
+  pausedClipIcon: {
+    iconUrl: '/img/marker_audio.png',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    className: 'marker-clip paused'
   },
   activeSightIcon: {
-    iconUrl: '/img/marker_playing.png',
-    iconSize: [50, 50],
-    iconAnchor: [25, 47],
-    className: 'marker-sight active'
-  },
-  inactiveSightIcon: {
-    iconUrl: '/img/marker_paused.png',
+    iconUrl: '/img/marker_active.png',
     iconSize: [26, 26],
     iconAnchor: [13, 13],
-    className: 'marker-sight'
+    className: 'marker-sight active'
+  },
+  inClipSightIcon: {
+    iconUrl: '/img/marker_sight.png',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    className: 'marker-sight in-clip'
+  },
+  inactiveSightIcon: {
+    iconUrl: '/img/marker_sight.png',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+    className: 'marker-sight inactive'
   },
   positron: {
     name: 'Positron',
@@ -107,7 +113,7 @@ angular.module('radio')
       id: clip.id,
       lat: clip.locations.play.lat,
       lng: clip.locations.play.lng,
-      icon: MarkerIcons.pausedIcon
+      icon: MarkerIcons.pausedClipIcon
     };
   }
 
@@ -142,9 +148,12 @@ angular.module('radio')
     }), 'id');
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
-      if (marker.clipId === clip.id && _.contains(activeSightIds, marker.id)) {
-        marker.icon = MarkerIcons.activeSightIcon;
-      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+      if (marker.clipId === clip.id) {
+        marker.icon = MarkerIcons.inClipSightIcon;
+        if(_.contains(activeSightIds, marker.id)) {
+          marker.icon = MarkerIcons.activeSightIcon;
+        }
+      } else if (marker.icon.className.indexOf('marker-sight') > -1) {
         marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
@@ -155,10 +164,10 @@ angular.module('radio')
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function (marker) {
       if (marker.id === clip.id) {
-        marker.icon = MarkerIcons.playingIcon;
-      } else if (marker.icon === MarkerIcons.playingIcon) {
-        marker.icon = MarkerIcons.pausedIcon;
-      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+        marker.icon = MarkerIcons.playingClipIcon;
+      } else if (marker.icon.className.indexOf('marker-clip') > -1) {
+        marker.icon = MarkerIcons.pausedClipIcon;
+      } else if (marker.icon.className.indexOf('marker-sight') > -1) {
         marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
@@ -168,9 +177,9 @@ angular.module('radio')
   $scope.$on('player:clipEnded', function(event) {
     var markers = angular.extend({}, $scope.map.markers);
     angular.forEach(markers, function(marker) {
-      if(marker.icon === MarkerIcons.playingIcon) {
-        marker.icon = MarkerIcons.pausedIcon;
-      } else if (marker.icon === MarkerIcons.activeSightIcon) {
+      if(marker.icon.className.indexOf('marker-clip') > -1) {
+        marker.icon = MarkerIcons.pausedClipIcon;
+      } else if (marker.icon.className.indexOf('marker-sight') > -1) {
           marker.icon = MarkerIcons.inactiveSightIcon;
       }
     });
